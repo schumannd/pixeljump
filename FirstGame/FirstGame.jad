@@ -4,5 +4,5 @@ MIDlet-Vendor: BlueJ ME
 MicroEdition-Profile: MIDP-2.0
 MicroEdition-Configuration: CLDC-1.1
 MIDlet-Jar-URL: FirstGame.jar
-MIDlet-Jar-Size: 4641
+MIDlet-Jar-Size: 5162
 MIDlet-1: FirstGame, /icons/default.gif, FirstGame
