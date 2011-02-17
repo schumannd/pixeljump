@@ -2,14 +2,14 @@ import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
 
-public class FirstGame extends MIDlet {
+public class Main extends MIDlet {
 
    private Display display;
    private GameCanvas canvas;
    private Timer tm;
    private PlayTimer pt;
 
-public FirstGame() {
+public Main() {
 
    display=Display.getDisplay(this);
    canvas=new GameCanvas(this);
@@ -69,7 +69,7 @@ class GameCanvas extends Canvas implements CommandListener {
   private Command cmStart;
   private Command cmStop;
   private String text;
-  private FirstGame midlet;
+  private Main midlet;
   private int gameState;
 
   private int playerPos;
@@ -77,7 +77,7 @@ class GameCanvas extends Canvas implements CommandListener {
   private int deltaX,deltaY;
   private int move;
 
-public GameCanvas(FirstGame midlet) {
+public GameCanvas(Main midlet) {
 
    this.midlet=midlet;
    gameState=0;
