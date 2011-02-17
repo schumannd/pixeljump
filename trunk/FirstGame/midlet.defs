@@ -1,0 +1,9 @@
+#MIDlet suite file
+midlet.suite.description=
+midlet.suite.name=FirstGame
+midlet.suite.vendor=BlueJ\ ME
+midlet.suite.version=1.0
+midlet1.class=FirstGame
+midlet1.exclude=false
+midlet1.icon=file\:/C\:/Dokumente%20und%20Einstellungen/Alex/Eigene%20Dateien/Schule-Informatik/bluej/j2me/FirstGame/res/icons/default.gif
+midlet1.name=FirstGame
