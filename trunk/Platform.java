@@ -8,14 +8,14 @@
 public class Platform
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    public int posX;
-    public int posY;
+    public double posX;
+    public double posY;
     public int size;
 
     /**
      * Konstruktor für Objekte der Klasse Platform
      */
-    public Platform(int x, int y, int l)
+    public Platform(double x, double y, int l)
     {
         posX = x;
         posY = y;
