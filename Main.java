@@ -4,46 +4,49 @@ import java.util.*;
 
 public class Main extends MIDlet {
 
-   private Display display;
-   private GameCanvas canvas;
-   private Timer tm;
-   private PlayTimer pt;
+    private Display display;
+    private GameCanvas canvas;
+    private Timer tm;
 
-public Main() {
+    public Main() {
 
-   display=Display.getDisplay(this);
-   canvas=new GameCanvas(this);
-   
-   }
+        display = Display.getDisplay(this);
+        canvas = new GameCanvas(this);
 
-public void startApp() {
+    }
 
-   display.setCurrent(canvas);
-   }
+    public void startApp() {
 
-public void pauseApp() {
-   }
+        display.setCurrent(canvas);
+    }
 
-public void destroyApp(boolean unconditional) {
-   }
+    public void pauseApp() {
+    }
 
-public void exitMIDlet() {
+    public void destroyApp(boolean unconditional) {
+    }
 
-       destroyApp(true);
-       notifyDestroyed();
-   }
+    public void exitMIDlet() {
+        destroyApp(true);
+        notifyDestroyed();
+    }
 
-public void startTimer() {
+    public void startTimer() {
+        final int ms = 20;
+        tm = new Timer();
+        TimerTask pt = new TimerTask() {
+            public final void run() {
+                canvas.doGamePlay(ms);
+                canvas.repaint();
+            }
+        };
+        tm.schedule(pt, 0, ms);
+    }
 
-   tm=new Timer();
-   pt=new PlayTimer(canvas);
-   tm.schedule(pt,0,65);
-   }
+    public void stopTimer() {
 
-public void stopTimer() {
-
-   if (tm!=null)
-       tm.cancel();
-   tm=null;
-   }
+        if (tm != null)
+            tm.cancel();
+        tm = null;
+    }
 }
