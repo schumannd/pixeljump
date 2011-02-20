@@ -48,7 +48,7 @@ public class Pixel
             speedX = 0;
         }
         
-        
+        //Gavitation.
         speedY += 2*fraction;
     }
     
@@ -63,14 +63,12 @@ public class Pixel
                 //groesser als die zurueckzulegende strecke ist, abbruch.
                 if (distanceY < 0 || distanceY > moveY)
                     continue;
-                //der bruchteil der zeit dieser runde, nach dem die kollsion stattfinden wird
+                //der bruchteil der zeit dieses frames, nach dem 
+                //der pixel auf der hoehe der plattform angekommen is
                 double fraction2 = distanceY /moveY;
-                //die x-distanz, die bis zum zeitpunkt der kollision zurueckgelegt werden wird
-                double distToCollisionX = moveX * fraction2;
-                
-                //die position den pixel bei der kollision
-                double newPosX = posX + distToCollisionX;
-                //position bei der kollision ist gar nicht auf der plattform, also keine kollision, abbruch
+                //die position des pixels, wenn er auf der hoehe der plattform ankommt
+                double newPosX = posX + moveX * fraction2;;
+                //die position ist nicht auf der plattform, also keine kollision, abbruch
                 if (newPosX <= p.posX || newPosX >= (p.posX + p.size))
                     continue;
                 
@@ -78,7 +76,7 @@ public class Pixel
                 posY = posY + moveY * fraction2 - moveY * (1-fraction2);
                 //neue geschwindigkeit
                 speedY = -20;
-                //kollision wurde gefunden.
+                //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
                 return true;
             }
         }
