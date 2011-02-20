@@ -5,7 +5,7 @@ import java.util.*;
 public class MainMIDlet extends MIDlet implements CommandListener{
 
     private Command cmExit = new Command("Exit", Command.EXIT, 1);;
-    private Command cmStart = new Command("New Game", Command.SCREEN, 1);
+    private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
     
@@ -18,7 +18,7 @@ public class MainMIDlet extends MIDlet implements CommandListener{
         canvas = new GameMain(this);
         
         canvas.addCommand(cmExit);
-        canvas.addCommand(cmStart);
+        canvas.addCommand(cmNewGame);
         canvas.addCommand(cmPause);
         canvas.setCommandListener(this);
     }
@@ -44,8 +44,8 @@ public class MainMIDlet extends MIDlet implements CommandListener{
 
         if (c == cmExit)
             exitMIDlet();
-        else if (c == cmStart)
-            canvas.startNewGame();
+        else if (c == cmNewGame)
+            canvas.initNewGame();
         else if (c == cmPause) {
             canvas.stopTimer();
             canvas.removeCommand(cmPause);

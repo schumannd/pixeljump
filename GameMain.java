@@ -21,12 +21,12 @@ class GameMain extends GameCanvas {
         this.midlet = midlet;
         gameState = 0;
         
-        startNewGame();
+        initNewGame();
     }
 
     public void paint() {
         Graphics g = getGraphics();
-
+        //clear everything
         g.setColor(255, 255, 255);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(0, 0, 0);
@@ -65,7 +65,9 @@ class GameMain extends GameCanvas {
         pixel.accelerate(leftright);
         pixel.move(getWidth(), getHeight(), platforms, ms);
         
+        //Abstand des Pixels zu Bildschirmmitte.
         double dist = getHeight() / 2 - pixel.posY;
+        //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
             for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
@@ -78,6 +80,9 @@ class GameMain extends GameCanvas {
         
     }
     
+    /** 
+     * Loescht alle Plattformen, die sich unter dem Bildschirm befinden.
+     */
     private void deletePlatforms() {
         for (int i = 0; i < platforms.size(); i++) {
             Platform p = (Platform) platforms.elementAt(i);
@@ -105,8 +110,9 @@ class GameMain extends GameCanvas {
         mainTimer = null;
     }
 
-    public void startNewGame() {
+    public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
+        platforms.removeAllElements();
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
         platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30));
         Random r = new Random();
@@ -118,7 +124,6 @@ class GameMain extends GameCanvas {
     }
 
     private void stopGame() {
-
         stopTimer();
         gameState = 0;
         repaint();
