@@ -18,6 +18,10 @@ public class Pixel
     }
     
     
+    public void accelerate(int leftright) {
+        speedX = leftright * 5; 
+    }
+    
     public void move(int width, int height, Vector platforms, int ms) {
         
         double fraction = 15*ms/1000.0d;

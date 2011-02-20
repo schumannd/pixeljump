@@ -1,45 +1,31 @@
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
+import javax.microedition.lcdui.game.*;
 
-class GameCanvas extends Canvas implements CommandListener {
+class GameMain extends GameCanvas {
 
-    private Command cmExit;
-    private Command cmStart;
-    private Command cmStop;
+    
     private String text;
-    private Main midlet;
+    private MainMIDlet midlet;
     private int gameState;
+    
+    private Timer mainTimer;
 
     private Pixel pixel;
     
     private Vector platforms = new Vector();
 
-    public GameCanvas(Main midlet) {
-
+    public GameMain(MainMIDlet midlet) {
+        super(true);
         this.midlet = midlet;
         gameState = 0;
-        cmExit = new Command("Exit", Command.EXIT, 1);
-        cmStart = new Command("Start", Command.SCREEN, 1);
-        cmStop = new Command("Stop", Command.SCREEN, 2);
-        addCommand(cmExit);
-        addCommand(cmStart);
-        addCommand(cmStop);
-        setCommandListener(this);
-
-        pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         
-        platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30));
-        
-        Random r = new Random();
-        for (int i = 0; i < 15; i++) {
-            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight() - 20), 30));
-        }
-        
-
+        startNewGame();
     }
 
-    protected void paint(Graphics g) {
+    public void paint() {
+        Graphics g = getGraphics();
 
         g.setColor(255, 255, 255);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -63,41 +49,71 @@ class GameCanvas extends Canvas implements CommandListener {
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
         }
+        flushGraphics();
     }
 
     
 
     public void doGamePlay(int ms) {
+        int keycode = getKeyStates();
+        int leftright = 0;
+        if ((keycode & LEFT_PRESSED) != 0)
+            leftright = -1;
+        if ((keycode & RIGHT_PRESSED) != 0)
+            leftright = 1;
+        
+        pixel.accelerate(leftright);
         pixel.move(getWidth(), getHeight(), platforms, ms);
     }
+    
+    
+    public void startTimer() {
+        final int ms = 20;
+        stopTimer();
+        mainTimer = new Timer();
+        TimerTask pt = new TimerTask() {
+            public final void run() {
+                doGamePlay(ms);
+                paint();
+            }
+        };
+        mainTimer.schedule(pt, 0, ms);
+    }
+    
+    public void stopTimer() {
+        if (mainTimer != null)
+            mainTimer.cancel();
+        mainTimer = null;
+    }
 
-    private void startGame() {
-
-        pixel.posX = getWidth() / 2;
-        pixel.posY = getHeight() / 2;
-        pixel.speedY = 0;
-        pixel.speedX = 0;
+    public void startNewGame() {
+        pixel = new Pixel(getWidth() / 2, getHeight() / 2);
+        //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
+        platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30));
+        Random r = new Random();
+        for (int i = 0; i < 15; i++) {
+            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight() - 20), 30));
+        }
+        
         gameState = 1;
-        midlet.startTimer();
     }
 
     private void stopGame() {
 
-        midlet.stopTimer();
+        stopTimer();
         gameState = 0;
         repaint();
     }
 
     protected void keyPressed(int keyCode) {
-
-        switch (keyCode) {
+        /*switch (keyCode) {
         case KEY_NUM4:
             pixel.speedX = -3;
             break;
         case KEY_NUM6:
             pixel.speedX = 3;
             break;
-        }
+        }*/
     }
 
     protected void keyReleased(int keyCode) {
@@ -112,13 +128,5 @@ class GameCanvas extends Canvas implements CommandListener {
         }
     }
 
-    public void commandAction(Command c, Displayable d) {
-
-        if (c == cmExit)
-            midlet.exitMIDlet();
-        else if (c == cmStart)
-            startGame();
-        else if (c == cmStop)
-            stopGame();
-    }
+    
 }
