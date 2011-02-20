@@ -64,8 +64,27 @@ class GameMain extends GameCanvas {
         
         pixel.accelerate(leftright);
         pixel.move(getWidth(), getHeight(), platforms, ms);
+        
+        double dist = getHeight() / 2 - pixel.posY;
+        if (dist > 0) {
+            for (int i = 0; i < platforms.size(); i++) {
+                Platform p = (Platform) platforms.elementAt(i);
+                p.posY += dist;
+            }
+            pixel.posY += dist;
+        }
+        deletePlatforms();
+        //createNewPlatforms();
+        
     }
     
+    private void deletePlatforms() {
+        for (int i = 0; i < platforms.size(); i++) {
+            Platform p = (Platform) platforms.elementAt(i);
+            if (p.posY > getHeight())
+                platforms.removeElementAt(i);
+        }
+    }
     
     public void startTimer() {
         final int ms = 20;
@@ -91,8 +110,8 @@ class GameMain extends GameCanvas {
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
         platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30));
         Random r = new Random();
-        for (int i = 0; i < 15; i++) {
-            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight() - 20), 30));
+        for (int i = 0; i < 100; i++) {
+            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight()+1000)-1000, 30));
         }
         
         gameState = 1;
