@@ -1,14 +1,12 @@
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
-import java.util.*;
 
-public class MainMIDlet extends MIDlet implements CommandListener{
+public class MainMIDlet extends MIDlet implements CommandListener {
 
     private Command cmExit = new Command("Exit", Command.EXIT, 1);;
     private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
-    
     
     private Display display;
     private GameMain canvas;

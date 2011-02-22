@@ -1,8 +1,7 @@
 import java.util.*;
 
-public class Pixel
-{
-
+public class Pixel {
+    
     public double posX;
     public double posY;
     public double speedX = 0;
@@ -12,8 +11,7 @@ public class Pixel
     /**
      * Konstruktor für Objekte der Klasse Platform
      */
-    public Pixel(double x, double y)
-    {
+    public Pixel(double x, double y) {
         posX = x;
         posY = y;
     }

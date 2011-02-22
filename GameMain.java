@@ -1,24 +1,16 @@
-import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import javax.microedition.lcdui.game.*;
 
 class GameMain extends GameCanvas {
-
     
-    private String text;
-    private MainMIDlet midlet;
     private int gameState;
-    
     private Timer mainTimer;
-
     private Pixel pixel;
-    
     private Vector platforms = new Vector();
 
     public GameMain(MainMIDlet midlet) {
         super(true);
-        this.midlet = midlet;
         gameState = 0;
         
         initNewGame();
@@ -39,7 +31,7 @@ class GameMain extends GameCanvas {
         case 1:
             for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
-                //breakeable == blau
+                //breakable == blau
                 if( p.type == 1)
                     g.setColor(0, 0, 255);
                 //fake == rot
@@ -142,18 +134,18 @@ class GameMain extends GameCanvas {
         repaint();
     }
 
-    protected void keyPressed(int keyCode) {
-        /*switch (keyCode) {
+    /*protected void keyPressed(int keyCode) {
+        switch (keyCode) {
         case KEY_NUM4:
             pixel.speedX = -3;
             break;
         case KEY_NUM6:
             pixel.speedX = 3;
             break;
-        }*/
-    }
+        }
+    }*/
 
-    protected void keyReleased(int keyCode) {
+    /*protected void keyReleased(int keyCode) {
 
         switch (keyCode) {
         case KEY_NUM4:
@@ -163,7 +155,7 @@ class GameMain extends GameCanvas {
             pixel.speedX = 0;
             break;
         }
-    }
+    }*/
 
     
 }
