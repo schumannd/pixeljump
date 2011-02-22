@@ -38,16 +38,14 @@ public class Pixel
         posX += moveX;
           
         //linke wand
-        if (posX < 0) {
-            posX = 0;
-            speedX = 0;
-        }
+        if (posX < 0)
+            posX = width;
+        
 
         //rechte wand
-        else if (posX > width - 1) {
-            posX = width - 1;
-            speedX = 0;
-        }
+        else if (posX > width - 1)
+            posX = 0;
+        
         
         //Gavitation.
         speedY += 2*fraction;
