@@ -57,6 +57,7 @@ class GameMain extends GameCanvas {
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
         }
+        Debug.print(g);
         flushGraphics();
     }
 
