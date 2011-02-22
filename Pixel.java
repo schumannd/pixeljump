@@ -7,7 +7,7 @@ public class Pixel
     public double posY;
     public double speedX = 0;
     public double speedY = 0;
-	final int JUMPSPEED = -24;
+	//final int JUMPSPEED = -20;
 
     /**
      * Konstruktor für Objekte der Klasse Platform
@@ -74,9 +74,9 @@ public class Pixel
                     continue;
                 
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
-                posY = posY + moveY * fraction2 - JUMPSPEED * (1-fraction2);
+                posY = posY + moveY * fraction2 - moveY * (1-fraction2);
                 //neue geschwindigkeit
-                speedY = JUMPSPEED;
+                speedY = -20;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
                 return true;
             }
