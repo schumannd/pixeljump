@@ -65,6 +65,10 @@ class GameMain extends GameCanvas {
         pixel.accelerate(leftright);
         pixel.move(getWidth(), getHeight(), platforms, ms);
         
+        
+        if(pixel.posY > getHeight())
+            gameState = 3;
+        
         //Abstand des Pixels zu Bildschirmmitte.
         double dist = getHeight() / 2 - pixel.posY;
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
@@ -92,7 +96,7 @@ class GameMain extends GameCanvas {
     }
     
     public void startTimer() {
-        final int ms = 20;
+        final int ms = 40;
         stopTimer();
         mainTimer = new Timer();
         TimerTask pt = new TimerTask() {
