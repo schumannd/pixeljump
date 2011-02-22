@@ -39,7 +39,15 @@ class GameMain extends GameCanvas {
         case 1:
             for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
+                //breakeable == blau
+                if( p.type == 1)
+                    g.setColor(0, 0, 255);
+                //fake == rot
+                if(p.type == 2)
+                    g.setColor(255, 0, 0);
+                
                 g.fillRect((int)p.posX, (int)p.posY, p.size, 3);
+                g.setColor(0, 0, 0);
             }
             g.fillRect((int)pixel.posX, (int)pixel.posY, 2, 2);
             
@@ -118,10 +126,10 @@ class GameMain extends GameCanvas {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         platforms.removeAllElements();
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
-        platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30));
+        platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30, 1));
         Random r = new Random();
         for (int i = 0; i < 100; i++) {
-            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight()+1000)-1000, 30));
+            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight()+1000)-1000, 30, r.nextInt(3)));
         }
         
         gameState = 1;
