@@ -8,20 +8,25 @@ class GameMain extends GameCanvas {
     private Timer mainTimer;
     private Pixel pixel;
     private Vector platforms = new Vector();
+    Background2D b2d;
+    Background3D b3d;
 
     public GameMain(MainMIDlet midlet) {
         super(true);
+        b3d = new Background3D();
+        b3d.init(getWidth(), getHeight());
+        b2d = new Background2D(getWidth(), getHeight());
         gameState = 0;
-        
         initNewGame();
     }
 
-    public void paint() {
-        Graphics g = getGraphics();
+    public void paint(Graphics g) {
         //clear everything
         g.setColor(255, 255, 255);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(0, 0, 0);
+//        b2d.draw(g);
+        b3d.paint(g);
 
         switch (gameState) {
         case 0:
@@ -38,10 +43,10 @@ class GameMain extends GameCanvas {
                 if(p.type == 2)
                     g.setColor(255, 0, 0);
                 
-                g.fillRect((int)p.posX, (int)p.posY, p.size, 3);
+//                g.fillRect((int)p.posX, (int)p.posY, p.size, 3);
                 g.setColor(0, 0, 0);
             }
-            g.fillRect((int)pixel.posX, (int)pixel.posY, 2, 2);
+            g.fillRect((int)pixel.posX-3, (int)pixel.posY-3, 3, 3);
             
             g.drawString(Integer.toString(pixel.score), getWidth()-40, 10, Graphics.TOP | Graphics.LEFT);
             
@@ -52,7 +57,6 @@ class GameMain extends GameCanvas {
             break;
         }
         Debug.print(g);
-        flushGraphics();
     }
 
     
@@ -76,11 +80,14 @@ class GameMain extends GameCanvas {
         double dist = getHeight() / 2 - pixel.posY;
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
+            b2d.setDist(dist);
             for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
                 p.posY += dist;
+                //TODO: hier deletePlatforms inlinen
             }
             pixel.posY += dist;
+            b3d.move(dist);
         }
         deletePlatforms();
         //createNewPlatforms();
@@ -105,7 +112,7 @@ class GameMain extends GameCanvas {
         TimerTask pt = new TimerTask() {
             public final void run() {
                 doGamePlay(ms);
-                paint();
+                repaint();
             }
         };
         mainTimer.schedule(pt, 0, ms);
@@ -122,9 +129,13 @@ class GameMain extends GameCanvas {
         platforms.removeAllElements();
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
         platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30, 1));
+        b3d.addPlatform(getWidth() / 2 - 15, getHeight() -30);
         Random r = new Random();
         for (int i = 0; i < 100; i++) {
-            platforms.addElement(new Platform(r.nextInt(getWidth() - 30), r.nextInt(getHeight()+1000)-1000, 30, r.nextInt(3)));
+            int x = r.nextInt(getWidth() - 30);
+            int y = r.nextInt(getHeight()+1000)-1000;
+            platforms.addElement(new Platform(x, y, 30, 0));//r.nextInt(3)));
+            b3d.addPlatform(x, y);
         }
         
         gameState = 1;
