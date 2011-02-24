@@ -6,7 +6,7 @@ public class Pixel {
     public double posY;
     public double speedX = 0;
     public double speedY = 0;
-    //final int JUMPSPEED = -20;
+    final int JUMPSPEED = -20;
 
     /**
      * Konstruktor für Objekte der Klasse Platform
@@ -68,19 +68,19 @@ public class Pixel {
                 //die position ist nicht auf der plattform, also keine kollision, abbruch
                 if (newPosX <= p.posX || newPosX >= (p.posX + p.size))
                     continue;
-                
+                // lösche platform ohne kollision wenn fake
                 if(p.type == 2) {
                     platforms.removeElementAt(i);
                     continue;
                 }
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
-                posY = posY + moveY * fraction2 - moveY * (1-fraction2);
-                //loesche Platform wenn breakable
+                posY = posY + JUMPSPEED * fraction2 - moveY * (1-fraction2);
+                //loesche Platform wenn breakable, dann kollision
                 if(p.type == 1)
                     platforms.removeElementAt(i);
                 
                 //neue geschwindigkeit
-                speedY = -20;
+                speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
                 return true;
             }
