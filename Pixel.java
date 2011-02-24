@@ -19,12 +19,12 @@ public class Pixel {
     
     
     public void accelerate(int leftright) {
-        //startbeschleunigung 3
-        if(speedX == 0)
-            speedX = leftright*3;
-        //beschleunigung von 0.5 p.f.
-        if(speedX > -25 || speedX < 25) 
-            speedX += leftright*0.5;
+        //startbeschleunigung bei richtungswechsel: 3
+        if(speedX / leftright < 0)
+            speedX = leftright*5;
+        //beschleunigung von 0.8 p.f.
+        if(speedX > -20 && speedX < 20)
+            speedX += leftright*0.8;
         //bremsen auf 0
         if(leftright == 0)
             speedX = 0;
