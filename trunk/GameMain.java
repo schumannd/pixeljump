@@ -25,8 +25,8 @@ class GameMain extends GameCanvas {
         g.setColor(255, 255, 255);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(0, 0, 0);
-//        b2d.draw(g);
         b3d.paint(g);
+//        b2d.draw(g);
 
         switch (gameState) {
         case 0:
@@ -127,6 +127,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         platforms.removeAllElements();
+        b3d.removeAll();
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
         platforms.addElement(new Platform(getWidth() / 2 - 15, getHeight() - 30, 30, 1));
         b3d.addPlatform(getWidth() / 2 - 15, getHeight() -30);
