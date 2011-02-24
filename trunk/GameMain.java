@@ -43,6 +43,8 @@ class GameMain extends GameCanvas {
             }
             g.fillRect((int)pixel.posX, (int)pixel.posY, 2, 2);
             
+            g.drawString(Integer.toString(pixel.score), getWidth()-40, 10, Graphics.TOP | Graphics.LEFT);
+            
             break;
         case 3:
             g.drawString("game over", getWidth() / 2, getHeight() / 2,

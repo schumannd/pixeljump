@@ -7,6 +7,7 @@ public class Pixel {
     public double speedX = 0;
     public double speedY = 0;
     final int JUMPSPEED = -20;
+    public int score = 0;
 
     /**
      * Konstruktor für Objekte der Klasse Platform
@@ -18,7 +19,15 @@ public class Pixel {
     
     
     public void accelerate(int leftright) {
-        speedX = leftright * 5; 
+        //startbeschleunigung 3
+        if(speedX == 0)
+            speedX = leftright*3;
+        //beschleunigung von 0.5 p.f.
+        if(speedX > -25 || speedX < 25) 
+            speedX += leftright*0.5;
+        //bremsen auf 0
+        if(leftright == 0)
+            speedX = 0;
     }
     
     public void move(int width, int height, Vector platforms, int ms) {
@@ -71,14 +80,18 @@ public class Pixel {
                 // lösche platform ohne kollision wenn fake
                 if(p.type == 2) {
                     platforms.removeElementAt(i);
+                    score += 30;
                     continue;
                 }
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
                 posY = posY + JUMPSPEED * fraction2 - moveY * (1-fraction2);
                 //loesche Platform wenn breakable, dann kollision
-                if(p.type == 1)
+                if(p.type == 1) {
                     platforms.removeElementAt(i);
+                    score += 10;
+                }
                 
+                score += 10;
                 //neue geschwindigkeit
                 speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
