@@ -1,9 +1,5 @@
 import java.util.*;
-
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.khronos.egl.*;
-import javax.microedition.khronos.opengles.*;
-
 
 
 public class Background2D {
