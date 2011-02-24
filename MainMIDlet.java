@@ -22,7 +22,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     }
 
     public void startApp() {
-        display.setCurrent(canvas);
+        display.setCurrent(canvas);//new Background3D());
         canvas.startTimer();
     }
 
