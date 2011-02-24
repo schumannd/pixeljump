@@ -14,12 +14,12 @@ import javax.microedition.m3g.*;
  */
 public class Background3D
 {
-    final static byte xr = 6;
+    final static byte xr = 6;//breite nach rechts
     final static byte xl = 0;
     final static byte yu = 0;
-    final static byte yd = -1;
-    final static byte zb = -50;
-    final static byte zf = 0;
+    final static byte yd = -1;//hoehe nach unten
+    final static byte zb = -10;//laenge nach hinten
+    final static byte zf = 5;
     
   /** The cube's vertex positions (x, y, z). */
   private static final byte[] VERTEX_POSITIONS = {
@@ -163,6 +163,12 @@ public class Background3D
       allMeshes.translate(0, -(float)dist/54.3f, 0);
   }
   
+  
+  public void removeAll() {
+      _world.removeChild(allMeshes);
+      allMeshes = new Group();
+      _world.addChild(allMeshes);
+  }
   
   /**
    * Renders the sample on the screen.
