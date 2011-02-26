@@ -18,16 +18,21 @@ public class Pixel {
     }
     
     
-    public void accelerate(int leftright) {
-        //startbeschleunigung bei richtungswechsel: 3
-        if(speedX / leftright < 0)
-            speedX = leftright*5;
-        //beschleunigung von 0.8 p.f.
-        if(speedX > -20 && speedX < 20)
-            speedX += leftright*0.8;
-        //bremsen auf 0
-        if(leftright == 0)
-            speedX = 0;
+    public void accelerate(int leftright, int ms) {
+        double fraction = 15*ms/1000.0d;
+        
+        int speedlimit = 10;
+        int acceleration = 2;
+        if(speedX*leftright < 0)
+            speedX /= 4/fraction;
+        speedX+= leftright*fraction*acceleration;
+        if (speedX > speedlimit)
+            speedX = speedlimit;
+        if (speedX < -speedlimit)
+            speedX = -speedlimit;
+        
+        if (leftright == 0)
+            speedX /= 2/fraction;
     }
     
     public void move(int width, int height, Vector platforms, int ms) {
@@ -71,9 +76,10 @@ public class Pixel {
                     continue;
                 //der bruchteil der zeit dieses frames, nach dem 
                 //der pixel auf der hoehe der plattform angekommen is
-                double fraction2 = distanceY /moveY;
+                double fraction2 = distanceY/moveY;
+//                Debug.add(fraction2);
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
-                double newPosX = posX + moveX * fraction2;;
+                double newPosX = posX + moveX * fraction2;
                 //die position ist nicht auf der plattform, also keine kollision, abbruch
                 if (newPosX <= p.posX || newPosX >= (p.posX + p.size))
                     continue;
@@ -84,7 +90,8 @@ public class Pixel {
                     continue;
                 }
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
-                posY = posY + JUMPSPEED * fraction2 - moveY * (1-fraction2);
+                posY = posY + moveY * fraction2;//
+                posY += moveY/speedY*JUMPSPEED * (1-fraction2);
                 //loesche Platform wenn breakable, dann kollision
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
