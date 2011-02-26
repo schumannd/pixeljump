@@ -8,8 +8,8 @@ class GameMain extends GameCanvas {
     private Timer mainTimer;
     private Pixel pixel;
     private Vector platforms = new Vector();
-    Background2D b2d;
-    Background3D b3d;
+    private Background2D b2d;
+    private Background3D b3d;
 
     public GameMain(MainMIDlet midlet) {
         super(true);
@@ -61,7 +61,7 @@ class GameMain extends GameCanvas {
 
     
 
-    public void doGamePlay(int ms) {
+    private void doGamePlay(int ms) {
         int keycode = getKeyStates();
         int leftright = 0;
         if ((keycode & LEFT_PRESSED) != 0)
@@ -69,7 +69,7 @@ class GameMain extends GameCanvas {
         if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
         
-        pixel.accelerate(leftright);
+        pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), getHeight(), platforms, ms);
         
         
@@ -80,13 +80,13 @@ class GameMain extends GameCanvas {
         double dist = getHeight() / 2 - pixel.posY;
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
-            b2d.setDist(dist);
             for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
                 p.posY += dist;
                 //TODO: hier deletePlatforms inlinen
             }
             pixel.posY += dist;
+            b2d.setDist(dist);
             b3d.move(dist);
         }
         deletePlatforms();
