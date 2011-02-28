@@ -1,4 +1,10 @@
 /*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/*
  * Sample code for M3G article on IBM developerWorks.
  * http://www.ibm.com/developerworks/
  */
@@ -12,7 +18,7 @@ import javax.microedition.m3g.*;
  */
 public class Background3D
 {
-    final static byte xr = 6;//breite nach rechts
+    final static byte xr = 5;//breite nach rechts
     final static byte xl = 0;
     final static byte yu = 0;
     final static byte yd = -1;//hoehe nach unten
@@ -39,7 +45,7 @@ public class Background3D
         0, -127, 0,   0, -127, 0,   0, -127, 0,   0, -127, 0,   // bottom
     };
 
-    /** Indices that define how to connect the vertices to build 
+    /** Indices that define how to connect the vertices to build
      * triangles. */
     private static final int[] TRIANGLE_INDICES = {
         0,  1,  2,  3,   // front
@@ -119,6 +125,7 @@ public class Background3D
         // Gruppe, die alle Plattformen enthaelt. Damit kann man alle Plattformen gleichzeitig bewegen.
         allPlatforms = new Group();
         _world.addChild(allPlatforms);
+
         platformMesh = new Mesh(vertexData, cubeTriangles, appearance);
         platformMesh.setScale(0.1f, 0.1f, 0.1f);
     }
@@ -130,8 +137,8 @@ public class Background3D
         x -= width/2f;
         y -= height/2f;
         //massstab anpassen
-        x /= 54.3f;
-        y /= -54.3f;
+        x = (x / (width/2))*(2.68/(height/width));
+        y = (-y / (height/2))*2.68;
         //erstellen, verkleinern, an die richtige stelle packen
         Mesh platform = (Mesh) platformMesh.duplicate();
         platform.translate((float)x, (float)y, 0);
@@ -141,7 +148,7 @@ public class Background3D
     
     /** Alle Plattformen um dist pixel verschieben. **/
     public void move (double dist) {
-        allPlatforms.translate(0, -(float)dist/54.3f, 0);
+        allPlatforms.translate(0, (float)(-dist / (height/2))*2.68f, 0);
     }
     
     
