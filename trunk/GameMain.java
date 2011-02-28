@@ -14,9 +14,13 @@ class GameMain extends GameCanvas {
     public GameMain(MainMIDlet midlet) {
         super(true);
         b3d = new Background3D();
-        b3d.init(getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 0;
+
+    }
+
+    public void init() {
+        b3d.init(getWidth(), getHeight());
         initNewGame();
     }
 
