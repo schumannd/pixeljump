@@ -98,7 +98,6 @@ public class Pixel {
                     score += 10;
                 }
                 
-                score += 10;
                 //neue geschwindigkeit
                 speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
