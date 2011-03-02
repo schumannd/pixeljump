@@ -31,11 +31,11 @@ class GameMain extends GameCanvas {
         //b2d.draw(g);
 
         switch (gameState) {
-        case 0:
+        case 0: //startbildschirm
             g.drawString("press start!", getWidth() / 2, getHeight() / 2,
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
-        case 1:
+        case 1: //im spiel
             for (int i = 0; i < l.getSize(); i++) {
                 ((Platform) l.getPlat(i)).paint(g);
             }
@@ -44,7 +44,7 @@ class GameMain extends GameCanvas {
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
             
             break;
-        case 3:
+        case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
@@ -66,7 +66,7 @@ class GameMain extends GameCanvas {
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), getHeight(), l.platforms, ms);
         
-        
+        //gameover
         if(pixel.posY > getHeight())
             gameState = 3;
         
@@ -117,29 +117,4 @@ class GameMain extends GameCanvas {
         gameState = 0;
         repaint();
     }
-
-    /*protected void keyPressed(int keyCode) {
-        switch (keyCode) {
-        case KEY_NUM4:
-            pixel.speedX = -3;
-            break;
-        case KEY_NUM6:
-            pixel.speedX = 3;
-            break;
-        }
-    }*/
-
-    /*protected void keyReleased(int keyCode) {
-
-        switch (keyCode) {
-        case KEY_NUM4:
-            pixel.speedX = 0;
-            break;
-        case KEY_NUM6:
-            pixel.speedX = 0;
-            break;
-        }
-    }*/
-
-    
 }
