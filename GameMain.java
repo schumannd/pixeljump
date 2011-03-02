@@ -45,7 +45,7 @@ class GameMain extends GameCanvas {
                 if(p.type == 2)
                     g.setColor(255, 0, 0);
                 
-                g.fillRect((int)p.posX, (int)p.posY, p.size, 3);
+                p.paint(g);
                 g.setColor(0, 0, 0);
             }
             g.fillRect((int)pixel.posX-3, (int)pixel.posY-3, 3, 3);
