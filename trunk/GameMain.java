@@ -48,7 +48,7 @@ class GameMain extends GameCanvas {
                 p.paint(g);
                 g.setColor(0, 0, 0);
             }
-            g.fillRect((int)pixel.posX-3, (int)pixel.posY-3, 3, 3);
+            pixel.paint(g);
             
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
             
@@ -110,8 +110,11 @@ class GameMain extends GameCanvas {
     }
 
     public void initNewGame() {
-        
-        pixel = new Pixel(getWidth() / 2, getHeight() / 2);
+        Image img = null;
+        try{
+            img = Image.createImage("/pixelman.png");
+        }catch(Exception e){}
+        pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         
         l = new Level(0,getWidth(), getHeight());
         
