@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import javax.microedition.lcdui.game.*;
 import javax.microedition.lcdui.*;
 import java.util.Random;
@@ -11,6 +13,13 @@ public class Platform extends Sprite {
     public Item item= null;
     private Random r = new Random();
     
+    public static final int NORMAL = 0;
+    public static final int BREAK = 1;
+    public static final int FAKE = 2;
+    public static final int MOVE = 3;
+    
+    boolean moves = false;
+    
     
     public Platform(Image img, double x, double y, int l, int t) {
         super(img, 30, 3);
@@ -20,6 +29,9 @@ public class Platform extends Sprite {
         size = l;
         type = t;
         
+        if (new Random().nextDouble() < 0.5)
+            moves = true;
+
         if(r.nextDouble() < 1){
             int itemType = 0;
             try{
@@ -27,8 +39,22 @@ public class Platform extends Sprite {
             }catch(Exception e){}
             item = new Item(img);
             item.defineReferencePixel(0, 16);
-            item.setRefPixelPosition((int) (item.getItemX() + posX),(int) posY - 32);
-        }
-    }   
+            item.setRefPixelPosition((int) (item.getItemX() + posX), (int)posY - 32);
+        }  
+    }
+    
+    
+    public void moveDown(double dist) {
+        posY += dist;
+        setRefPixelPosition((int) posX, (int) posY);
+    }
+    
+    
+    public void moveSide(int ms) {
+        if (!moves)
+            return;
+//        posX += 20f/(1000f/ms);
+//        setRefPixelPosition((int) posX, (int) posY);
+    }
 
 }
