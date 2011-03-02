@@ -104,7 +104,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         Image img = null;
         try{
-            img = Image.createImage("/pixelman.png");
+            img = Image.createImage("/res/pixelman.png");
         }catch(Exception e){}
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         
