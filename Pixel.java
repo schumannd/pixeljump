@@ -86,7 +86,6 @@ public class Pixel {
                 // lösche platform ohne kollision wenn fake
                 if(p.type == 2) {
                     platforms.removeElementAt(i);
-                    score += 30;
                     continue;
                 }
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
@@ -95,7 +94,6 @@ public class Pixel {
                 //loesche Platform wenn breakable, dann kollision
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
-                    score += 10;
                 }
                 
                 
