@@ -32,7 +32,7 @@ public class Platform extends Sprite {
         if (new Random().nextDouble() < 0.5)
             moves = true;
 
-        if(r.nextDouble() < 1){
+        if(r.nextDouble() < 1 && (type == NORMAL || type == MOVE)){
             int itemType = 0;
             try{
                 img = Image.createImage("/res/item"+itemType+".png");
@@ -56,5 +56,6 @@ public class Platform extends Sprite {
 //        posX += 20f/(1000f/ms);
 //        setRefPixelPosition((int) posX, (int) posY);
     }
+
 
 }
