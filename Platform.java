@@ -15,6 +15,6 @@ public class Platform extends Sprite {
         setRefPixelPosition((int) posX, (int) posY);
         size = l;
         type = t;
-    }
+    }   
 
 }
