@@ -38,8 +38,10 @@ public class Level {
             Platform p = getPlat(i);
             p.posY += dist;
             p.setRefPixelPosition((int) p.posX, (int) p.posY);
-            if (p.posY > height)
-                platforms.removeElementAt(i);            
+            if (p.posY > height) {
+                platforms.removeElementAt(i);
+                i--;
+            }
         }
     }
     
