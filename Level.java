@@ -34,43 +34,44 @@ public class Level {
     
     public void move(double dist) {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
-        
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.posY += dist;
             p.setRefPixelPosition((int) p.posX, (int) p.posY);
             if (p.posY > height)
-                platforms.removeElementAt(i);
-            //TODO: hier deletePlatforms inlinen
-            
+                platforms.removeElementAt(i);            
         }
     }
     
     private void solvable() {
-        Image img2 = null;
-        try{
-            img2 = Image.createImage("/res//plattform.png");
-        }catch(Exception e){}
-        //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
-        platforms.addElement(new Platform(img2,width / 2 - 15, height - 30, 30, 1));
-        
+        addNewPlat(width / 2 - 15, height - 30, 1);
+
         for (int i = 1; i <= 20; i++) {
             int x = r.nextInt(width - 30);
             int y = height-30-i*91;
-            platforms.addElement(new Platform(img2, x, y, 30, r.nextInt(2)));
+            int type = r.nextInt(2);
+
+            addNewPlat(x, y, type);
         }
     }
     
     private void easier() {
-        Image img2 = null;
-        try{
-            img2 = Image.createImage("/res/plattform.png");
-        }catch(Exception e){}
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
             int y = r.nextInt(height+1820)-1820;
-            platforms.addElement(new Platform(img2, x, y, 30, r.nextInt(3)));
+            int type = r.nextInt(3);
+
+            addNewPlat(x, y, type);
         }
+    }
+
+    private void addNewPlat(int x, int y, int type){
+        Image img = null;
+        try{
+            img = Image.createImage("/res/plattform"+type+".png");
+        }catch(Exception e){}
+        platforms.addElement(new Platform(img, x, y, 30, type));
+
     }
 
 }

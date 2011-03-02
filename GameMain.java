@@ -108,7 +108,7 @@ class GameMain extends GameCanvas {
         }catch(Exception e){}
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         
-        l = new Level(0,getWidth(), getHeight());
+        l = new Level(20,getWidth(), getHeight());
         
         gameState = 1;
     }
