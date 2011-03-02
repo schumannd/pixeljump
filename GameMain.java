@@ -77,6 +77,7 @@ class GameMain extends GameCanvas {
 //            b2d.setDist(dist);
             l.move(dist);
             pixel.posY += dist;
+            pixel.setRefPixelPosition((int) pixel.posX, (int) pixel.posY);
             pixel.score += dist;
         }
         

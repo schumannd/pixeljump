@@ -51,8 +51,8 @@ public class Pixel extends Sprite {
         if (!collisionDetection(platforms, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
             posY += moveY; 
-            posX += moveX;
         }
+        posX += moveX;
         //linke wand
         if (posX < 0)
             posX = width;
@@ -97,7 +97,7 @@ public class Pixel extends Sprite {
                 }
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
                 posY = posY + moveY * fraction2;//
-                posY += moveY/speedY*JUMPSPEED * (1-fraction2);
+                posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
                 //loesche Platform wenn breakable, dann kollision
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
