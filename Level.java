@@ -64,7 +64,7 @@ public class Level {
     private void easier() {
         Image img2 = null;
         try{
-            img2 = Image.createImage("/plattform.png");
+            img2 = Image.createImage("/res/plattform.png");
         }catch(Exception e){}
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
