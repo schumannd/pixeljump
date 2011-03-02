@@ -49,7 +49,7 @@ public class Level {
     private void solvable() {
         Image img2 = null;
         try{
-            img2 = Image.createImage("/plattform.png");
+            img2 = Image.createImage("/res//plattform.png");
         }catch(Exception e){}
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
         platforms.addElement(new Platform(img2,width / 2 - 15, height - 30, 30, 1));
