@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.microedition.lcdui.Image;
 
 public class Level {
     
@@ -47,6 +48,7 @@ public class Level {
         for (int i = 0; i < getSize(); i++) {
             Platform p = (Platform) getPlat(i);
             p.posY += dist;
+            p.setRefPixelPosition((int) p.posX, (int) p.posY);
             //TODO: hier deletePlatforms inlinen
             
         }
@@ -54,21 +56,29 @@ public class Level {
     }
     
     private void solvable() {
+        Image img2 = null;
+        try{
+            img2 = Image.createImage("/plattform.png");
+        }catch(Exception e){}
         //mittige Plattform, sodass man nicht gleich zu Beginn runterfaellt
-        platforms.addElement(new Platform(width / 2 - 15, height - 30, 30, 1));
+        platforms.addElement(new Platform(img2,width / 2 - 15, height - 30, 30, 1));
         
         for (int i = 1; i <= 20; i++) {
             int x = r.nextInt(width - 30);
             int y = height-30-i*91;
-            platforms.addElement(new Platform(x, y, 30, r.nextInt(2)));
+            platforms.addElement(new Platform(img2, x, y, 30, r.nextInt(2)));
         }
     }
     
     private void easier() {
+        Image img2 = null;
+        try{
+            img2 = Image.createImage("/plattform.png");
+        }catch(Exception e){}
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
             int y = r.nextInt(height+1820)-1820;
-            platforms.addElement(new Platform(x, y, 30, r.nextInt(3)));
+            platforms.addElement(new Platform(img2, x, y, 30, r.nextInt(3)));
         }
     }
 
