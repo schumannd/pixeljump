@@ -82,6 +82,11 @@ class GameMain extends GameCanvas {
             pixel.score += dist;
         }
         
+        for (int i = 0; i < l.getSize(); i++) {
+            Platform p = l.getPlat(i);
+            p.moveSide(ms);
+        }
+        
     }
     
     public void startTimer() {

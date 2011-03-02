@@ -36,9 +36,9 @@ public class Level {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
-            p.posY += dist;
+            p.moveDown(dist);
             p.item.setRefPixelPosition((int) p.posX, (int) (p.posY + dist));
-            p.setRefPixelPosition((int) p.posX, (int) p.posY);
+            
             if (p.posY > height) {
                 platforms.removeElementAt(i);
                 i--;

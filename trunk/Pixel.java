@@ -91,7 +91,7 @@ public class Pixel extends Sprite {
                 if (newPosX <= p.posX || newPosX >= (p.posX + p.size))
                     continue;
                 // lösche platform ohne kollision wenn fake
-                if(p.type == 2) {
+                if(p.type == Platform.FAKE) {
                     platforms.removeElementAt(i);
                     continue;
                 }
