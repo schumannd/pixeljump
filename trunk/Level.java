@@ -25,16 +25,6 @@ public class Level {
         return platforms.size();
     }
     
-    /** 
-     * Loescht alle Plattformen, die sich unter dem Bildschirm befinden.
-     */
-    private void deletePlatforms() {
-        for (int i = 0; i < getSize(); i++) {
-            Platform p = (Platform) getPlat(i);
-            if (p.posY > height)
-                platforms.removeElementAt(i);
-        }
-    }
     
     private void createLvl(int lvl) {
         solvable();
@@ -49,10 +39,11 @@ public class Level {
             Platform p = (Platform) getPlat(i);
             p.posY += dist;
             p.setRefPixelPosition((int) p.posX, (int) p.posY);
+            if (p.posY > height)
+                platforms.removeElementAt(i);
             //TODO: hier deletePlatforms inlinen
             
         }
-        deletePlatforms();
     }
     
     private void solvable() {

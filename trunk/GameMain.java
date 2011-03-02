@@ -37,16 +37,7 @@ class GameMain extends GameCanvas {
             break;
         case 1:
             for (int i = 0; i < l.getSize(); i++) {
-                Platform p = (Platform) l.getPlat(i);
-                //breakable == blau
-                if( p.type == 1)
-                    g.setColor(0, 0, 255);
-                //fake == rot
-                if(p.type == 2)
-                    g.setColor(255, 0, 0);
-                
-                p.paint(g);
-                g.setColor(0, 0, 0);
+                ((Platform) l.getPlat(i)).paint(g);
             }
             pixel.paint(g);
             
