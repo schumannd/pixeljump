@@ -113,7 +113,7 @@ class GameMain extends GameCanvas {
         
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         
-        l = new Level(5,getWidth(), getHeight());
+        l = new Level(0,getWidth(), getHeight());
         
         gameState = 1;
     }
