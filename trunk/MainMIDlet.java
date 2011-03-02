@@ -7,14 +7,14 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
-    
+
     private Display display;
     private GameMain canvas;
 
     public MainMIDlet() {
         display = Display.getDisplay(this);
         canvas = new GameMain(this);
-        
+
         canvas.addCommand(cmExit);
         canvas.addCommand(cmNewGame);
         canvas.addCommand(cmPause);
@@ -40,7 +40,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         destroyApp(true);
         notifyDestroyed();
     }
-    
+
     public void commandAction(Command c, Displayable d) {
 
         if (c == cmExit)
@@ -59,5 +59,5 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         }
     }
 
-    
+
 }

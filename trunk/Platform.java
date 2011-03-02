@@ -2,7 +2,7 @@ import javax.microedition.lcdui.game.*;
 import javax.microedition.lcdui.*;
 public class Platform extends Sprite {
     
-    public int type; // 0 = normal, 1 = breaks
+    public int type; // 0 = normal, 1 = break, 2 = fake
     public double posX;
     public double posY;
     public int size;
