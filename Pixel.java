@@ -1,6 +1,8 @@
 import java.util.*;
+import javax.microedition.lcdui.game.*;
+import javax.microedition.lcdui.*;
 
-public class Pixel {
+public class Pixel extends Sprite {
     
     public double posX;
     public double posY;
@@ -12,9 +14,12 @@ public class Pixel {
     /**
      * Konstruktor für Objekte der Klasse Platform
      */
-    public Pixel(double x, double y) {
+    public Pixel(Image img, double x, double y) {
+        super(img, 16, 16);
+        defineReferencePixel(7, 15); //TODO: kollision korrigieren, 7 ist falsch
         posX = x;
         posY = y;
+        setRefPixelPosition((int) x, (int) y);
     }
     
     
@@ -45,10 +50,9 @@ public class Pixel {
         
         if (!collisionDetection(platforms, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
-            posY += moveY;
+            posY += moveY; 
+            posX += moveX;
         }
-        posX += moveX;
-          
         //linke wand
         if (posX < 0)
             posX = width;
@@ -57,6 +61,9 @@ public class Pixel {
         //rechte wand
         else if (posX > width - 1)
             posX = 0;
+        
+        
+        this.setRefPixelPosition((int) posX,(int) posY);
         
         
         //Gavitation.
