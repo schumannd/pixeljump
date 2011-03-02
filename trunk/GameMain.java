@@ -8,13 +8,13 @@ class GameMain extends GameCanvas {
     private Timer mainTimer;
     private Pixel pixel;
     //private Vector platforms = new Vector();
-    private Background2D b2d;
+//    private Background2D b2d;
     //private Background3D b3d;
     private Level l;
 
     public GameMain(MainMIDlet midlet) {
         super(true);
-        b2d = new Background2D(getWidth(), getHeight());
+//        b2d = new Background2D(getWidth(), getHeight());
         gameState = 0;
 
     }
@@ -28,7 +28,7 @@ class GameMain extends GameCanvas {
         g.setColor(255, 255, 255);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(0, 0, 0);
-        b2d.draw(g);
+//        b2d.draw(g);
 
         switch (gameState) {
         case 0: //startbildschirm
@@ -74,7 +74,7 @@ class GameMain extends GameCanvas {
         double dist = getHeight() / 2 - pixel.posY;
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
-            b2d.setDist(dist);
+//            b2d.setDist(dist);
             l.move(dist);
             pixel.posY += dist;
             pixel.score += dist;
