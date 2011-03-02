@@ -37,6 +37,7 @@ public class Level {
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.posY += dist;
+            p.item.setRefPixelPosition((int) p.posX, (int) (p.posY + dist));
             p.setRefPixelPosition((int) p.posX, (int) p.posY);
             if (p.posY > height) {
                 platforms.removeElementAt(i);
