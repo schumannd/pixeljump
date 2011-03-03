@@ -32,15 +32,15 @@ public class Level {
             easier();
     }
     
-    public void move(double dist) {
+    public void move(double dist, int ms) {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.moveDown(dist);
-            try{
+            if (p.item != null)
                 p.item.setRefPixelPosition((int) p.posX, (int) (p.posY + dist));
-            }
-            catch(Exception e) {}
+            
+            p.moveSide(ms);
             
             if (p.posY > height) {
                 platforms.removeElementAt(i);

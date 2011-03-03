@@ -9,6 +9,8 @@ public class Pixel extends Sprite {
     public double speedX = 0;
     public double speedY = 0;
     final int JUMPSPEED = -20;
+    final int SPEEDLIMIT = 10;
+    final int ACCELERATION = 2;
     public int score = 0;
     private static int imgWidth = 16;
     private static int imgHeigth = 16;
@@ -28,15 +30,13 @@ public class Pixel extends Sprite {
     public void accelerate(int leftright, int ms) {
         double fraction = 15*ms/1000.0d;
         
-        int speedlimit = 10;
-        int acceleration = 2;
         if(speedX*leftright < 0)
             speedX /= 4/fraction;
-        speedX+= leftright*fraction*acceleration;
-        if (speedX > speedlimit)
-            speedX = speedlimit;
-        if (speedX < -speedlimit)
-            speedX = -speedlimit;
+        speedX+= leftright*fraction*ACCELERATION;
+        if (speedX > SPEEDLIMIT)
+            speedX = SPEEDLIMIT;
+        else if (speedX < -SPEEDLIMIT)
+            speedX = -SPEEDLIMIT;
         
         if (leftright == 0)
             speedX /= 2/fraction;
