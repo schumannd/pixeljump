@@ -13,7 +13,7 @@ class GameMain extends GameCanvas {
 
     public GameMain(MainMIDlet midlet) {
         super(true);
-        b2d = new Background2D(getWidth(), getHeight());
+        
         gameState = 0;
 
     }
@@ -116,7 +116,7 @@ class GameMain extends GameCanvas {
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         
         l = new Level(1,getWidth(), getHeight());
-        
+        b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
     }
 
