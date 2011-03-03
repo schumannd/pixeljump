@@ -8,13 +8,14 @@ public class Pixel extends Sprite {
     public double posX;
     public double posY;
     private double speedX = 0;
-    private double speedY = 0;
+    public double speedY = 0;
     private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
     public int score = 0;
     private static int imgWidth = 16;
     private static int imgHeigth = 16;
+    int itemEffect = 0;
 
     
     public Pixel(Image img, double x, double y) {
@@ -41,14 +42,15 @@ public class Pixel extends Sprite {
             speedX /= 2/fraction;
     }
     
-    public void move(int width, int height, Vector platforms, int ms) {
+    public void move(int width, int height, Vector platforms, Vector items, int ms) {
         double fraction = 15*ms/1000.0d;
         //die diesen zug zurueckzulegende distanz.
         double moveY = speedY*fraction;
         double moveX = speedX*fraction;
         
-        if (!collisionDetection(platforms, moveX, moveY)) {
+        if (!collisionDetection(platforms, items, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
+            moveY = speedY*fraction;
             posY += moveY; 
         }
         posX += moveX;
@@ -68,18 +70,37 @@ public class Pixel extends Sprite {
     }
     
     
-    public boolean collisionDetection(Vector platforms, double moveX, double moveY) {
+    public boolean collisionDetection(Vector platforms, Vector items, double moveX, double moveY){
+        itemCollDetec(items);
+        return platformCollDetec(platforms, moveX, moveY);
+    }
+
+    public boolean itemCollDetec(Vector items){
+        for(int i = 0; i < items.size(); i++){
+            Item it = (Item) items.elementAt(i);
+            if(this.collidesWith(it, false)){
+                it.causeEffect();
+            }
+            return true;
+
+
+        }
+        return false;
+
+    }
+
+    public boolean platformCollDetec(Vector platforms, double moveX, double moveY){
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
         if (speedY > 0) {
            for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
                 //y-Distanz von pixel zu plattform
                 double distanceY = p.posY - posY;
-                //wenn die plattform ueber dem pixel ist oder die distanz 
+                //wenn die plattform ueber dem pixel ist oder die distanz
                 //groesser als die zurueckzulegende strecke ist, abbruch.
                 if (distanceY < 0 || distanceY > moveY)
                     continue;
-                //der bruchteil der zeit dieses frames, nach dem 
+                //der bruchteil der zeit dieses frames, nach dem
                 //der pixel auf der hoehe der plattform angekommen is
                 double fraction2 = distanceY/moveY;
 //                Debug.add(fraction2);
@@ -94,7 +115,7 @@ public class Pixel extends Sprite {
                     platforms.removeElementAt(i);
                     continue;
                 }
-                
+
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
                 posY = posY + moveY * fraction2;//
                 posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
@@ -102,7 +123,7 @@ public class Pixel extends Sprite {
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
                 }
-                
+
                 //neue geschwindigkeit
                 speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.

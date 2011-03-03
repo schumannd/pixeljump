@@ -10,6 +10,7 @@ public class Item extends Sprite {
     private Platform p;
     private int type; // 0 = Feder
     private Random r = new Random();
+    public static Pixel pixel;
 
     public static final int SPRING = 0;
 
@@ -31,7 +32,9 @@ public class Item extends Sprite {
     
     public void causeEffect(){
         switch (type) {
-            case 0:
+            case 0: pixel.speedY = -30;
+                    Debug.add(9001);
+                    break;
 
         }
     }

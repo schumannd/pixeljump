@@ -65,7 +65,8 @@ class GameMain extends GameCanvas {
             leftright = 1;
         
         pixel.accelerate(leftright, ms);
-        pixel.move(getWidth(), getHeight(), l.platforms, ms);
+        pixel.move(getWidth(), getHeight(), l.platforms, l.items, ms);
+        
         
         //gameover
         if(pixel.posY > getHeight())
@@ -109,6 +110,7 @@ class GameMain extends GameCanvas {
             img = Image.createImage("/res/pixelman.png");
         }catch(Exception e){}
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
+        Item.pixel = pixel;
         
         l = new Level(1,getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
