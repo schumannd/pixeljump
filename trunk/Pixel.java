@@ -1,4 +1,5 @@
 import java.util.Vector;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
@@ -6,11 +7,11 @@ public class Pixel extends Sprite {
     
     public double posX;
     public double posY;
-    public double speedX = 0;
-    public double speedY = 0;
-    final int JUMPSPEED = -20;
-    final int SPEEDLIMIT = 10;
-    final int ACCELERATION = 2;
+    private double speedX = 0;
+    private double speedY = 0;
+    private final int JUMPSPEED = -20;
+    private final int SPEEDLIMIT = 10;
+    private final int ACCELERATION = 2;
     public int score = 0;
     private static int imgWidth = 16;
     private static int imgHeigth = 16;
@@ -109,5 +110,17 @@ public class Pixel extends Sprite {
             }
         }
         return false;
+    }
+    
+    
+    public void moveDown (double dist) {
+        posY += dist;
+        setRefPixelPosition((int) posX, (int) posY);
+        score += dist;
+    }
+    
+    
+    public void paintScore(Graphics g, int width) {
+        g.drawString("Score: "+Integer.toString(score), width-65, 15, Graphics.TOP | Graphics.LEFT);
     }
 }

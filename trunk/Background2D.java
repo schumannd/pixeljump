@@ -10,7 +10,7 @@ public class Background2D {
     private int height;
     private TiledLayer landscape;
 
-    Random r = new Random();
+    private Random r = new Random();
 
     public Background2D(int width, int height) {
         this.height = height;
