@@ -50,11 +50,11 @@ public class Level {
     }
     
     private void solvable() {
-        addNewPlat(width / 2 - 15, height - 30, 1);
+        addNewPlat(width / 2 - 15, height - 30, 0);
 
         for (int i = 1; i <= 20; i++) {
             int x = r.nextInt(width - 30);
-            int y = height-30-i*91;
+            int y = height-30-i*92;
             int type = r.nextInt(2);
 
             addNewPlat(x, y, type);
@@ -64,7 +64,7 @@ public class Level {
     private void easier() {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
-            int y = r.nextInt(height+1820)-1820;
+            int y = r.nextInt(height+1840)-1840;
             int type = r.nextInt(3);
 
             addNewPlat(x, y, type);
