@@ -10,13 +10,15 @@ public class Pixel extends Sprite {
     public double speedY = 0;
     final int JUMPSPEED = -20;
     public int score = 0;
+    private static int imgWidth = 16;
+    private static int imgHeigth = 16;
 
     /**
      * Konstruktor für Objekte der Klasse Platform
      */
     public Pixel(Image img, double x, double y) {
-        super(img, 16, 16);
-        defineReferencePixel(7, 15); //TODO: kollision korrigieren, 7 ist falsch
+        super(img, imgWidth, imgHeigth);
+        defineReferencePixel(0, imgHeigth-1); //TODO: kollision korrigieren, 7 ist falsch
         posX = x;
         posY = y;
         setRefPixelPosition((int) x, (int) y);
@@ -77,7 +79,7 @@ public class Pixel extends Sprite {
                 Platform p = (Platform) platforms.elementAt(i);
                 //y-Distanz von pixel zu plattform
                 double distanceY = p.posY - posY;
-                //wenn die plattform ueberm pixel ist oder die distanz 
+                //wenn die plattform ueber dem pixel ist oder die distanz 
                 //groesser als die zurueckzulegende strecke ist, abbruch.
                 if (distanceY < 0 || distanceY > moveY)
                     continue;
@@ -88,7 +90,8 @@ public class Pixel extends Sprite {
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + moveX * fraction2;
                 //die position ist nicht auf der plattform, also keine kollision, abbruch
-                if (newPosX <= p.posX || newPosX >= (p.posX + p.size))
+                // für die positionen der beine
+                if (newPosX+13  <= p.posX || newPosX +3 >= (p.posX + p.size))
                     continue;
                 // lösche platform ohne kollision wenn fake
                 if(p.type == Platform.FAKE) {
