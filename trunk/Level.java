@@ -49,8 +49,8 @@ public class Level {
             p.moveDown(dist);
             p.moveSide(ms);
             
-            if(highest > 1500 + 1840*num) {
-                num++;
+            if(highest > 950-height + 950*num) {
+                num += 1;
                 createLvl();
                 }
                 
@@ -73,11 +73,13 @@ public class Level {
     }
     
     private void solvable() {
-        addNewPlat(width / 2 - 15, height - 30, 0);
+        addNewPlat(width / 2 - 15, height -30, 0);
 
-        for (int i = 1; i <= 21; i++) {
+        for (int i = 1; i <= 11; i++) {
             int x = r.nextInt(width - 30);
-            int y = height-30-i*92 -1800*num;
+            int y = height-30 -i*92;
+            if(num != 0)
+                y -=height;
             int type = r.nextInt(1);
 
             addNewPlat(x, y, type);
@@ -87,8 +89,10 @@ public class Level {
     private void easier() {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
-            int y = r.nextInt(height+1840)-1840 - 1840*num;
-            int type = r.nextInt(3);
+            int y = r.nextInt(950)-949+height -30;
+            if(num != 0)
+                y -=height;
+            int type = r.nextInt(2)+1;
 
             addNewPlat(x, y, type);
         }
