@@ -8,15 +8,15 @@ public class Level {
     private int width;
     private int height;
     Random r = new Random();
-    private int id;
     private static int num = 0;
+    public static int highest;
     
-    public Level(int d, int w, int h, int id) {
-        this.id = id;
+    public Level(int d, int w, int h) {
         diff = d;
         width = w;
         height = h;
-        createLvl(diff);
+        highest = height/2;
+        createLvl();
     }
     
     public Platform getPlat(int i){
@@ -29,22 +29,16 @@ public class Level {
     }
     
     
-    private void createLvl(int diff) {
-        solvable(0);
-        for(int i = 0; i < diff; i++)
-            easier(0);
+    private void createLvl() {
+        solvable();
+        for(int i = diff; i > num; i--)
+            easier();
         
-    }
-    
-    public void update(int num, int diffic) {
-        solvable(num);
-        for(int i = 0; i < diffic; i++)
-            easier(num);
-            
     }
     
     public void move(double dist, int ms) {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
+        highest += dist;
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.moveDown(dist);
@@ -53,7 +47,10 @@ public class Level {
             
             p.moveSide(ms);
             
-            //if(.posY >= 1400+1840*num) {
+            if(highest > 1500 + 1840*num) {
+                num++;
+                createLvl();
+                }
                 
             
             if (p.posY > height) {
@@ -63,19 +60,19 @@ public class Level {
         }
     }
     
-    private void solvable(int num) {
+    private void solvable() {
         addNewPlat(width / 2 - 15, height - 30, 0);
 
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 1; i <= 21; i++) {
             int x = r.nextInt(width - 30);
-            int y = height-30-i*92 -1840*num;
-            int type = r.nextInt(2);
+            int y = height-30-i*92 -1800*num;
+            int type = r.nextInt(1);
 
             addNewPlat(x, y, type);
         }
     }
     
-    private void easier(int num) {
+    private void easier() {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
             int y = r.nextInt(height+1840)-1840 - 1840*num;
@@ -88,7 +85,7 @@ public class Level {
     private void addNewPlat(int x, int y, int type){
         Image img = null;
         try{
-                img = Image.createImage("/plattform"+type+".png");
+                img = Image.createImage("/res/plattform"+type+".png");
         }catch(Exception e){}
         platforms.addElement(new Platform(img, x, y, 30, type));
 

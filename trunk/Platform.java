@@ -35,7 +35,7 @@ public class Platform extends Sprite {
         if(r.nextDouble() < 1 && (type == NORMAL || type == MOVE)){
             int itemType = 0;
             try{
-                img = Image.createImage("/item"+itemType+".png");
+                img = Image.createImage("/res/item"+itemType+".png");
             }catch(Exception e){}
             item = new Item(img);
             item.defineReferencePixel(0, 16);

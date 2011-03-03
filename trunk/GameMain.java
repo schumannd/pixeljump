@@ -43,8 +43,9 @@ class GameMain extends GameCanvas {
                 catch(Exception e) {}
             }
             pixel.paint(g);
-            
+
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
+            g.drawString("Height: "+Integer.toString(Level.highest), 15, 15, Graphics.TOP | Graphics.LEFT);
             
             break;
         case 3: //gameover
@@ -110,11 +111,11 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         Image img = null;
         try{
-            img = Image.createImage("/pixelman.png");
+            img = Image.createImage("/res/pixelman.png");
         }catch(Exception e){}
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         
-        l = new Level(0,getWidth(), getHeight(), 0);
+        l = new Level(1,getWidth(), getHeight());
         
         gameState = 1;
     }
