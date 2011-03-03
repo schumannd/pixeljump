@@ -8,7 +8,7 @@ public class Item extends Sprite {
     private double posX;
     public double posY;
     private Platform p;
-    private int type; // 0 = Feder
+    private int type; // 0 = Feder, 1 = Trampolin
     private Random r = new Random();
     public static Pixel pixel;
 
@@ -20,6 +20,7 @@ public class Item extends Sprite {
         this.p = p;
         posX = p.posX + x;
         posY = p.posY;
+        this.type = type;
         x = r.nextInt(30);
         setRefPixelPosition((int) posX,(int) posY);
     }
@@ -32,8 +33,9 @@ public class Item extends Sprite {
     
     public void causeEffect(){
         switch (type) {
-            case 0: pixel.speedY = -30;
-                    Debug.add(9001);
+            case 0: pixel.speedY = -27;
+                    break;
+            case 1: pixel.speedY = -9001;
                     break;
 
         }
