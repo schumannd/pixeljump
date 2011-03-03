@@ -1,6 +1,7 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import java.util.Random;
 
 public class Level {
     
@@ -12,6 +13,7 @@ public class Level {
     private Random r = new Random();
     private static int num = 0;
     public static int highest;
+    private Random ran;
     
     public Level(int d, int w, int h) {
         diff = d;
@@ -19,6 +21,7 @@ public class Level {
         height = h;
         highest = height/2;
         createLvl();
+        ran = new Random();
     }
     
     public Platform getPlat(int i){
@@ -93,18 +96,21 @@ public class Level {
 
     private void addNewPlat(int x, int y, int type){
         Image img = null;
+
         try{
                 img = Image.createImage("/res/plattform"+type+".png");
         }catch(Exception e){}
         platforms.addElement(new Platform(img, x, y, 30, type));
 
-        if(r.nextDouble() < 1 && (type == Platform.NORMAL || type == Platform.MOVE)){
+        if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
             int itemType = 0;
+            int n = r.nextInt(100);
+        if(80 < n ) itemType++;
             try{
                 img = Image.createImage("/res/item"+itemType+".png");
             }catch(Exception e){}
             Platform p = (Platform) platforms.elementAt(platforms.size()-1);
-            items.addElement( new Item(p, img, Item.SPRING));
+            items.addElement( new Item(p, img, itemType));
             Item item = (Item)items.elementAt(items.size()-1);
             item.defineReferencePixel(0, 16);
             item.setRefPixelPosition(item.getItemX() + x, y - 32);
