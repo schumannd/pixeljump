@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public class Level {
@@ -8,7 +9,7 @@ public class Level {
     public Vector items = new Vector();
     private int width;
     private int height;
-    Random r = new Random();
+    private Random r = new Random();
     private static int num = 0;
     public static int highest;
     
@@ -106,9 +107,14 @@ public class Level {
             items.addElement( new Item(p, img, Item.SPRING));
             Item item = (Item)items.elementAt(items.size()-1);
             item.defineReferencePixel(0, 16);
-            item.setRefPixelPosition((int) (item.getItemX() + p.posX), (int)p.posY - 32);
+            item.setRefPixelPosition(item.getItemX() + x, y - 32);
         }
 
+    }
+    
+    
+    public void paintHeight(Graphics g) {
+        g.drawString("Height: "+Integer.toString(highest), 15, 15, Graphics.TOP | Graphics.LEFT);
     }
 
 }

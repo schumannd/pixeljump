@@ -43,10 +43,8 @@ class GameMain extends GameCanvas {
             }
 
             pixel.paint(g);
-
-            g.drawString("Score: "+Integer.toString(pixel.score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
-            g.drawString("Height: "+Integer.toString(Level.highest), 15, 15, Graphics.TOP | Graphics.LEFT);
-            
+            pixel.paintScore(g, getWidth());
+            l.paintHeight(g);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
@@ -79,9 +77,7 @@ class GameMain extends GameCanvas {
         if (dist > 0) {
             b2d.setDist(dist);
             l.move(dist, ms);
-            pixel.posY += dist;
-            pixel.setRefPixelPosition((int) pixel.posX, (int) pixel.posY);
-            pixel.score += dist;
+            pixel.moveDown(dist);
         }
         else {
             l.move(0, ms);
