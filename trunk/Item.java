@@ -35,7 +35,7 @@ public class Item extends Sprite {
         switch (type) {
             case 0: pixel.speedY = -27;
                     break;
-            case 1: pixel.speedY = -9001;
+            case 1: pixel.speedY = -45;
                     break;
 
         }
