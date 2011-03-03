@@ -10,6 +10,9 @@ class GameMain extends GameCanvas {
     private Background2D b2d;
     //private Background3D b3d;
     private Level l;
+    
+    
+    private final int FPS = 40;
 
     public GameMain(MainMIDlet midlet) {
         super(true);
@@ -90,7 +93,7 @@ class GameMain extends GameCanvas {
     }
     
     public void startTimer() {
-        final int ms = 40;
+        final int ms = 1000/FPS;
         stopTimer();
         mainTimer = new Timer();
         TimerTask pt = new TimerTask() {
