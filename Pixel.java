@@ -56,16 +56,19 @@ public class Pixel extends Sprite {
         }
         posX += moveX;
         //linke wand
-        if (posX < 0)
+        if (posX < 0){
             posX = width;
+            this.setRefPixelPosition((int) width,(int) posY);
+            }
         
 
         //rechte wand
-        else if (posX > width - 1)
+        else if (posX > width - 1){
             posX = 0;
+            this.setRefPixelPosition(0, (int) posY);
+        }
         
-        
-        this.setRefPixelPosition((int) posX,(int) posY);
+        this.setRefPixelPosition((int) posX, (int) posY);
         
         
         //Gavitation.
