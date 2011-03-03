@@ -11,14 +11,11 @@ class GameMain extends GameCanvas {
     //private Background3D b3d;
     private Level l;
     
-    
     private final int FPS = 40;
 
     public GameMain(MainMIDlet midlet) {
         super(true);
-        
         gameState = 0;
-
     }
 
     public void init() {
@@ -60,7 +57,6 @@ class GameMain extends GameCanvas {
         Debug.print(g);
     }
 
-    
 
     private void doGamePlay(int ms) {
         int keycode = getKeyStates();

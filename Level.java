@@ -103,7 +103,7 @@ public class Level {
                 img = Image.createImage("/res/item"+itemType+".png");
             }catch(Exception e){}
             Platform p = (Platform) platforms.elementAt(platforms.size()-1);
-            items.addElement( new Item(p, img, Item.FEATHER));
+            items.addElement( new Item(p, img, Item.SPRING));
             Item item = (Item)items.elementAt(items.size()-1);
             item.defineReferencePixel(0, 16);
             item.setRefPixelPosition((int) (item.getItemX() + p.posX), (int)p.posY - 32);
