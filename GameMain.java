@@ -37,11 +37,11 @@ class GameMain extends GameCanvas {
         case 1: //im spiel
             for (int i = 0; i < l.getSize(); i++) {
                 l.getPlat(i).paint(g);
-                try{
-                    l.getPlat(i).item.paint(g);
-                }
-                catch(Exception e) {}
             }
+            for (int i = 0; i < l.items.size(); i++) {
+                ((Item) l.items.elementAt(i)).paint(g);  
+            }
+
             pixel.paint(g);
 
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
