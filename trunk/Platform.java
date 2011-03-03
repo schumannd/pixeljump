@@ -1,8 +1,6 @@
 import java.util.Random;
-
 import javax.microedition.lcdui.game.*;
 import javax.microedition.lcdui.*;
-import java.util.Random;
 
 public class Platform extends Sprite {
     
@@ -29,9 +27,8 @@ public class Platform extends Sprite {
         size = l;
         type = t;
         
-        if (new Random().nextDouble() < 0.5)
+        if (r.nextDouble() < 0.5)
             moves = true;
-
     }
     
     

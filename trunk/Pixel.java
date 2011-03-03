@@ -1,6 +1,6 @@
-import java.util.*;
-import javax.microedition.lcdui.game.*;
-import javax.microedition.lcdui.*;
+import java.util.Vector;
+import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.game.Sprite;
 
 public class Pixel extends Sprite {
     
@@ -15,9 +15,7 @@ public class Pixel extends Sprite {
     private static int imgWidth = 16;
     private static int imgHeigth = 16;
 
-    /**
-     * Konstruktor für Objekte der Klasse Platform
-     */
+    
     public Pixel(Image img, double x, double y) {
         super(img, imgWidth, imgHeigth);
         defineReferencePixel(0, imgHeigth-1); //TODO: kollision korrigieren, 7 ist falsch
@@ -43,35 +41,31 @@ public class Pixel extends Sprite {
     }
     
     public void move(int width, int height, Vector platforms, int ms) {
-        
         double fraction = 15*ms/1000.0d;
         //die diesen zug zurueckzulegende distanz.
         double moveY = speedY*fraction;
         double moveX = speedX*fraction;
-        
         
         if (!collisionDetection(platforms, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
             posY += moveY; 
         }
         posX += moveX;
+        
         //linke wand
         if (posX < 0){
             posX = width;
         }
-        
-
         //rechte wand
         else if (posX > width - 1){
             posX = 0;
         }
         
         this.setRefPixelPosition((int) posX, (int) posY);
-        
-        
         //Gavitation.
         speedY += 2*fraction;
     }
+    
     
     public boolean collisionDetection(Vector platforms, double moveX, double moveY) {
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
@@ -91,10 +85,10 @@ public class Pixel extends Sprite {
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + moveX * fraction2;
                 //die position ist nicht auf der plattform, also keine kollision, abbruch
-                // für die positionen der beine
+                // fuer die positionen der beine
                 if (newPosX+13  <= p.posX || newPosX +3 >= (p.posX + p.size))
                     continue;
-                // lösche platform ohne kollision wenn fake
+                // loesche platform ohne kollision wenn fake
                 if(p.type == Platform.FAKE) {
                     platforms.removeElementAt(i);
                     continue;
@@ -108,7 +102,6 @@ public class Pixel extends Sprite {
                     platforms.removeElementAt(i);
                 }
                 
-                
                 //neue geschwindigkeit
                 speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
@@ -116,9 +109,5 @@ public class Pixel extends Sprite {
             }
         }
         return false;
-
     }
-    
-    
-    
 }
