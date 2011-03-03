@@ -101,6 +101,7 @@ public class Pixel extends Sprite {
                     platforms.removeElementAt(i);
                     continue;
                 }
+                
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
                 posY = posY + moveY * fraction2;//
                 posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
@@ -117,6 +118,7 @@ public class Pixel extends Sprite {
             }
         }
         return false;
+
     }
     
     

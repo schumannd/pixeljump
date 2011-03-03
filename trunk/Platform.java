@@ -32,15 +32,6 @@ public class Platform extends Sprite {
         if (new Random().nextDouble() < 0.5)
             moves = true;
 
-        if(r.nextDouble() < 1 && (type == NORMAL || type == MOVE)){
-            int itemType = 0;
-            try{
-                img = Image.createImage("/res/item"+itemType+".png");
-            }catch(Exception e){}
-            item = new Item(img);
-            item.defineReferencePixel(0, 16);
-            item.setRefPixelPosition((int) (item.getItemX() + posX), (int)posY - 32);
-        }  
     }
     
     

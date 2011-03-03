@@ -5,6 +5,7 @@ public class Level {
     
     public int diff;
     public Vector platforms = new Vector();
+    public Vector items = new Vector();
     private int width;
     private int height;
     Random r = new Random();
@@ -42,9 +43,6 @@ public class Level {
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.moveDown(dist);
-            if (p.item != null)
-                p.item.setRefPixelPosition((int) p.posX, (int) (p.posY + dist));
-            
             p.moveSide(ms);
             
             if(highest > 1500 + 1840*num) {
@@ -56,6 +54,16 @@ public class Level {
             if (p.posY > height) {
                 platforms.removeElementAt(i);
                 i--;
+            }
+        }
+        for (int j = 0; j < items.size(); j++) {
+            Item it = (Item) items.elementAt(j);
+            it.updatePos();
+//            it.moveSide(ms);
+
+            if (it.posY > height) {
+                items.removeElementAt(j);
+                j--;
             }
         }
     }
@@ -88,6 +96,18 @@ public class Level {
                 img = Image.createImage("/res/plattform"+type+".png");
         }catch(Exception e){}
         platforms.addElement(new Platform(img, x, y, 30, type));
+
+        if(r.nextDouble() < 1 && (type == Platform.NORMAL || type == Platform.MOVE)){
+            int itemType = 0;
+            try{
+                img = Image.createImage("/res/item"+itemType+".png");
+            }catch(Exception e){}
+            Platform p = (Platform) platforms.elementAt(platforms.size()-1);
+            items.addElement( new Item(p, img, Item.FEATHER));
+            Item item = (Item)items.elementAt(items.size()-1);
+            item.defineReferencePixel(0, 16);
+            item.setRefPixelPosition((int) (item.getItemX() + p.posX), (int)p.posY - 32);
+        }
 
     }
 
