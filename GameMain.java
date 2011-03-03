@@ -79,17 +79,14 @@ class GameMain extends GameCanvas {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
 //            b2d.setDist(dist);
-            l.move(dist);
+            l.move(dist, ms);
             pixel.posY += dist;
             pixel.setRefPixelPosition((int) pixel.posX, (int) pixel.posY);
             pixel.score += dist;
         }
-        
-        for (int i = 0; i < l.getSize(); i++) {
-            Platform p = l.getPlat(i);
-            p.moveSide(ms);
+        else {
+            l.move(0, ms);
         }
-        
     }
     
     public void startTimer() {
