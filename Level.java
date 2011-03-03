@@ -74,7 +74,7 @@ public class Level {
     private void addNewPlat(int x, int y, int type){
         Image img = null;
         try{
-            img = Image.createImage("/res/plattform"+type+".png");
+                img = Image.createImage("/plattform"+type+".png");
         }catch(Exception e){}
         platforms.addElement(new Platform(img, x, y, 30, type));
 
