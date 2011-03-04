@@ -16,7 +16,7 @@ public class Item extends Sprite {
 
 
     public Item(Platform p, Image img, int type){
-        super(img, 16, 16);
+        super(img, img.getWidth(), img.getHeight());
         this.p = p;
         posX = p.posX + x;
         posY = p.posY;

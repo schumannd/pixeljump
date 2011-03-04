@@ -46,7 +46,7 @@ public class Background2D {
         try {
             img = Image.createImage("/res/background.png");
         } catch (IOException e) {}
-        landscape = new TiledLayer(1, 1, img, 240, 1000);
+        landscape = new TiledLayer(1, 1, img, img.getWidth(), img.getHeight());
         landscape.setCell(0, 0, 1);
         landscape.setPosition(0, -1000 + height);
 //        int[] map = {
