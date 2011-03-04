@@ -5,7 +5,7 @@ import javax.microedition.lcdui.game.Sprite;
 
 public class Pixel extends Sprite {
     
-    public double posX;
+    private double posX;
     public double posY;
     private double speedX = 0;
     public double speedY = 0;
@@ -13,14 +13,12 @@ public class Pixel extends Sprite {
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
     public int score = 0;
-    private static int imgWidth = 16;
-    private static int imgHeigth = 16;
     int itemEffect = 0;
 
     
     public Pixel(Image img, double x, double y) {
-        super(img, imgWidth, imgHeigth);
-        defineReferencePixel(0, imgHeigth-1); //TODO: kollision korrigieren, 7 ist falsch
+        super(img, img.getWidth(), img.getHeight());
+        defineReferencePixel(0, img.getHeight()-1);
         posX = x;
         posY = y;
         setRefPixelPosition((int) x, (int) y);
@@ -75,7 +73,7 @@ public class Pixel extends Sprite {
         return platformCollDetec(platforms, moveX, moveY);
     }
 
-    public boolean itemCollDetec(Vector items){
+    private boolean itemCollDetec(Vector items){
         for(int i = 0; i < items.size(); i++){
             Item it = (Item) items.elementAt(i);
             if(this.collidesWith(it, false)){
@@ -89,7 +87,7 @@ public class Pixel extends Sprite {
 
     }
 
-    public boolean platformCollDetec(Vector platforms, double moveX, double moveY){
+    private boolean platformCollDetec(Vector platforms, double moveX, double moveY){
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
         if (speedY > 0) {
            for (int i = 0; i < platforms.size(); i++) {

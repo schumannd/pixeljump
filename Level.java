@@ -5,15 +5,14 @@ import java.util.Random;
 
 public class Level {
     
-    public int diff;
+    private int diff;
     public Vector platforms = new Vector();
     public Vector items = new Vector();
     private int width;
     private int height;
     private Random r = new Random();
-    private static int num = 0;
-    public static int highest;
-    private Random ran;
+    private int num = 0;
+    private int highest;
     
     public Level(int d, int w, int h) {
         diff = d;
@@ -21,7 +20,6 @@ public class Level {
         height = h;
         highest = height/2;
         createLvl();
-        ran = new Random();
     }
     
     public Platform getPlat(int i){
@@ -122,6 +120,14 @@ public class Level {
 
     }
     
+    public void paintPlatAndItems(Graphics g) {
+        for (int i = 0; i < getSize(); i++) {
+            getPlat(i).paint(g);
+        }
+        for (int i = 0; i < items.size(); i++) {
+            ((Item) items.elementAt(i)).paint(g);  
+        }
+    }
     
     public void paintHeight(Graphics g) {
         g.drawString("Height: "+Integer.toString(highest), 15, 15, Graphics.TOP | Graphics.LEFT);

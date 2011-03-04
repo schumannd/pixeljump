@@ -35,12 +35,7 @@ class GameMain extends GameCanvas {
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
         case 1: //im spiel
-            for (int i = 0; i < l.getSize(); i++) {
-                l.getPlat(i).paint(g);
-            }
-            for (int i = 0; i < l.items.size(); i++) {
-                ((Item) l.items.elementAt(i)).paint(g);  
-            }
+            l.paintPlatAndItems(g);
 
             pixel.paint(g);
             pixel.paintScore(g, getWidth());
@@ -66,7 +61,6 @@ class GameMain extends GameCanvas {
         
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), getHeight(), l.platforms, l.items, ms);
-        
         
         //gameover
         if(pixel.posY > getHeight())
@@ -123,4 +117,3 @@ class GameMain extends GameCanvas {
         repaint();
     }
 }
-//test
