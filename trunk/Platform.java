@@ -20,7 +20,7 @@ public class Platform extends Sprite {
     
     
     public Platform(Image img, double x, double y, int l, int t) {
-        super(img, 30, 3);
+        super(img, img.getWidth(), img.getHeight());
         posX = x;
         posY = y;
         setRefPixelPosition((int) posX, (int) posY);
