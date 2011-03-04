@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
@@ -42,10 +41,7 @@ public class Background2D {
     }
 
     private void createLandscape() {
-        Image img = null;
-        try {
-            img = Image.createImage("/res/background.png");
-        } catch (IOException e) {}
+        Image img = Tools.backgroundImage;
         landscape = new TiledLayer(1, 1, img, img.getWidth(), img.getHeight());
         landscape.setCell(0, 0, 1);
         landscape.setPosition(0, -1000 + height);
