@@ -8,7 +8,7 @@ public class Platform extends Sprite {
     public double posX;
     public double posY;
     public int size;
-    public Item item = null;
+    private Item item = null;
     private Random r = new Random();
     
     public static final int NORMAL = 0;
