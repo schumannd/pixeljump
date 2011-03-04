@@ -19,6 +19,7 @@ class GameMain extends GameCanvas {
     }
 
     public void init() {
+        Tools.init();
         initNewGame();
     }
 
@@ -99,10 +100,7 @@ class GameMain extends GameCanvas {
     }
 
     public void initNewGame() {
-        Image img = null;
-        try{
-            img = Image.createImage("/res/pixelman.png");
-        }catch(Exception e){}
+        Image img = Tools.pixelImage;
         pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
         
