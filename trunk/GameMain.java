@@ -14,7 +14,7 @@ class GameMain extends GameCanvas {
     private final int FPS = 40;
 
     public GameMain(MainMIDlet midlet) {
-        super(true);
+        super(false);
         gameState = 0;
     }
 
@@ -36,8 +36,9 @@ class GameMain extends GameCanvas {
             break;
         case 1: //im spiel
             l.paintPlatAndItems(g);
-
             pixel.paint(g);
+            pixel.paintProjectiles(g);
+            
             pixel.paintScore(g, getWidth());
             l.paintHeight(g);
             break;
@@ -61,6 +62,7 @@ class GameMain extends GameCanvas {
         
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), l.platforms, l.items, ms);
+        pixel.moveProjectiles(ms);
         
         //gameover
         if(pixel.posY > getHeight())
@@ -73,6 +75,7 @@ class GameMain extends GameCanvas {
             b2d.setDist(dist);
             l.move(dist, ms);
             pixel.moveDown(dist);
+            pixel.moveProjectilesDown(dist);
         }
         else {
             l.move(0, ms);
@@ -111,5 +114,11 @@ class GameMain extends GameCanvas {
         stopTimer();
         gameState = 0;
         repaint();
+    }
+    
+    
+    protected void keyPressed( int keyCode ) {
+        if (keyCode == getKeyCode(UP))
+            pixel.shoot();
     }
 }

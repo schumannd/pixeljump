@@ -14,6 +14,7 @@ public class Pixel extends Sprite {
     public int score = 0;
     int itemEffect = 0;
 
+    Vector projectiles = new Vector();
     
     public Pixel(double x, double y) {
         super(Tools.pixelImage);
@@ -135,6 +136,35 @@ public class Pixel extends Sprite {
         posY += dist;
         setRefPixelPosition((int) posX, (int) posY);
         score += dist;
+    }
+    
+    
+    public void shoot() {
+        projectiles.addElement(new Projectile(posX, posY));
+    }
+    
+    
+    public void moveProjectiles(int ms) {
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.move(ms);
+        }
+    }
+    
+    
+    public void moveProjectilesDown(double dist) {
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.moveDown(dist);
+        }
+    }
+    
+    
+    public void paintProjectiles (Graphics g) {
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.paint(g);
+        }
     }
     
     
