@@ -26,6 +26,10 @@ public class Level {
         return (Platform) platforms.elementAt(i);
     }
     
+    public Item getItem(int i){
+        return (Item) items.elementAt(i);
+    }
+    
     
     public int getSize(){
         return platforms.size();
@@ -97,17 +101,15 @@ public class Level {
     }
 
     private void addNewPlat(int x, int y, int type){
-        Image img = Tools.platImages[type];
-        platforms.addElement(new Platform(img, x, y, 30, type));
+        platforms.addElement(new Platform(x, y, 30, type));
 
         if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
             int itemType = 0;
             int n = r.nextInt(100);
         if(80 < n ) itemType++;
-            Image img2 = Tools.itemImages[itemType];
-            Platform p = (Platform) platforms.elementAt(platforms.size()-1);
-            items.addElement( new Item(p, img2, itemType));
-            Item item = (Item)items.elementAt(items.size()-1);
+            Platform p = getPlat(platforms.size()-1);
+            items.addElement(new Item(p, itemType));
+            Item item = getItem(items.size()-1);
             item.defineReferencePixel(0, 16);
             item.setRefPixelPosition(item.getItemX() + x, y - 32);
         }

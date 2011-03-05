@@ -1,5 +1,4 @@
 import java.util.Random;
-import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
 public class Item extends Sprite {
@@ -13,10 +12,11 @@ public class Item extends Sprite {
     public static Pixel pixel;
 
     public static final int SPRING = 0;
+    public static final int TRAMPOLINE = 1;
 
 
-    public Item(Platform p, Image img, int type){
-        super(img, img.getWidth(), img.getHeight());
+    public Item(Platform p, int type){
+        super(Tools.itemImages[type]);
         this.p = p;
         posX = p.posX + x;
         posY = p.posY;
@@ -33,9 +33,9 @@ public class Item extends Sprite {
     
     public void causeEffect(){
         switch (type) {
-            case 0: pixel.speedY = -27;
+            case SPRING: pixel.speedY = pixel.JUMPSPEED*1.33;
                     break;
-            case 1: pixel.speedY = -45;
+            case TRAMPOLINE: pixel.speedY = pixel.JUMPSPEED*2.25;
                     break;
 
         }

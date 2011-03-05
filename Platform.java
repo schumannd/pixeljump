@@ -19,8 +19,8 @@ public class Platform extends Sprite {
     boolean moves = false;
     
     
-    public Platform(Image img, double x, double y, int l, int t) {
-        super(img, img.getWidth(), img.getHeight());
+    public Platform(double x, double y, int l, int t) {
+        super(Tools.platImages[t]);
         posX = x;
         posY = y;
         setRefPixelPosition((int) posX, (int) posY);
