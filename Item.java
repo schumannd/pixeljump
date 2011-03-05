@@ -1,4 +1,6 @@
 import java.util.Random;
+
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.Sprite;
 
 public class Item extends Sprite {
@@ -46,5 +48,12 @@ public class Item extends Sprite {
         posY = p.posY;
         posX = p.posX + x;
         setRefPixelPosition((int) posX, (int) posY);
+    }
+    
+    
+    public void paint2(Graphics g) {
+        if (posY < -10)
+            return;
+        super.paint(g);
     }
 }
