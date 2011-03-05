@@ -21,11 +21,13 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         canvas.setCommandListener(this);
 
         display.setCurrent(canvas);
+        Tools.init();
         canvas.init();
     }
 
     public void startApp() {
-        display.setCurrent(canvas);//new Background3D());
+        display.setCurrent(canvas);
+        Tools.init();
         canvas.startTimer();
     }
 

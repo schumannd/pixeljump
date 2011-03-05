@@ -19,7 +19,6 @@ class GameMain extends GameCanvas {
     }
 
     public void init() {
-        Tools.init();
         initNewGame();
     }
 
@@ -61,7 +60,7 @@ class GameMain extends GameCanvas {
             leftright = 1;
         
         pixel.accelerate(leftright, ms);
-        pixel.move(getWidth(), getHeight(), l.platforms, l.items, ms);
+        pixel.move(getWidth(), l.platforms, l.items, ms);
         
         //gameover
         if(pixel.posY > getHeight())
@@ -100,8 +99,7 @@ class GameMain extends GameCanvas {
     }
 
     public void initNewGame() {
-        Image img = Tools.pixelImage;
-        pixel = new Pixel(img, getWidth() / 2, getHeight() / 2);
+        pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
         
         l = new Level(3,getWidth(), getHeight());

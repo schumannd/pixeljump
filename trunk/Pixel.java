@@ -1,6 +1,5 @@
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 
 public class Pixel extends Sprite {
@@ -9,16 +8,16 @@ public class Pixel extends Sprite {
     public double posY;
     private double speedX = 0;
     public double speedY = 0;
-    private final int JUMPSPEED = -20;
+    public final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
     public int score = 0;
     int itemEffect = 0;
 
     
-    public Pixel(Image img, double x, double y) {
-        super(img, img.getWidth(), img.getHeight());
-        defineReferencePixel(0, img.getHeight()-1);
+    public Pixel(double x, double y) {
+        super(Tools.pixelImage);
+        defineReferencePixel(0, Tools.pixelImage.getHeight()-1);
         posX = x;
         posY = y;
         setRefPixelPosition((int) x, (int) y);
@@ -40,7 +39,7 @@ public class Pixel extends Sprite {
             speedX /= 2/fraction;
     }
     
-    public void move(int width, int height, Vector platforms, Vector items, int ms) {
+    public void move(int width, Vector platforms, Vector items, int ms) {
         double fraction = 15*ms/1000.0d;
         //die diesen zug zurueckzulegende distanz.
         double moveY = speedY*fraction;
@@ -58,7 +57,7 @@ public class Pixel extends Sprite {
             posX = width;
         }
         //rechte wand
-        else if (posX > width - 1){
+        else if (posX > width){
             posX = 0;
         }
         
@@ -78,8 +77,8 @@ public class Pixel extends Sprite {
             Item it = (Item) items.elementAt(i);
             if(this.collidesWith(it, false)){
                 it.causeEffect();
+                return true;
             }
-            return true;
 
 
         }

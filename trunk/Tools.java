@@ -9,12 +9,15 @@ public class Tools {
     public static Image[] platImages = new Image[3];
     public static Image[] itemImages = new Image[2];
     
-    private static String res = null;
+    private static String res;
     
     
     public static void init() {
+        if (pixelImage != null)
+            return; //wurde bereits initialisiert
         try{
             pixelImage = Image.createImage("/pixelman.png");
+            res = null;
         }catch(Exception e){res = "/res";}
         try{
             
