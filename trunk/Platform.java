@@ -44,6 +44,13 @@ public class Platform extends Sprite {
 //        posX += 20f/(1000f/ms);
 //        setRefPixelPosition((int) posX, (int) posY);
     }
-
-
+    
+    
+    public void paint2(Graphics g) {
+        if (this.posY < -10)
+            return;
+        super.paint(g);
+//        g.drawImage(Tools.platImages[type], (int)posX, (int)posY, 0);
+        
+    }
 }

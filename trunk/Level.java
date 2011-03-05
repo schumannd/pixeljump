@@ -118,10 +118,10 @@ public class Level {
     
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < getSize(); i++) {
-            getPlat(i).paint(g);
+            getPlat(i).paint2(g);
         }
         for (int i = 0; i < items.size(); i++) {
-            ((Item) items.elementAt(i)).paint(g);  
+            getItem(i).paint2(g);  
         }
     }
     
