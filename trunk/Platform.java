@@ -8,7 +8,7 @@ public class Platform extends Sprite {
     public double posX;
     public double posY;
     public int size;
-    private Item item = null;
+    public Item item = null;
     private Random r = new Random();
     
     public static final int NORMAL = 0;
@@ -35,6 +35,8 @@ public class Platform extends Sprite {
     public void moveDown(double dist) {
         posY += dist;
         setRefPixelPosition((int) posX, (int) posY);
+        if (item != null)
+            item.updatePos();
     }
     
     
@@ -43,14 +45,16 @@ public class Platform extends Sprite {
             return;
 //        posX += 20f/(1000f/ms);
 //        setRefPixelPosition((int) posX, (int) posY);
+        if (item != null)
+            item.updatePos();
     }
     
     
     public void paint2(Graphics g) {
         if (this.posY < -10)
             return;
+        if (item != null)
+            item.paint(g);
         super.paint(g);
-//        g.drawImage(Tools.platImages[type], (int)posX, (int)posY, 0);
-        
     }
 }
