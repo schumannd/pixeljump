@@ -47,8 +47,10 @@ public class MainMIDlet extends MIDlet implements CommandListener {
 
         if (c == cmExit)
             exitMIDlet();
-        else if (c == cmNewGame)
+        else if (c == cmNewGame) {
             canvas.initNewGame();
+            canvas.startTimer();
+        }
         else if (c == cmPause) {
             canvas.stopTimer();
             canvas.removeCommand(cmPause);
