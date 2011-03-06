@@ -81,7 +81,7 @@ public class Pixel extends Sprite {
         for(int i = 0; i < monsters.size(); i++){
             Monster m = (Monster) monsters.elementAt(i);
             for (int j = 0; j < projectiles.size(); j++) {
-                Projectile p = (Projectile) projectiles.elementAt(i);
+                Projectile p = (Projectile) projectiles.elementAt(j);
                 if (m.collidesWith(p, false)) {
                     monsters.removeElementAt(i);
                     i--;
