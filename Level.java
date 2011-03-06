@@ -58,18 +58,9 @@ public class Level {
                 
             
             if (p.posY > height) {
+                items.removeElement(p.item);
                 platforms.removeElementAt(i);
                 i--;
-            }
-        }
-        for (int j = 0; j < items.size(); j++) {
-            Item it = (Item) items.elementAt(j);
-            it.updatePos();
-//            it.moveSide(ms);
-
-            if (it.posY > height) {
-                items.removeElementAt(j);
-                j--;
             }
         }
     }
@@ -101,17 +92,17 @@ public class Level {
     }
 
     private void addNewPlat(int x, int y, int type){
-        platforms.addElement(new Platform(x, y, 30, type));
+        Platform plat = new Platform(x, y, 30, type);
+        platforms.addElement(plat);
 
         if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
             int itemType = 0;
             int n = r.nextInt(100);
-        if(80 < n ) itemType++;
-            Platform p = getPlat(platforms.size()-1);
-            items.addElement(new Item(p, itemType));
-            Item item = getItem(items.size()-1);
-            item.defineReferencePixel(0, 16);
-            item.setRefPixelPosition(item.getItemX() + x, y - 32);
+            if(80 < n ) 
+                itemType++;
+            Item item = new Item(plat, itemType);
+            plat.item = item;
+            items.addElement(item);
         }
 
     }
@@ -119,9 +110,6 @@ public class Level {
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < getSize(); i++) {
             getPlat(i).paint2(g);
-        }
-        for (int i = 0; i < items.size(); i++) {
-            getItem(i).paint2(g);  
         }
     }
     

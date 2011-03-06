@@ -1,6 +1,4 @@
 import java.util.Random;
-
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.Sprite;
 
 public class Item extends Sprite {
@@ -20,16 +18,13 @@ public class Item extends Sprite {
     public Item(Platform p, int type){
         super(Tools.itemImages[type]);
         this.p = p;
+        this.type = type;
+        x = r.nextInt(30-Tools.itemImages[type].getWidth());
         posX = p.posX + x;
         posY = p.posY;
-        this.type = type;
-        x = r.nextInt(30);
+
+        defineReferencePixel(0, 16);
         setRefPixelPosition((int) posX,(int) posY);
-    }
-    
-    
-    public int getItemX(){
-        return x;
     }
     
     
@@ -45,15 +40,8 @@ public class Item extends Sprite {
     
     
     public void updatePos() {
-        posY = p.posY;
         posX = p.posX + x;
+        posY = p.posY;
         setRefPixelPosition((int) posX, (int) posY);
-    }
-    
-    
-    public void paint2(Graphics g) {
-        if (posY < -10)
-            return;
-        super.paint(g);
     }
 }
