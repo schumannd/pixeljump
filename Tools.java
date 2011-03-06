@@ -8,6 +8,7 @@ public class Tools {
     public static Image backgroundImage;
     public static Image[] platImages = new Image[3];
     public static Image[] itemImages = new Image[2];
+    public static Image[] monsterImages = new Image[1];
     
     private static String res;
     
@@ -29,6 +30,9 @@ public class Tools {
             }
             for (int i = 0; i < itemImages.length; i++) {
                 itemImages[i] = Image.createImage(res+"/item"+i+".png");
+            }
+            for (int i = 0; i < monsterImages.length; i++) {
+                monsterImages[i] = Image.createImage(res+"/monster"+i+".png");
             }
             
         }catch(Exception e){}

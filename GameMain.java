@@ -61,7 +61,12 @@ class GameMain extends GameCanvas {
             leftright = 1;
         
         pixel.accelerate(leftright, ms);
-        pixel.move(getWidth(), l.platforms, l.items, ms);
+        pixel.move(getWidth(), l.platforms, l.items, l.monsters, ms);
+        if (pixel.monsterCollision(l.monsters)) {
+            gameState = 3;
+            stopTimer();
+            return;
+        }
         pixel.moveProjectiles(ms);
         
         //gameover
