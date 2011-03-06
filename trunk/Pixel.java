@@ -40,13 +40,11 @@ public class Pixel extends Sprite {
             speedX /= 2/fraction;
     }
     
-    public void move(int width, Vector platforms, Vector items, Vector monsters, int ms) {
+    public void move(int width, Vector platforms, Vector items, int ms) {
         double fraction = 15*ms/1000.0d;
         //die diesen zug zurueckzulegende distanz.
         double moveY = speedY*fraction;
         double moveX = speedX*fraction;
-        
-        monsterProjectileCollision(monsters);
         
         if (!collisionDetection(platforms, items, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
@@ -79,7 +77,7 @@ public class Pixel extends Sprite {
         return false;
     }
     
-    private void monsterProjectileCollision(Vector monsters) {
+    public void monsterProjectileCollision(Vector monsters) {
         for(int i = 0; i < monsters.size(); i++){
             Monster m = (Monster) monsters.elementAt(i);
             for (int j = 0; j < projectiles.size(); j++) {
