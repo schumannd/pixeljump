@@ -1,6 +1,5 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 import java.util.Random;
 
 public class Level {
@@ -8,6 +7,7 @@ public class Level {
     private int diff;
     public Vector platforms = new Vector();
     public Vector items = new Vector();
+    public Vector monsters = new Vector();
     private int width;
     private int height;
     private Random r = new Random();
@@ -30,6 +30,10 @@ public class Level {
         return (Item) items.elementAt(i);
     }
     
+    public Monster getMonster(int i){
+        return (Monster) monsters.elementAt(i);
+    }
+    
     
     public int getSize(){
         return platforms.size();
@@ -37,6 +41,7 @@ public class Level {
     
     
     private void createLvl() {
+        monsters.addElement(new Monster(20, 20, 0));
         solvable();
         for(int i = diff; i > num; i--)
             easier();
@@ -62,6 +67,10 @@ public class Level {
                 platforms.removeElementAt(i);
                 i--;
             }
+        }
+        for (int i = 0; i < monsters.size(); i++) {
+            Monster m = getMonster(i);
+            m.moveDown(dist);
         }
     }
     
@@ -110,6 +119,10 @@ public class Level {
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < getSize(); i++) {
             getPlat(i).paint2(g);
+        }
+        for (int i = 0; i < monsters.size(); i++) {
+            Monster m = getMonster(i);
+            m.paint(g);
         }
     }
     
