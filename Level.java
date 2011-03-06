@@ -12,7 +12,7 @@ public class Level {
     private int height;
     private Random r = new Random();
     private int num = 0;
-    private int highest;
+    private double highest;
     
     public Level(int d, int w, int h) {
         diff = d;
@@ -56,7 +56,7 @@ public class Level {
             p.moveDown(dist);
             p.moveSide(ms);
             
-            if(highest > 950-height + 950*num) {
+            if(highest > 920-height/2 + 920*num) {
                 num += 1;
                 createLvl();
                 }
@@ -75,14 +75,17 @@ public class Level {
     }
     
     private void solvable() {
-        addNewPlat(width / 2 - 15, height -30, 0);
+        //Anfangsplatform
+        if(num == 0)
+            addNewPlat(width / 2 - 15, height -30, 0);
 
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
-            int y = height-30 -i*92;
-            if(num != 0)
-                y -=height;
-            int type = r.nextInt(1);
+            int y = -i*92;
+            //Platformen werden nicht über dem Bildschirm erzeugt
+            if(num == 0)
+                y +=height;
+            int type = 0;
 
             addNewPlat(x, y, type);
         }
@@ -91,9 +94,10 @@ public class Level {
     private void easier() {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
-            int y = r.nextInt(950)-949+height -30;
-            if(num != 0)
-                y -=height;
+            int y = r.nextInt(920)-919;
+            //Platformen werden nicht über dem Bildschirm erzeugt
+            if(num == 0)
+                y +=height;
             int type = r.nextInt(2)+1;
 
             addNewPlat(x, y, type);
@@ -107,7 +111,7 @@ public class Level {
         if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
             int itemType = 0;
             int n = r.nextInt(100);
-            if(80 < n ) 
+            if(80 < n )
                 itemType++;
             Item item = new Item(plat, itemType);
             plat.item = item;
@@ -127,7 +131,7 @@ public class Level {
     }
     
     public void paintHeight(Graphics g) {
-        g.drawString("Height: "+Integer.toString(highest), 15, 15, Graphics.TOP | Graphics.LEFT);
+        g.drawString("Height: "+Double.toString(Math.floor(highest)), 15, 15, Graphics.TOP | Graphics.LEFT);
     }
 
 }
