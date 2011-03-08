@@ -1,8 +1,10 @@
-background
+background mit sprites
 music, richtige sounds
-verschiedene monster, schwarze löcher, ufos
+verschiedene monster, schwarze loecher, ufos
 autoaim
 alle items (raketen, springschuh, schild)
 auf monster raufspringen
+monster erscheinen auch teilweise
+schÃ¼sse erscheinen mittig
 leveldesign, u.U. mit sinnvollen trampolins/raketen/nmonstern usw
 grafikstil, animationen, splatter
