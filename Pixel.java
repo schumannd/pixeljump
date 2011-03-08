@@ -130,7 +130,7 @@ public class Pixel extends Sprite {
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
                 }
-
+                SoundManager.playJumpSound();
                 //neue geschwindigkeit
                 speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
