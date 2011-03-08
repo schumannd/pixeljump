@@ -10,6 +10,7 @@ class GameMain extends GameCanvas {
     private Background2D b2d;
     //private Background3D b3d;
     private Level l;
+    SoundManager soundm;
     
     private final int FPS = 40;
 
@@ -19,6 +20,8 @@ class GameMain extends GameCanvas {
     }
 
     public void init() {
+        soundm = new SoundManager();
+        soundm.init();
         initNewGame();
     }
 
