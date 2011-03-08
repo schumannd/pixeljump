@@ -37,7 +37,6 @@ class GameMain extends GameCanvas {
         case 1: //im spiel
             l.paintPlatAndItems(g);
             pixel.paint(g);
-            pixel.paintProjectiles(g);
             
             pixel.paintScore(g, getWidth());
             l.paintHeight(g);
@@ -62,13 +61,13 @@ class GameMain extends GameCanvas {
         
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), l.platforms, l.items, ms);
-        pixel.monsterProjectileCollision(l.monsters);
+        l.move(ms);
+        l.monsterProjectileCollision(l.monsters);
         if (pixel.monsterCollision(l.monsters)) {
             gameState = 3;
             stopTimer();
             return;
         }
-        pixel.moveProjectiles(ms);
         
         //gameover
         if(pixel.posY > getHeight())
@@ -79,12 +78,8 @@ class GameMain extends GameCanvas {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
             b2d.setDist(dist);
-            l.move(dist, ms);
+            l.moveDown(dist);
             pixel.moveDown(dist);
-            pixel.moveProjectilesDown(dist);
-        }
-        else {
-            l.move(0, ms);
         }
     }
     
@@ -125,6 +120,6 @@ class GameMain extends GameCanvas {
     
     protected void keyPressed( int keyCode ) {
         if (keyCode == getKeyCode(UP))
-            pixel.shoot();
+            pixel.shoot(l);
     }
 }
