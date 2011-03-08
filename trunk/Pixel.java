@@ -14,7 +14,6 @@ public class Pixel extends Sprite {
     public int score = 0;
     int itemEffect = 0;
 
-    Vector projectiles = new Vector();
     
     public Pixel(double x, double y) {
         super(Tools.pixelImage);
@@ -75,19 +74,6 @@ public class Pixel extends Sprite {
                 return true;
         }
         return false;
-    }
-    
-    public void monsterProjectileCollision(Vector monsters) {
-        for(int i = 0; i < monsters.size(); i++){
-            Monster m = (Monster) monsters.elementAt(i);
-            for (int j = 0; j < projectiles.size(); j++) {
-                Projectile p = (Projectile) projectiles.elementAt(j);
-                if (m.collidesWith(p, false)) {
-                    monsters.removeElementAt(i);
-                    i--;
-                }
-            }
-        }
     }
 
 
@@ -162,34 +148,8 @@ public class Pixel extends Sprite {
     }
     
     
-    public void shoot() {
-        projectiles.addElement(new Projectile(posX, posY));
-    }
-    
-    
-    public void moveProjectiles(int ms) {
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.move(ms);
-            if (p.posY < 0)
-                projectiles.removeElementAt(i);
-        }
-    }
-    
-    
-    public void moveProjectilesDown(double dist) {
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.moveDown(dist);
-        }
-    }
-    
-    
-    public void paintProjectiles (Graphics g) {
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.paint(g);
-        }
+    public void shoot(Level l) {
+        l.projectiles.addElement(new Projectile(posX, posY));
     }
     
     

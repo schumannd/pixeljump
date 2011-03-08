@@ -1,4 +1,5 @@
 import java.util.*;
+
 import javax.microedition.lcdui.Graphics;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ public class Level {
     public Vector platforms = new Vector();
     public Vector items = new Vector();
     public Vector monsters = new Vector();
+    public Vector projectiles = new Vector();
     private int width;
     private int height;
     private Random r = new Random();
@@ -38,6 +40,20 @@ public class Level {
     public int getSize(){
         return platforms.size();
     }
+
+    
+    public void monsterProjectileCollision(Vector monsters) {
+        for(int i = 0; i < monsters.size(); i++){
+            Monster m = (Monster) monsters.elementAt(i);
+            for (int j = 0; j < projectiles.size(); j++) {
+                Projectile p = (Projectile) projectiles.elementAt(j);
+                if (m.collidesWith(p, false)) {
+                    monsters.removeElementAt(i);
+                    i--;
+                }
+            }
+        }
+    }
     
     
     private void createLvl() {
@@ -48,19 +64,24 @@ public class Level {
         
     }
     
-    public void move(double dist, int ms) {
-        //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
+    public void move(int ms) {
+        for (int i = 0; i < getSize(); i++) {
+            Platform p = getPlat(i);
+            p.moveSide(ms);
+        }
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.move(ms);
+            if (p.posY < 0)
+                projectiles.removeElementAt(i);
+        }
+    }
+    
+    public void moveDown(double dist) {
         highest += dist;
         for (int i = 0; i < getSize(); i++) {
             Platform p = getPlat(i);
             p.moveDown(dist);
-            p.moveSide(ms);
-            
-            if(highest > 920-height/2 + 920*num) {
-                num += 1;
-                createLvl();
-                }
-                
             
             if (p.posY > height) {
                 items.removeElement(p.item);
@@ -68,9 +89,19 @@ public class Level {
                 i--;
             }
         }
+        if(highest > 920-height/2 + 920*num) {
+            num += 1;
+            createLvl();
+        }
+            
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = getMonster(i);
             m.moveDown(dist);
+        }
+        
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.moveDown(dist);
         }
     }
     
@@ -127,6 +158,10 @@ public class Level {
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = getMonster(i);
             m.paint(g);
+        }
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.elementAt(i);
+            p.paint(g);
         }
     }
     
