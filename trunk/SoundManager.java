@@ -28,22 +28,33 @@ public class SoundManager {
                 players[i] = Manager.createPlayer(is, type);
                 players[i].prefetch();
             }
+        players[MUSIC].setLoopCount(10);
+            
         } catch (IOException e) {
         } catch (MediaException e) {
         }
     }
-    public void death(){
+    public static void death(){
         stopSound(MUSIC);
         playSound(DIE);
     }
-    public void start(){
+    public static void start(){
         stopSound(DIE);
+        reset(MUSIC);
         playSound(MUSIC);
     }
 
     public static void playSound(int which) {
         try {
             players[which].start();
+        } catch (MediaException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {}
+    }
+
+    public static void reset(int which) {
+        try {
+            players[which].setMediaTime(0);
         } catch (MediaException e) {
         } catch (ArrayIndexOutOfBoundsException e) {
         } catch (NullPointerException e) {}
