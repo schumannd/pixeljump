@@ -10,7 +10,7 @@ public class SoundManager {
     public static final int SHOOT = 2;
     
     private static final Player[] players = new Player[3];
-    private static String[] filenames = { "music.mid", "jumpsound0.wav", "shootsound0.wav" };
+    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav" };
     
     public void init() {
         String res = "";
@@ -23,7 +23,7 @@ public class SoundManager {
                         res + "/" + filenames[i]);
                 String type = null;
                 if (filenames[i].endsWith(".wav")) type = "audio/x-wav";
-                if (filenames[i].endsWith(".mid")) type = "audio/midi";
+                if (filenames[i].endsWith(".mp3")) type = "audio/mpeg";
                 players[i] = Manager.createPlayer(is, type);
                 players[i].prefetch();
             }
