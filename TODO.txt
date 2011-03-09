@@ -1,10 +1,15 @@
 background mit sprites
 music, richtige sounds
+grafikstil, animationen, splatter
+
 verschiedene monster, schwarze loecher, ufos
 autoaim
-alle items (raketen, springschuh, schild)
-auf monster raufspringen
 monster erscheinen auch teilweise
-schüsse erscheinen mittig
-leveldesign, u.U. mit sinnvollen trampolins/raketen/nmonstern usw
-grafikstil, animationen, splatter
+schuesse erscheinen mittig
+auf monster raufspringen
+monster bewegen sich
+
+alle items (raketen, springschuh, schild)
+
+leveldesign, u.U. mit sinnvollen trampolins/raketen/monstern usw
+plattformen werden nach und nach erzeugt, und nicht mehrere auf einmal

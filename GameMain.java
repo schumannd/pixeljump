@@ -39,7 +39,6 @@ class GameMain extends GameCanvas {
             pixel.paint(g);
             
             pixel.paintScore(g, getWidth());
-            l.paintHeight(g);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
@@ -62,7 +61,7 @@ class GameMain extends GameCanvas {
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), l.platforms, l.items, ms);
         l.move(ms);
-        l.monsterProjectileCollision(l.monsters);
+        l.monsterProjectileCollision();
         if (pixel.monsterCollision(l.monsters)) {
             gameState = 3;
             stopTimer();
