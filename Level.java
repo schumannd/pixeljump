@@ -49,7 +49,7 @@ public class Level {
     private void easier() {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
-            int y = r.nextInt(920)-919;
+            int y = r.nextInt(92)-91*(i+1);
             //Platformen werden nicht ueber dem Bildschirm erzeugt
             if(num == 0)
                 y +=height;
