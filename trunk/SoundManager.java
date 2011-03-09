@@ -10,10 +10,12 @@ public class SoundManager {
     public static final int SHOOT = 2;
     
     private static final Player[] players = new Player[3];
-    private String[] filenames = { "music.mid", "jumpsound0.wav", "shootsound0.wav" };
+    private static String[] filenames = { "music.mid", "jumpsound0.wav", "shootsound0.wav" };
     
     public void init() {
-        String res = "/res";
+        String res = "";
+        if (getClass().getResourceAsStream("/" + filenames[0]) == null) 
+            res = "/res";
 
         try {
             for (int i = 0; i < players.length; i++) {
