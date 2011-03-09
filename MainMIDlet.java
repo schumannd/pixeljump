@@ -22,8 +22,6 @@ public class MainMIDlet extends MIDlet implements CommandListener {
 
         display.setCurrent(canvas);
         Tools.init();
-        SoundManager soundm = new SoundManager();
-        soundm.init();
         canvas.init();
     }
 

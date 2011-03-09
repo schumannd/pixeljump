@@ -8,9 +8,10 @@ public class SoundManager {
     public static final int MUSIC = 0;
     public static final int JUMP = 1;
     public static final int SHOOT = 2;
+    public static final int DIE = 3;
     
-    private static final Player[] players = new Player[3];
-    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav" };
+    private static final Player[] players = new Player[4];
+    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav", "die.mp3" };
     
     public void init() {
         String res = "";
@@ -27,16 +28,30 @@ public class SoundManager {
                 players[i] = Manager.createPlayer(is, type);
                 players[i].prefetch();
             }
-            players[MUSIC].start();
         } catch (IOException e) {
         } catch (MediaException e) {
         }
     }
-    
-    
+    public void death(){
+        stopSound(MUSIC);
+        playSound(DIE);
+    }
+    public void start(){
+        stopSound(DIE);
+        playSound(MUSIC);
+    }
+
     public static void playSound(int which) {
         try {
             players[which].start();
+        } catch (MediaException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {}
+    }
+
+    public static void stopSound(int which) {
+        try {
+            players[which].stop();
         } catch (MediaException e) {
         } catch (ArrayIndexOutOfBoundsException e) {
         } catch (NullPointerException e) {}

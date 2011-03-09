@@ -10,12 +10,15 @@ class GameMain extends GameCanvas {
     private Background2D b2d;
     //private Background3D b3d;
     private Level l;
+    SoundManager soundm;
     
     private final int FPS = 40;
 
     public GameMain(MainMIDlet midlet) {
         super(false);
         gameState = 0;
+        SoundManager soundm = new SoundManager();
+        soundm.init();
     }
 
     public void init() {
@@ -44,6 +47,8 @@ class GameMain extends GameCanvas {
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
+            soundm.death();
+
             break;
         }
         Debug.print(g);
@@ -104,7 +109,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
-        
+        soundm.start();
         l = new Level(3,getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
