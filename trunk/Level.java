@@ -1,10 +1,8 @@
-import java.util.*;
-
-import javax.microedition.lcdui.Graphics;
 import java.util.Random;
+import java.util.Vector;
+import javax.microedition.lcdui.Graphics;
 
 public class Level {
-    
     private int diff;
     public Vector platforms = new Vector();
     public Vector items = new Vector();
@@ -24,85 +22,11 @@ public class Level {
         createLvl();
     }
     
-    public Platform getPlat(int i){
-        return (Platform) platforms.elementAt(i);
-    }
-    
-    public Item getItem(int i){
-        return (Item) items.elementAt(i);
-    }
-    
-    public Monster getMonster(int i){
-        return (Monster) monsters.elementAt(i);
-    }
-    
-    
-    public int getSize(){
-        return platforms.size();
-    }
-
-    
-    public void monsterProjectileCollision(Vector monsters) {
-        for(int i = 0; i < monsters.size(); i++){
-            Monster m = (Monster) monsters.elementAt(i);
-            for (int j = 0; j < projectiles.size(); j++) {
-                Projectile p = (Projectile) projectiles.elementAt(j);
-                if (m.collidesWith(p, false)) {
-                    monsters.removeElementAt(i);
-                    i--;
-                }
-            }
-        }
-    }
-    
-    
     private void createLvl() {
-        monsters.addElement(new Monster(20, 20, 0));
+        monsters.addElement(new Monster(20, -40, 0));
         solvable();
         for(int i = diff; i > num; i--)
             easier();
-        
-    }
-    
-    public void move(int ms) {
-        for (int i = 0; i < getSize(); i++) {
-            Platform p = getPlat(i);
-            p.moveSide(ms);
-        }
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.move(ms);
-            if (p.posY < 0)
-                projectiles.removeElementAt(i);
-        }
-    }
-    
-    public void moveDown(double dist) {
-        highest += dist;
-        for (int i = 0; i < getSize(); i++) {
-            Platform p = getPlat(i);
-            p.moveDown(dist);
-            
-            if (p.posY > height) {
-                items.removeElement(p.item);
-                platforms.removeElementAt(i);
-                i--;
-            }
-        }
-        if(highest > 920-height/2 + 920*num) {
-            num += 1;
-            createLvl();
-        }
-            
-        for (int i = 0; i < monsters.size(); i++) {
-            Monster m = getMonster(i);
-            m.moveDown(dist);
-        }
-        
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.moveDown(dist);
-        }
     }
     
     private void solvable() {
@@ -113,7 +37,7 @@ public class Level {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
             int y = -i*92;
-            //Platformen werden nicht über dem Bildschirm erzeugt
+            //Platformen werden nicht ueber dem Bildschirm erzeugt
             if(num == 0)
                 y +=height;
             int type = 0;
@@ -126,7 +50,7 @@ public class Level {
         for (int i = 0; i < 10; i++) {
             int x = r.nextInt(width - 30);
             int y = r.nextInt(920)-919;
-            //Platformen werden nicht über dem Bildschirm erzeugt
+            //Platformen werden nicht ueber dem Bildschirm erzeugt
             if(num == 0)
                 y +=height;
             int type = r.nextInt(2)+1;
@@ -148,25 +72,82 @@ public class Level {
             plat.item = item;
             items.addElement(item);
         }
-
+    }
+    
+    public void monsterProjectileCollision() {
+        for(int i = 0; i < monsters.size(); i++){
+            Monster m = getMonster(i);
+            for (int j = 0; j < projectiles.size(); j++) {
+                Projectile p = getProjectile(j);
+                if (m.collidesWith(p, false)) {
+                    monsters.removeElementAt(i);
+                    i--;
+                }
+            }
+        }
+    }
+    
+    public void move(int ms) {
+        for (int i = 0; i < platforms.size(); i++) {
+            getPlat(i).moveSide(ms);
+        }
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = getProjectile(i);
+            p.move(ms);
+            if (p.posY < 0)
+                projectiles.removeElementAt(i);
+        }
+    }
+    
+    public void moveDown(double dist) {
+        highest += dist;
+        for (int i = 0; i < platforms.size(); i++) {
+            Platform p = getPlat(i);
+            p.moveDown(dist);
+            
+            if (p.posY > height) {
+                items.removeElement(p.item);
+                platforms.removeElementAt(i);
+                i--;
+            }
+        }
+        if(highest > 920-height/2 + 920*num) {
+            num += 1;
+            createLvl();
+        }
+        for (int i = 0; i < monsters.size(); i++) {
+            getMonster(i).moveDown(dist);
+        }
+        for (int i = 0; i < projectiles.size(); i++) {
+            getProjectile(i).moveDown(dist);
+        }
+    }
+    
+    public Platform getPlat(int i){
+        return (Platform) platforms.elementAt(i);
+    }
+    
+    public Item getItem(int i){
+        return (Item) items.elementAt(i);
+    }
+    
+    public Monster getMonster(int i){
+        return (Monster) monsters.elementAt(i);
+    }
+    
+    public Projectile getProjectile(int i){
+        return (Projectile) projectiles.elementAt(i);
     }
     
     public void paintPlatAndItems(Graphics g) {
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < platforms.size(); i++) {
             getPlat(i).paint2(g);
         }
         for (int i = 0; i < monsters.size(); i++) {
-            Monster m = getMonster(i);
-            m.paint(g);
+            getMonster(i).paint(g);
         }
         for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = (Projectile) projectiles.elementAt(i);
-            p.paint(g);
+            getProjectile(i).paint(g);
         }
     }
-    
-    public void paintHeight(Graphics g) {
-        g.drawString("Height: "+Double.toString(Math.floor(highest)), 15, 15, Graphics.TOP | Graphics.LEFT);
-    }
-
 }
