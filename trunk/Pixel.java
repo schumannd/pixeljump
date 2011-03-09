@@ -13,6 +13,8 @@ public class Pixel extends Sprite {
     private final int ACCELERATION = 2;
     public int score = 0;
     int itemEffect = 0;
+    private int shotOriginX = 8;
+    private int shotOriginY = 8;
 
     
     public Pixel(double x, double y) {
@@ -150,7 +152,7 @@ public class Pixel extends Sprite {
     
     public void shoot(Level l) {
         SoundManager.playSound(SoundManager.SHOOT);
-        l.projectiles.addElement(new Projectile(posX, posY));
+        l.shoot(posX + shotOriginX, posY + shotOriginY);
     }
     
     

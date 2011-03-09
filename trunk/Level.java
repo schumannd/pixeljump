@@ -74,6 +74,15 @@ public class Level {
         }
     }
     
+    public void shoot(double x, double y) {
+        Projectile p = new Projectile(x, y);
+        p.posX -= p.getWidth()/2;
+        //autoaim
+        int nearestMonster = 0;
+        
+        projectiles.addElement(p);
+    }
+    
     public void monsterProjectileCollision() {
         for(int i = 0; i < monsters.size(); i++){
             Monster m = getMonster(i);
