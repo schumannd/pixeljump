@@ -30,7 +30,7 @@ public class Level {
     }
     
     private void monsterChance() {
-        for(int i = 0; i < 2+num-diff; i++)
+        for(int i = 0; i < 5+num-diff; i++)
             if(r.nextDouble() < 0.5 && i< 11) 
                 monsters.addElement(new Monster(r.nextInt(width),
                                                 r.nextInt(height)-height, 0));
@@ -92,7 +92,27 @@ public class Level {
         Projectile p = new Projectile(x, y);
         p.posX -= p.getWidth()/2;
         //autoaim
-        int nearestMonster = 0;
+        int nearestMonster = -1;
+        double nearestMonsterDist = -1;
+        for (int i = 0; i < monsters.size(); i++) {
+            Monster m = getMonster(i);
+            double xdist = p.posX + p.getWidth()-(m.posX + m.getWidth());
+            double ydist = p.posY + p.getHeight()-(m.posY + m.getHeight());
+            double dist = Math.sqrt(xdist*xdist+ydist*ydist);
+            if (dist > nearestMonsterDist) {
+                nearestMonster = i;
+                nearestMonsterDist = dist;
+            }
+        }
+        if (nearestMonsterDist > 0) {
+           Monster m = getMonster(nearestMonster);
+           double xdist = p.posX + p.getWidth()-(m.posX + m.getWidth());
+           double ydist = p.posY + p.getHeight()-(m.posY + m.getHeight());
+           p.setDirection(xdist, ydist);
+        }
+        else 
+            p.setDirection(0, -1);
+        
         
         projectiles.addElement(p);
     }
