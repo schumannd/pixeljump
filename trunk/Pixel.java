@@ -2,10 +2,8 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.Sprite;
 
-public class Pixel extends Sprite {
+public class Pixel extends GameObject {
     
-    private double posX;
-    public double posY;
     private double speedX = 0;
     public double speedY = 0;
     public final int JUMPSPEED = -20;
@@ -18,11 +16,8 @@ public class Pixel extends Sprite {
 
     
     public Pixel(double x, double y) {
-        super(Tools.pixelImage);
+        super(Tools.pixelImage, x, y);
         defineReferencePixel(0, Tools.pixelImage.getHeight()-1);
-        posX = x;
-        posY = y;
-        setRefPixelPosition((int) x, (int) y);
     }
     
     
@@ -144,8 +139,7 @@ public class Pixel extends Sprite {
     
     
     public void moveDown (double dist) {
-        posY += dist;
-        setRefPixelPosition((int) posX, (int) posY);
+        super.moveDown(dist);
         score += dist;
     }
     

@@ -60,7 +60,7 @@ public class Level {
     }
 
     private void addNewPlat(int x, int y, int type){
-        Platform plat = new Platform(x, y, 30, type);
+        Platform plat = new Platform(x, y, type);
         platforms.addElement(plat);
 
         if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
