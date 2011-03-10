@@ -40,21 +40,13 @@ public class SoundManager {
     }
     public static void start(){
         stopSound(DIE);
-        reset(MUSIC);
         playSound(MUSIC);
     }
 
     public static void playSound(int which) {
         try {
-            players[which].start();
-        } catch (MediaException e) {
-        } catch (ArrayIndexOutOfBoundsException e) {
-        } catch (NullPointerException e) {}
-    }
-
-    public static void reset(int which) {
-        try {
             players[which].setMediaTime(0);
+            players[which].start();
         } catch (MediaException e) {
         } catch (ArrayIndexOutOfBoundsException e) {
         } catch (NullPointerException e) {}

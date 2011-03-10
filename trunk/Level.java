@@ -11,7 +11,7 @@ public class Level {
     private int width;
     private int height;
     private Random r = new Random();
-    private int num = 0;
+    private double num = 0;
     private double highest;
     
     public Level(int d, int w, int h) {
@@ -23,10 +23,17 @@ public class Level {
     }
     
     private void createLvl() {
-        monsters.addElement(new Monster(20, -40, 0));
+        monsterChance();
         solvable();
         for(int i = diff; i > num; i--)
             easier();
+    }
+    
+    private void monsterChance() {
+        for(int i = 0; i < 2+num-diff; i++)
+            if(r.nextDouble() < 0.5 && i< 11) 
+                monsters.addElement(new Monster(r.nextInt(width),
+                                                r.nextInt(height)-height, 0));
     }
     
     private void solvable() {
@@ -40,9 +47,12 @@ public class Level {
             //Platformen werden nicht ueber dem Bildschirm erzeugt
             if(num == 0)
                 y +=height;
-            int type = 0;
+            int type = r.nextInt(2);
 
-            addNewPlat(x, y, type);
+            int item = addNewPlat(x, y, type);
+            if(item > 1)
+                i++;
+            
         }
     }
     
@@ -58,12 +68,15 @@ public class Level {
             addNewPlat(x, y, type);
         }
     }
+    
 
-    private void addNewPlat(int x, int y, int type){
+    private int addNewPlat(int x, int y, int type){
         Platform plat = new Platform(x, y, type);
+        int retItem = 0;
         platforms.addElement(plat);
 
-        if(r.nextDouble() < 0.6 && (type == Platform.NORMAL || type == Platform.MOVE)){
+        if(r.nextDouble() < 0.1 && (type == Platform.NORMAL || type == Platform.MOVE)){
+            retItem++;
             int itemType = 0;
             int n = r.nextInt(100);
             if(80 < n )
@@ -72,6 +85,7 @@ public class Level {
             plat.item = item;
             items.addElement(item);
         }
+        return retItem;
     }
     
     public void shoot(double x, double y) {
@@ -120,8 +134,8 @@ public class Level {
                 i--;
             }
         }
-        if(highest > 920-height/2 + 920*num) {
-            num += 1;
+        if(highest > 920-height/2 + 920*num*2.5) {
+            num += 0.4;
             createLvl();
         }
         for (int i = 0; i < monsters.size(); i++) {
