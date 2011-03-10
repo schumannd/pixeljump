@@ -76,6 +76,7 @@ class GameMain extends GameCanvas {
         //gameover
         if(pixel.posY > getHeight()) {
             gameState = 3;
+            stopTimer();
             soundm.death();
             return;
         }
