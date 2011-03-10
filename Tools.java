@@ -18,7 +18,7 @@ public class Tools {
             return; //wurde bereits initialisiert
         try{
             pixelImage = Image.createImage("/pixelman.png");
-            res = null;
+            res = "";
         }catch(Exception e){res = "/res";}
         try{
             

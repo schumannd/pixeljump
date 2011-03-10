@@ -47,7 +47,6 @@ class GameMain extends GameCanvas {
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(pixel.score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
-            soundm.death();
 
             break;
         }
@@ -70,12 +69,16 @@ class GameMain extends GameCanvas {
         if (pixel.monsterCollision(l.monsters)) {
             gameState = 3;
             stopTimer();
+            soundm.death();
             return;
         }
         
         //gameover
-        if(pixel.posY > getHeight())
+        if(pixel.posY > getHeight()) {
             gameState = 3;
+            soundm.death();
+            return;
+        }
         
         //Abstand des Pixels zu Bildschirmmitte.
         double dist = getHeight() / 2 - pixel.posY;
