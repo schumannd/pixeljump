@@ -1,11 +1,8 @@
 import java.util.Random;
-import javax.microedition.lcdui.game.Sprite;
 
-public class Item extends Sprite {
+public class Item extends GameObject {
 
     private int x;
-    private double posX;
-    public double posY;
     private Platform p;
     private int type; // 0 = Feder, 1 = Trampolin
     private Random r = new Random();
@@ -16,12 +13,11 @@ public class Item extends Sprite {
 
 
     public Item(Platform p, int type){
-        super(Tools.itemImages[type]);
+        super(Tools.itemImages[type], p.posX, p.posY);
         this.p = p;
         this.type = type;
         x = r.nextInt(30-Tools.itemImages[type].getWidth());
         posX = p.posX + x;
-        posY = p.posY;
 
         defineReferencePixel(0, 16);
         setRefPixelPosition((int) posX,(int) posY);

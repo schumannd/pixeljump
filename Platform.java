@@ -1,12 +1,9 @@
 import java.util.Random;
-import javax.microedition.lcdui.game.*;
 import javax.microedition.lcdui.*;
 
-public class Platform extends Sprite {
+public class Platform extends GameObject{
     
     public int type; // 0 = normal, 1 = break, 2 = fake
-    public double posX;
-    public double posY;
     public int size;
     public Item item = null;
     private Random r = new Random();
@@ -19,12 +16,9 @@ public class Platform extends Sprite {
     boolean moves = false;
     
     
-    public Platform(double x, double y, int l, int t) {
-        super(Tools.platImages[t]);
-        posX = x;
-        posY = y;
-        setRefPixelPosition((int) posX, (int) posY);
-        size = l;
+    public Platform(double x, double y, int t) {
+        super(Tools.platImages[t], x, y);
+        size = getWidth();
         type = t;
         
         if (r.nextDouble() < 0.5)
@@ -33,10 +27,10 @@ public class Platform extends Sprite {
     
     
     public void moveDown(double dist) {
-        posY += dist;
-        setRefPixelPosition((int) posX, (int) posY);
-        if (item != null)
-            item.updatePos();
+        super.moveDown(dist);
+        if (item != null) {
+            item.moveDown(dist);
+        }
     }
     
     
@@ -53,8 +47,8 @@ public class Platform extends Sprite {
     public void paint2(Graphics g) {
         if (this.posY < -10)
             return;
+        super.paint(g);
         if (item != null)
             item.paint(g);
-        super.paint(g);
     }
 }
