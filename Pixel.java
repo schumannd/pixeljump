@@ -107,7 +107,6 @@ public class Pixel extends GameObject {
                 //der bruchteil der zeit dieses frames, nach dem
                 //der pixel auf der hoehe der plattform angekommen is
                 double fraction2 = distanceY/moveY;
-//                Debug.add(fraction2);
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + moveX * fraction2;
                 //die position ist nicht auf der plattform, also keine kollision, abbruch
