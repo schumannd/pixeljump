@@ -19,15 +19,24 @@ public class Level {
         width = w;
         height = h;
         highest = height/2;
-        createLvl();
+        createLvl(0);
     }
     
-    private void createLvl() {
-        monsterChance();
-        solvable();
-        for(int i = diff; i > num; i--)
-            easier();
+    private void createLvl(int rand) {
+        if(rand == 0) {
+            monsterChance();
+            solvable();
+            for(int i = diff; i > num; i--)
+                easier();
+        }
+        else {
+            addLvl(rand);
+        }
     }
+    
+    public void addLvl(int nr) {
+        
+        }
     
     private void monsterChance() {
         for(int i = 0; i < 5+num-diff; i++)
@@ -63,7 +72,7 @@ public class Level {
             //Platformen werden nicht ueber dem Bildschirm erzeugt
             if(num == 0)
                 y +=height;
-            int type = r.nextInt(2)+1;
+            int type = r.nextInt(3);
 
             addNewPlat(x, y, type);
         }
@@ -156,7 +165,7 @@ public class Level {
         }
         if(highest > 920-height/2 + 920*num*2.5) {
             num += 0.4;
-            createLvl();
+            createLvl(0);
         }
         for (int i = 0; i < monsters.size(); i++) {
             getMonster(i).moveDown(dist);
