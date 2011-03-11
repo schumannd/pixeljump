@@ -114,7 +114,7 @@ class GameMain extends GameCanvas {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
         soundm.start();
-        l = new Level(3,getWidth(), getHeight());
+        l = new Level(0,getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
     }
