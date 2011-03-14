@@ -58,8 +58,7 @@ public class Level {
                 y +=height;
             int type = r.nextInt(2);
 
-            int item = addNewPlat(x, y, type);
-            if(item > 1)
+            if(addNewPlat(x, y, type))
                 i++;
             
         }
@@ -79,13 +78,13 @@ public class Level {
     }
     
 
-    private int addNewPlat(int x, int y, int type){
+    private boolean addNewPlat(int x, int y, int type){
         Platform plat = new Platform(x, y, type);
-        int retItem = 0;
+        boolean retItem = false;
         platforms.addElement(plat);
 
-        if(r.nextDouble() < 0.1 && (type == Platform.NORMAL || type == Platform.MOVE)){
-            retItem++;
+        if(r.nextDouble() < 0.3 && (type == Platform.NORMAL || type == Platform.MOVE)){
+            retItem = true;
             int itemType = 0;
             int n = r.nextInt(100);
             if(80 < n )

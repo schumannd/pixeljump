@@ -9,9 +9,10 @@ public class SoundManager {
     public static final int JUMP = 1;
     public static final int SHOOT = 2;
     public static final int DIE = 3;
+    public static final int DIEM = 4;
     
-    private static final Player[] players = new Player[4];
-    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav", "die.mp3" };
+    private static final Player[] players = new Player[5];
+    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav", "die.mp3", "diem.mp3" };
     
     public void init() {
         String res = "";
@@ -37,6 +38,10 @@ public class SoundManager {
     public static void death(){
         stopSound(MUSIC);
         playSound(DIE);
+    }
+    public static void deathm(){
+        stopSound(MUSIC);
+        playSound(DIEM);
     }
     public static void start(){
         stopSound(DIE);
