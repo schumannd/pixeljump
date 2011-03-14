@@ -10,12 +10,14 @@ public class Pixel extends GameObject {
     private final int ACCELERATION = 2;
     public int score = 0;
     int itemEffect = 0;
-    private int shotOriginX = 8;
-    private int shotOriginY = 8;
+    private int shotOriginX;
+    private int shotOriginY;
 
     
     public Pixel(double x, double y) {
         super(Tools.pixelImage, x, y);
+        shotOriginX = getWidth()/2;
+        shotOriginY = 0;
         defineReferencePixel(0, Tools.pixelImage.getHeight()-1);
     }
     

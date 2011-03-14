@@ -17,12 +17,15 @@ class GameMain extends GameCanvas {
     public GameMain(MainMIDlet midlet) {
         super(false);
         gameState = 0;
-        SoundManager soundm = new SoundManager();
-        soundm.init();
     }
 
     public void init() {
         initNewGame();
+        
+        SoundManager soundm = new SoundManager();
+        soundm.init();
+        
+        GameObject.init(getWidth(), getHeight());
     }
 
     public void paint(Graphics g) {
@@ -113,7 +116,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
-        soundm.start();
+        SoundManager.start();
         l = new Level(5,getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
