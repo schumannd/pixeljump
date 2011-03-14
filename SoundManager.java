@@ -26,6 +26,7 @@ public class SoundManager {
                 String type = null;
                 if (filenames[i].endsWith(".wav")) type = "audio/x-wav";
                 if (filenames[i].endsWith(".mp3")) type = "audio/mpeg";
+                if (filenames[i].endsWith(".mid")) type = "audio/midi";
                 players[i] = Manager.createPlayer(is, type);
                 players[i].prefetch();
             }
