@@ -99,27 +99,30 @@ public class Level {
     public void shoot(double x, double y) {
         Projectile p = new Projectile(x, y);
         p.posX -= p.getWidth()/2;
+        p.posY -= p.getHeight();
         //autoaim
         int nearestMonster = -1;
         double nearestMonsterDist = -1;
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = getMonster(i);
-            double xdist = p.posX + p.getWidth()-(m.posX + m.getWidth());
-            double ydist = p.posY + p.getHeight()-(m.posY + m.getHeight());
+            if (m.isOnScreen())
+                continue;
+            double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
+            double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
             double dist = Math.sqrt(xdist*xdist+ydist*ydist);
             if (dist > nearestMonsterDist) {
                 nearestMonster = i;
                 nearestMonsterDist = dist;
             }
         }
-        if (nearestMonsterDist > 0) {
+        if (nearestMonsterDist != -1) {
            Monster m = getMonster(nearestMonster);
-           double xdist = p.posX + p.getWidth()-(m.posX + m.getWidth());
-           double ydist = p.posY + p.getHeight()-(m.posY + m.getHeight());
+           double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
+           double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
            p.setDirection(xdist, ydist);
         }
         else 
-            p.setDirection(0, -1);
+            p.setDirection(0, 1);
         
         
         projectiles.addElement(p);
@@ -145,7 +148,7 @@ public class Level {
         for (int i = 0; i < projectiles.size(); i++) {
             Projectile p = getProjectile(i);
             p.move(ms);
-            if (!p.isOnScreen(width, height))
+            if (!p.isOnScreen())
                 projectiles.removeElementAt(i);
         }
     }
