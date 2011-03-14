@@ -44,15 +44,13 @@ public class Background2D {
         Image img = Tools.backgroundImage;
         landscape = new TiledLayer(1, 1, img, img.getWidth(), img.getHeight());
         landscape.setCell(0, 0, 1);
-        landscape.setPosition(0, -1000 + height);
-//        int[] map = {
-//                1
-//        };
-//        for (int i = 0; i < map.length; i++) {
-//            int column = i % 4;
-//            int row = i / 4;
-//            landscape.setCell(column, row, map[i]);
-//        }
+      
+        landscape.setPosition(0, -10 + height);
+         
+        for (int i = 0; i < 3000; i++) {
+            
+            landscape.setCell(0, 0, 1);
+       }
     }
     
     
