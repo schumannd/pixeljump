@@ -25,8 +25,8 @@ public abstract class GameObject extends Sprite {
     public boolean isOnScreen() {
         if (this.posX > width ||
             this.posY > height ||
-            this.posX - getWidth() < 0 ||
-            this.posY - getHeight() < 0)
+            this.posX + getWidth() < 0 ||
+            this.posY + getHeight() < 0)
             return false;
         return true;
     }

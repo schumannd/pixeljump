@@ -6,19 +6,19 @@ public class Level {
     private int diff;
     public Vector platforms = new Vector();
     public Vector items = new Vector();
-    public Vector monsters = new Vector();
-    public Vector projectiles = new Vector();
     private int width;
     private int height;
     private Random r = new Random();
     private double num = 0;
     private double highest;
+    Arena arena;
     
-    public Level(int d, int w, int h) {
+    public Level(int d, int w, int h, Arena arena) {
         diff = d;
         width = w;
         height = h;
         highest = height/2;
+        this.arena = arena;
         createLvl(0);
     }
     
@@ -41,8 +41,7 @@ public class Level {
     private void monsterChance() {
         for(int i = 0; i < 5+num-diff; i++)
             if(r.nextDouble() < 0.5 && i< 11) 
-                monsters.addElement(new Monster(r.nextInt(width),
-                                                r.nextInt(height)-height, 0));
+                arena.newMonster(r.nextInt(width), r.nextInt(height)-height, 0);
     }
     
     private void solvable() {
@@ -96,60 +95,9 @@ public class Level {
         return retItem;
     }
     
-    public void shoot(double x, double y) {
-        Projectile p = new Projectile(x, y);
-        p.posX -= p.getWidth()/2;
-        p.posY -= p.getHeight();
-        //autoaim
-        int nearestMonster = -1;
-        double nearestMonsterDist = -1;
-        for (int i = 0; i < monsters.size(); i++) {
-            Monster m = getMonster(i);
-            if (m.isOnScreen())
-                continue;
-            double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-            double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
-            double dist = Math.sqrt(xdist*xdist+ydist*ydist);
-            if (dist > nearestMonsterDist) {
-                nearestMonster = i;
-                nearestMonsterDist = dist;
-            }
-        }
-        if (nearestMonsterDist != -1) {
-           Monster m = getMonster(nearestMonster);
-           double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-           double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
-           p.setDirection(xdist, ydist);
-        }
-        else 
-            p.setDirection(0, 1);
-        
-        
-        projectiles.addElement(p);
-    }
-    
-    public void monsterProjectileCollision() {
-        for(int i = 0; i < monsters.size(); i++){
-            Monster m = getMonster(i);
-            for (int j = 0; j < projectiles.size(); j++) {
-                Projectile p = getProjectile(j);
-                if (m.collidesWith(p, false)) {
-                    monsters.removeElementAt(i);
-                    i--;
-                }
-            }
-        }
-    }
-    
     public void move(int ms, int width, int height) {
         for (int i = 0; i < platforms.size(); i++) {
             getPlat(i).moveSide(ms);
-        }
-        for (int i = 0; i < projectiles.size(); i++) {
-            Projectile p = getProjectile(i);
-            p.move(ms);
-            if (!p.isOnScreen())
-                projectiles.removeElementAt(i);
         }
     }
     
@@ -169,17 +117,6 @@ public class Level {
             num += 0.4;
             createLvl(0);
         }
-        for (int i = 0; i < monsters.size(); i++) {
-            Monster m = getMonster(i);
-            m.moveDown(dist);
-            if (m.posY > height) {
-                monsters.removeElementAt(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < projectiles.size(); i++) {
-            getProjectile(i).moveDown(dist);
-        }
     }
     
     public Platform getPlat(int i){
@@ -190,23 +127,9 @@ public class Level {
         return (Item) items.elementAt(i);
     }
     
-    public Monster getMonster(int i){
-        return (Monster) monsters.elementAt(i);
-    }
-    
-    public Projectile getProjectile(int i){
-        return (Projectile) projectiles.elementAt(i);
-    }
-    
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < platforms.size(); i++) {
             getPlat(i).paint2(g);
-        }
-        for (int i = 0; i < monsters.size(); i++) {
-            getMonster(i).paint(g);
-        }
-        for (int i = 0; i < projectiles.size(); i++) {
-            getProjectile(i).paint(g);
         }
     }
 }

@@ -10,6 +10,7 @@ class GameMain extends GameCanvas {
     private Background2D b2d;
     //private Background3D b3d;
     private Level l;
+    private Arena arena;
     SoundManager soundm;
     
     private final int FPS = 40;
@@ -42,6 +43,7 @@ class GameMain extends GameCanvas {
             break;
         case 1: //im spiel
             l.paintPlatAndItems(g);
+            arena.paint(g);
             pixel.paint(g);
             
             pixel.paintScore(g, getWidth());
@@ -68,8 +70,9 @@ class GameMain extends GameCanvas {
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), l.platforms, l.items, ms);
         l.move(ms, getWidth(), getHeight());
-        l.monsterProjectileCollision();
-        if (pixel.monsterCollision(l.monsters)) {
+        arena.move(ms);
+        arena.monsterProjectileCollision();
+        if (pixel.monsterCollision(arena.monsters)) {
             gameState = 3;
             stopTimer();
             soundm.deathm();
@@ -90,6 +93,7 @@ class GameMain extends GameCanvas {
         if (dist > 0) {
             b2d.setDist(dist);
             l.moveDown(dist);
+            arena.moveDown(dist);
             pixel.moveDown(dist);
         }
     }
@@ -117,7 +121,8 @@ class GameMain extends GameCanvas {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         Item.pixel = pixel;
         SoundManager.start();
-        l = new Level(5,getWidth(), getHeight());
+        l = new Level(5,getWidth(), getHeight(), arena);
+        arena = new Arena(getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
     }
@@ -131,6 +136,6 @@ class GameMain extends GameCanvas {
     
     protected void keyPressed( int keyCode ) {
         if (keyCode == getKeyCode(UP))
-            pixel.shoot(l);
+            pixel.shoot(arena);
     }
 }
