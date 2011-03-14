@@ -1,6 +1,5 @@
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.game.Sprite;
 
 public class Pixel extends GameObject {
     

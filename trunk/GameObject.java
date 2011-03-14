@@ -17,4 +17,14 @@ public abstract class GameObject extends Sprite {
         posY += dist;
         setRefPixelPosition((int) posX, (int) posY);
     }
+    
+    
+    public boolean isOnScreen(int width, int height) {
+        if (this.posX > width ||
+            this.posY > height ||
+            this.posX - getWidth() < 0 ||
+            this.posY - getHeight() < 0)
+            return false;
+        return true;
+    }
 }

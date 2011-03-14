@@ -138,14 +138,14 @@ public class Level {
         }
     }
     
-    public void move(int ms) {
+    public void move(int ms, int width, int height) {
         for (int i = 0; i < platforms.size(); i++) {
             getPlat(i).moveSide(ms);
         }
         for (int i = 0; i < projectiles.size(); i++) {
             Projectile p = getProjectile(i);
             p.move(ms);
-            if (p.posY < 0)
+            if (!p.isOnScreen(width, height))
                 projectiles.removeElementAt(i);
         }
     }
@@ -167,7 +167,12 @@ public class Level {
             createLvl(0);
         }
         for (int i = 0; i < monsters.size(); i++) {
-            getMonster(i).moveDown(dist);
+            Monster m = getMonster(i);
+            m.moveDown(dist);
+            if (m.posY > height) {
+                monsters.removeElementAt(i);
+                i--;
+            }
         }
         for (int i = 0; i < projectiles.size(); i++) {
             getProjectile(i).moveDown(dist);
