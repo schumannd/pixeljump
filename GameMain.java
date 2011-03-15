@@ -13,7 +13,7 @@ class GameMain extends GameCanvas {
     private Arena arena;
     SoundManager soundm;
     
-    private final int FPS = 40;
+    private final int FPS = 200;
 
     public GameMain(MainMIDlet midlet) {
         super(false);
