@@ -3,7 +3,7 @@ import javax.microedition.lcdui.*;
 
 public class Platform extends GameObject{
     
-    public int type; // 0 = normal, 1 = break, 2 = fake
+    public int type;
     public int size;
     public Item item = null;
     private Random r = new Random();
