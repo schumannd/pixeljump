@@ -82,12 +82,19 @@ public class Level {
         boolean retItem = false;
         platforms.addElement(plat);
 
-        if(r.nextDouble() < 0.3 && (type == Platform.NORMAL || type == Platform.MOVE)){
+        if(r.nextDouble() < 1 && (type == Platform.NORMAL || type == Platform.MOVE)){
             retItem = true;
-            int itemType = 0;
+            int itemType = Item.SPRING;
             int n = r.nextInt(100);
             if(80 < n )
-                itemType++;
+                itemType = Item.TRAMPOLINE;
+            if(n < 60)
+                itemType = Item.SHIELD;
+            if(n < 20)
+                itemType = Item.SPRINGSHOE;
+            if(n < 10)
+                itemType = Item.ROCKET;
+            
             Item item = new Item(plat, itemType);
             plat.item = item;
             items.addElement(item);
