@@ -6,9 +6,10 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 public class Background2D {
     private Vector stars;
+    private double posY;
     private int height;
     private TiledLayer landscape;
-
+    double zaehler = 0;
     private Random r = new Random();
 
     public Background2D(int width, int height) {
@@ -31,7 +32,19 @@ public class Background2D {
     }
 
     public void setDist(double dist) {
-        landscape.setPosition(landscape.getX(), landscape.getY() + (int) (dist + 0.5));
+        posY += dist / 4;
+        if (posY > 0) {
+            posY %= 10;
+            posY -= 10;
+        }
+        
+//        zaehler += dist;
+//        if(zaehler >= 10){
+//                    landscape.setPosition(landscape.getX(), landscape.getY() - 10);
+//                    zaehler %= 10;
+//        }
+
+        landscape.setPosition(landscape.getX(), (int) posY);
 //        for(int i = 0; i < stars.size(); i++) {
 //            Star star = (Star) stars.elementAt(i);
 //            star.move(dist);
@@ -41,17 +54,21 @@ public class Background2D {
     }
 
     private void createLandscape() {
+        int anzahl = (height / 10) + 1;
         Image img = Tools.backgroundImage;
-        landscape = new TiledLayer(1, 1, img, img.getWidth(), img.getHeight());
-        landscape.setCell(0, 0, 1);
-      
-        landscape.setPosition(0, -10 + height);
+        landscape = new TiledLayer(1, anzahl, img, img.getWidth(), img.getHeight());
+       // landscape.setCell(0, 0, 1);
+       posY = -(anzahl*10) + height;
+        landscape.setPosition(0, (int) posY );
          
-        for (int i = 0; i < 3000; i++) {
+       for (int i = 0; i < anzahl; i++) {
             
-            landscape.setCell(0, 0, 1);
+            landscape.setCell(0, i, 1);
        }
+        
     }
+   
+    
     
     
 //    private class Star {
