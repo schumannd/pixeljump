@@ -80,7 +80,7 @@ public class Pixel extends GameObject {
         
         this.setRefPixelPosition((int) posX, (int) posY);
         //Gavitation.
-        speedY += 2*fraction;
+        speedY = -20; //2*fraction;
     }
     
     
