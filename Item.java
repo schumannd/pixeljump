@@ -30,7 +30,6 @@ public class Item extends GameObject {
     
     
     public void causeEffect(Vector items, int i){
-        //     public void causeEffect(){
         switch (type) {
         case SPRING:
             //einmalig den jumpspeed erh�hen
@@ -46,7 +45,7 @@ public class Item extends GameObject {
             //Pixel das item geben und dann in der welt l�schen
             pixel.item = SPRINGSHOE;
             items.removeElementAt(i);
-            this.setVisible(false);
+            this.p.item = null;
             break;
 
         case ROCKET:
@@ -54,7 +53,7 @@ public class Item extends GameObject {
             pixel.item = ROCKET;
             pixel.rocketTimer = System.currentTimeMillis();
             items.removeElementAt(i);
-            this.setVisible(false);
+            this.p.item = null;
             break;
             
         case SHIELD:
@@ -62,19 +61,11 @@ public class Item extends GameObject {
             pixel.item = SHIELD;
             pixel.shieldTimer = System.currentTimeMillis();
             items.removeElementAt(i);
-//             this.setVisible(false);
             this.p.item = null;
             break;
 
         default:
             return;
         }
-    }
-    
-    
-    public void updatePos() {
-        posX = p.posX + x;
-        posY = p.posY;
-        setRefPixelPosition((int) posX, (int) posY);
     }
 }

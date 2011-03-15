@@ -1,6 +1,6 @@
-import javax.microedition.lcdui.*;
 import java.util.*;
-import javax.microedition.lcdui.game.*;
+import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.game.GameCanvas;
 
 class GameMain extends GameCanvas {
     
@@ -13,9 +13,9 @@ class GameMain extends GameCanvas {
     private Arena arena;
     SoundManager soundm;
     
-    private final int FPS = 200;
+    private final int FPS = 40;
 
-    public GameMain(MainMIDlet midlet) {
+    public GameMain() {
         super(false);
         gameState = 0;
     }
@@ -69,7 +69,7 @@ class GameMain extends GameCanvas {
         
         pixel.accelerate(leftright, ms);
         pixel.move(getWidth(), l.platforms, l.items, ms);
-        l.move(ms, getWidth(), getHeight());
+        l.move(ms);
         arena.move(ms);
         arena.monsterProjectileCollision();
         if (pixel.monsterCollision(arena.monsters)) {

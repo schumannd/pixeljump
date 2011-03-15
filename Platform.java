@@ -1,5 +1,5 @@
 import java.util.Random;
-import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.Graphics;
 
 public class Platform extends GameObject{
     
@@ -13,7 +13,7 @@ public class Platform extends GameObject{
     public static final int FAKE = 2;
     public static final int MOVE = 3;
     
-    boolean moves = false;
+    private boolean moves = false;
     
     
     public Platform(double x, double y, int t) {
@@ -39,8 +39,8 @@ public class Platform extends GameObject{
             return;
 //        posX += 20f/(1000f/ms);
 //        setRefPixelPosition((int) posX, (int) posY);
-        if (item != null)
-            item.updatePos();
+//        if (item != null)
+//            item.updatePos();
     }
     
     

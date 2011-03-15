@@ -1,8 +1,8 @@
 
 public class Projectile extends GameObject {
     private double SPEED = -50;
-    public double speedX;
-    public double speedY;
+    private double speedX;
+    private double speedY;
     
     public Projectile(double x, double y){
         super(Tools.projectileImage, x, y);

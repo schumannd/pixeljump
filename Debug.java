@@ -1,9 +1,9 @@
-import java.util.*;
-import javax.microedition.lcdui.*;
+import java.util.Vector;
+import javax.microedition.lcdui.Graphics;
 
 public class Debug {
     /** How many Strings are printed. **/
-    public static int capacity = 10;
+    public final static int capacity = 10;
     /** List of all Strings that should be printed. **/
     private static Vector strings = new Vector();
     
