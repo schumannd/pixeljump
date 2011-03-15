@@ -1,5 +1,5 @@
-import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import javax.microedition.midlet.MIDlet;
 
 public class MainMIDlet extends MIDlet implements CommandListener {
 
@@ -13,7 +13,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
 
     public MainMIDlet() {
         display = Display.getDisplay(this);
-        canvas = new GameMain(this);
+        canvas = new GameMain();
 
         canvas.addCommand(cmExit);
         canvas.addCommand(cmNewGame);

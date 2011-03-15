@@ -34,7 +34,7 @@ public class Level {
         }
     }
     
-    public void addLvl(int nr) {
+    private void addLvl(int nr) {
         
         }
     
@@ -102,7 +102,7 @@ public class Level {
         return retItem;
     }
     
-    public void move(int ms, int width, int height) {
+    public void move(int ms) {
         for (int i = 0; i < platforms.size(); i++) {
             getPlat(i).moveSide(ms);
         }
@@ -136,7 +136,10 @@ public class Level {
     
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < platforms.size(); i++) {
-            getPlat(i).paint2(g);
+            getPlat(i).paint(g);
+        }
+        for (int i = 0; i < items.size(); i++) {
+            getItem(i).paint(g);
         }
     }
 }

@@ -18,12 +18,12 @@ import javax.microedition.m3g.*;
  */
 public class Background3D
 {
-    final static byte xr = 5;//breite nach rechts
-    final static byte xl = 0;
-    final static byte yu = 0;
-    final static byte yd = -1;//hoehe nach unten
-    final static byte zb = -10;//laenge nach hinten
-    final static byte zf = 0;
+    private final static byte xr = 5;//breite nach rechts
+    private final static byte xl = 0;
+    private final static byte yu = 0;
+    private final static byte yd = -1;//hoehe nach unten
+    private final static byte zb = -10;//laenge nach hinten
+    private final static byte zf = 0;
 
     /** The cube's vertex positions (x, y, z). */
     private static final byte[] VERTEX_POSITIONS = {
@@ -63,8 +63,8 @@ public class Background3D
     private Mesh platformMesh;
     private Group allPlatforms;
 
-    float height;
-    float width;
+    private float height;
+    private float width;
     
     public void init(float width, float height)
     {
