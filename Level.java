@@ -40,7 +40,7 @@ public class Level {
     
     private void monsterChance() {
         for(int i = 0; i < 5+num-diff; i++)
-            if(r.nextDouble() < 0.5 && i< 11) 
+            if(r.nextDouble() < 0.5 && i< 11)
                 arena.newMonster(r.nextInt(width), r.nextInt(height)-height, 0);
     }
     
