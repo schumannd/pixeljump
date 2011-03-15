@@ -7,7 +7,7 @@ public class Tools {
     public static Image projectileImage;
     public static Image backgroundImage;
     public static Image[] platImages = new Image[3];
-    public static Image[] itemImages = new Image[2];
+    public static Image[] itemImages = new Image[5];
     public static Image[] monsterImages = new Image[1];
     
     public static String res;
