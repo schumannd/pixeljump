@@ -11,11 +11,6 @@ public class Pixel extends GameObject {
     public int score = 0;
     private int shotOriginX;
     private int shotOriginY;
-    
-    public int item = -1;
-    public int shoeTimer = 6;
-    public long rocketTimer = 0;
-    public long shieldTimer = 0;
 
     
     public Pixel(double x, double y) {
@@ -47,20 +42,11 @@ public class Pixel extends GameObject {
         double moveY = speedY*fraction;
         double moveX = speedX*fraction;
         
-        if(item == Item.SHIELD && (System.currentTimeMillis() - shieldTimer) > 5000)
-            item = Item.NOITEM;
-        if(item == Item.ROCKET){
-            //nach 2 s rocket zur�cksetzen
-            if((System.currentTimeMillis() - rocketTimer) > 2000){
-                item = Item.NOITEM;
-                rocketTimer = 0;
-            }
-            else{
-                //speedY auf raketenspeed
-                speedY = JUMPSPEED*3;
-                moveY = speedY*fraction;
-                posY += moveY;
-            }
+        if(Item.isRocketActive()){
+            //speedY auf raketenspeed
+            speedY = JUMPSPEED*3;
+            moveY = speedY*fraction;
+            posY += moveY;
         }
         else if (!collisionDetection(platforms, items, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
@@ -85,7 +71,7 @@ public class Pixel extends GameObject {
     
     
     public boolean monsterCollision(Vector monsters) {
-        if(item == Item.ROCKET || item == Item.SHIELD){ return false; }
+        if(Item.isRocketActive() || Item.isShieldActive()){ return false; }
         for(int i = 0; i < monsters.size(); i++){
             Monster m = (Monster) monsters.elementAt(i);
             if (this.collidesWith(m, false))
@@ -96,24 +82,28 @@ public class Pixel extends GameObject {
 
 
     public boolean collisionDetection(Vector platforms, Vector items, double moveX, double moveY){
-        if(item == Item.NOITEM || item == Item.SHIELD){
-            itemCollDetec(items);
-        }
+        itemCollDetec(items);
         return platformCollDetec(platforms, moveX, moveY);
     }
 
-    private boolean itemCollDetec(Vector items){
+    private void itemCollDetec(Vector items){
         for(int i = 0; i < items.size(); i++){
             Item it = (Item) items.elementAt(i);
             if(this.collidesWith(it, false)){
-                it.causeEffect(items, i);
-                return true;
+                if ((it.type == Item.SPRING || it.type == Item.TRAMPOLINE))
+                    if (speedY > 0)
+                        speedY = JUMPSPEED * Item.getJumheightMulti(it.type);
+                    else //ignorieren, wenn pixel nach oben fliegt
+                        return;
+                else if (it.type == Item.SPRINGSHOE && speedY <= 0)
+                    return; //ignoriere springschuhe wenn pixel nach oben fliegt
+                else {
+                    it.activate();
+                    items.removeElementAt(i);
+                }
+                return;
             }
-
-
         }
-        return false;
-
     }
 
     private boolean platformCollDetec(Vector platforms, double moveX, double moveY){
@@ -143,39 +133,22 @@ public class Pixel extends GameObject {
                 }
 
                 //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
-                posY = posY + moveY * fraction2;//
-                if(item == Item.NOITEM || item == Item.SHIELD){
-                    posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
-                }
-                else if(item == Item.SPRINGSHOE){
+                posY = posY + moveY * fraction2;
+                if(Item.isShoeActive(false)){
                     posY += (moveY/speedY)*JUMPSPEED * 1.33 * (1-fraction2);
                 }
+                else
+                    posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
                 //loesche Platform wenn breakable, dann kollision
                 if(p.type == 1) {
                     platforms.removeElementAt(i);
                 }
                 SoundManager.playSound(SoundManager.JUMP);
                 //neue geschwindigkeit
-                switch(item){
-                    case Item.NOITEM:
-                    case Item.SHIELD:
-                        speedY = JUMPSPEED;
-                        break;
-                       
-                    case Item.SPRINGSHOE:
-                        //wenn spingshoes, dann 6 mal wie auf federn springen
-                        speedY = JUMPSPEED * 1.33;
-                        shoeTimer--;
-                        if(shoeTimer <= 0){
-                            //item, shoeTimer zur�cksetzen
-                            item = Item.NOITEM;
-                            shoeTimer = 6;
-                        }
-                        break;
-                        
-                        default: break;
-
-                  }
+                if (Item.isShoeActive(true))
+                    speedY = JUMPSPEED * Item.getJumheightMulti(Item.SPRINGSHOE);
+                else
+                    speedY = JUMPSPEED;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
                 return true;
             }

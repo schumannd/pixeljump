@@ -5,9 +5,8 @@ public class Item extends GameObject {
 
     private int x;
     private Platform p;
-    private int type; // 0 = Feder, 1 = Trampolin, 2 = Springschuh, 3 = Rakete
+    public int type; // 0 = Feder, 1 = Trampolin, 2 = Springschuh, 3 = Rakete
     private Random r = new Random();
-    public static Pixel pixel;
 
     public static final int NOITEM = -1;
     public static final int SPRING = 0;
@@ -15,6 +14,10 @@ public class Item extends GameObject {
     public static final int SPRINGSHOE = 2;
     public static final int ROCKET = 3;
     public static final int SHIELD = 4;
+    
+    private static long shieldTimer;
+    private static long rocketTimer;
+    private static int shoeTimer = -1;
 
 
     public Item(Platform p, int type){
@@ -29,43 +32,62 @@ public class Item extends GameObject {
     }
     
     
-    public void causeEffect(Vector items, int i){
+    public void activate(){
         switch (type) {
-        case SPRING:
-            //einmalig den jumpspeed erh�hen
-            pixel.speedY = pixel.JUMPSPEED*1.33;
-            break;
-
-        case TRAMPOLINE:
-            //einmalig den jumpspeed erh�hen
-            pixel.speedY = pixel.JUMPSPEED*2.25;
-            break;
-
         case SPRINGSHOE:
-            //Pixel das item geben und dann in der welt l�schen
-            pixel.item = SPRINGSHOE;
-            items.removeElementAt(i);
+            shoeTimer = 6;
             this.p.item = null;
             break;
 
         case ROCKET:
-            //Pixel das item geben, den timer initialisieren und dann das item in der welt l�schen
-            pixel.item = ROCKET;
-            pixel.rocketTimer = System.currentTimeMillis();
-            items.removeElementAt(i);
+            rocketTimer = System.currentTimeMillis();
             this.p.item = null;
             break;
             
         case SHIELD:
-            //Pixel das item geben, den timer initialisieren und dann das item in der welt l�schen
-            pixel.item = SHIELD;
-            pixel.shieldTimer = System.currentTimeMillis();
-            items.removeElementAt(i);
+            shieldTimer = System.currentTimeMillis();
             this.p.item = null;
             break;
 
         default:
             return;
         }
+    }
+    
+    public static boolean isShieldActive() {
+        if (shieldTimer == 0)
+            return false;
+        if ((System.currentTimeMillis() - shieldTimer) < 5000)
+            return true;
+        else {
+            shieldTimer = 0;
+            return false;
+        }
+    }
+    
+    public static boolean isRocketActive() {
+        if (rocketTimer == 0)
+            return false;
+        if ((System.currentTimeMillis() - rocketTimer) < 2000)
+            return true;
+        else {
+            rocketTimer = 0;
+            return false;
+        }
+    }
+    
+    public static boolean isShoeActive(boolean jump) {
+        if (jump)
+            shoeTimer--;
+        return shoeTimer >= 0;
+    }
+    
+    public static double getJumheightMulti(int type) {
+        if (type == SPRING || (type == SPRINGSHOE && isShoeActive(false)))
+            return 1.33;
+        if (type == TRAMPOLINE)
+            return 2.25;
+        Debug.add("FUUUUUUU");
+        return -9001;
     }
 }
