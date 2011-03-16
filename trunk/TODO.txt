@@ -1,4 +1,3 @@
-background mit sprites
 richtige sounds
 grafikstil, animationen, splatter
 
@@ -9,7 +8,9 @@ verschiedene monster, schwarze loecher, ufos
 auf monster raufspringen
 monster bewegen sich
 
-alle items ( schild)
-
 leveldesign, u.U. mit sinnvollen trampolins/raketen/monstern usw
 plattformen werden nach und nach erzeugt, und nicht mehrere auf einmal
+
+bewegende plattformen
+
+initNewGame muss items und score zuruecksetzen

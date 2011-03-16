@@ -9,7 +9,6 @@ public class Background2D {
     private double posY;
     private int height;
     private TiledLayer landscape;
-    double zaehler = 0;
     private Random r = new Random();
 
     public Background2D(int width, int height) {
