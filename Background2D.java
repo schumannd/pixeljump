@@ -31,7 +31,7 @@ public class Background2D {
 //        }
     }
 
-    public void setDist(double dist) {
+    public void moveDown(double dist) {
         posY += dist / 4;
         if (posY > 0) {
             posY %= 10;

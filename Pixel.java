@@ -8,7 +8,6 @@ public class Pixel extends GameObject {
     public final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
-    public int score = 0;
     private int shotOriginX;
     private int shotOriginY;
 
@@ -112,7 +111,7 @@ public class Pixel extends GameObject {
            for (int i = 0; i < platforms.size(); i++) {
                 Platform p = (Platform) platforms.elementAt(i);
                 //y-Distanz von pixel zu plattform
-                double distanceY = p.posY - posY;
+                double distanceY = p.posY-1 - posY;
                 //wenn die plattform ueber dem pixel ist oder die distanz
                 //groesser als die zurueckzulegende strecke ist, abbruch.
                 if (distanceY < 0 || distanceY > moveY)
@@ -122,28 +121,21 @@ public class Pixel extends GameObject {
                 double fraction2 = distanceY/moveY;
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + moveX * fraction2;
-                //die position ist nicht auf der plattform, also keine kollision, abbruch
-                // fuer die positionen der beine
-                if (newPosX+13  <= p.posX || newPosX +3 >= (p.posX + p.size))
+                // +13 und +3 fuer die positionen der beine
+                if (newPosX+13  <= p.posX || newPosX +3 >= (p.posX + p.getWidth()))
+                    //die position ist nicht auf der plattform, also keine kollision, abbruch
                     continue;
+                SoundManager.playSound(SoundManager.JUMP);
                 // loesche platform ohne kollision wenn fake
                 if(p.type == Platform.FAKE) {
                     platforms.removeElementAt(i);
                     continue;
                 }
-
-                //bewege pixel bis zur kollision und dann um die verbleibende zeit in die neue richtung
-                posY = posY + moveY * fraction2;
-                if(Item.isShoeActive(false)){
-                    posY += (moveY/speedY)*JUMPSPEED * 1.33 * (1-fraction2);
-                }
-                else
-                    posY += (moveY/speedY)*JUMPSPEED * (1-fraction2);
-                //loesche Platform wenn breakable, dann kollision
-                if(p.type == 1) {
+                if(p.type == Platform.BREAK)
                     platforms.removeElementAt(i);
-                }
-                SoundManager.playSound(SoundManager.JUMP);
+
+                //bewege pixel bis zur kollision
+                posY = posY + moveY * fraction2;
                 //neue geschwindigkeit
                 if (Item.isShoeActive(true))
                     speedY = JUMPSPEED * Item.getJumheightMulti(Item.SPRINGSHOE);
@@ -156,20 +148,8 @@ public class Pixel extends GameObject {
         return false;
     }
     
-    
-    public void moveDown (double dist) {
-        super.moveDown(dist);
-        score += dist;
-    }
-    
-    
     public void shoot(Arena arena) {
         SoundManager.playSound(SoundManager.SHOOT);
         arena.shoot(posX + shotOriginX, posY + shotOriginY);
-    }
-    
-    
-    public void paintScore(Graphics g, int width) {
-        g.drawString("Score: "+Integer.toString(score), width-65, 15, Graphics.TOP | Graphics.LEFT);
     }
 }
