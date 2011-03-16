@@ -3,7 +3,7 @@ import javax.microedition.lcdui.Graphics;
 
 public class Debug {
     /** How many Strings are printed. **/
-    public final static int capacity = 10;
+    private final static int capacity = 10;
     /** List of all Strings that should be printed. **/
     private static Vector strings = new Vector();
     

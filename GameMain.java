@@ -11,7 +11,6 @@ class GameMain extends GameCanvas {
     //private Background3D b3d;
     private Level l;
     private Arena arena;
-    SoundManager soundm;
     private int score = 0;
     
     private final int FPS = 40;
@@ -24,8 +23,7 @@ class GameMain extends GameCanvas {
     public void init() {
         initNewGame();
         
-        SoundManager soundm = new SoundManager();
-        soundm.init();
+        new SoundManager().init();
         
         GameObject.init(getWidth(), getHeight());
     }
@@ -77,7 +75,7 @@ class GameMain extends GameCanvas {
         if (pixel.monsterCollision(arena.monsters)) {
             gameState = 3;
             stopTimer();
-            soundm.deathm();
+            SoundManager.deathm();
             return;
         }
         
@@ -85,7 +83,7 @@ class GameMain extends GameCanvas {
         if(pixel.posY > getHeight()) {
             gameState = 3;
             stopTimer();
-            soundm.death();
+            SoundManager.death();
             return;
         }
         
@@ -127,12 +125,6 @@ class GameMain extends GameCanvas {
         l = new Level(3,getWidth(), getHeight(), arena);
         b2d = new Background2D(getWidth(), getHeight());
         gameState = 1;
-    }
-
-    private void stopGame() {
-        stopTimer();
-        gameState = 0;
-        repaint();
     }
     
     

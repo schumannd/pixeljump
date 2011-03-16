@@ -1,11 +1,10 @@
 import java.util.Vector;
-import javax.microedition.lcdui.Graphics;
 
 public class Pixel extends GameObject {
     
     private double speedX = 0;
-    public double speedY = 0;
-    public final int JUMPSPEED = -20;
+    private double speedY = 0;
+    private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
     private int shotOriginX;
