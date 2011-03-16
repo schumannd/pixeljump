@@ -12,6 +12,7 @@ class GameMain extends GameCanvas {
     private Level l;
     private Arena arena;
     SoundManager soundm;
+    private int score = 0;
     
     private final int FPS = 40;
 
@@ -46,11 +47,11 @@ class GameMain extends GameCanvas {
             arena.paint(g);
             pixel.paint(g);
             
-            pixel.paintScore(g, getWidth());
+            g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
-            g.drawString("Score: "+Integer.toString(pixel.score), getWidth() / 2, getHeight() / 2 +15,
+            g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
 
             break;
@@ -72,6 +73,7 @@ class GameMain extends GameCanvas {
         l.move(ms);
         arena.move(ms);
         arena.monsterProjectileCollision();
+        //gameover weil mit monster kollidiert
         if (pixel.monsterCollision(arena.monsters)) {
             gameState = 3;
             stopTimer();
@@ -79,7 +81,7 @@ class GameMain extends GameCanvas {
             return;
         }
         
-        //gameover
+        //gameover weil unten rausgefallen
         if(pixel.posY > getHeight()) {
             gameState = 3;
             stopTimer();
@@ -91,10 +93,11 @@ class GameMain extends GameCanvas {
         double dist = getHeight() / 2 - pixel.posY;
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
-            b2d.setDist(dist);
+            b2d.moveDown(dist);
             l.moveDown(dist);
             arena.moveDown(dist);
             pixel.moveDown(dist);
+            score += dist;
         }
     }
     

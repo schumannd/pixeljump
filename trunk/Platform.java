@@ -4,7 +4,6 @@ import javax.microedition.lcdui.Graphics;
 public class Platform extends GameObject{
     
     public int type;
-    public int size;
     public Item item = null;
     private Random r = new Random();
     
@@ -18,7 +17,6 @@ public class Platform extends GameObject{
     
     public Platform(double x, double y, int t) {
         super(Tools.platImages[t], x, y);
-        size = getWidth();
         type = t;
         
         if (r.nextDouble() < 0.5)
