@@ -11,8 +11,9 @@ public class Arena {
         this.height = height;
     }
     
-    public void shoot(double x, double y) {
+    public void shoot(double x, double y, double speed) {
         Projectile p = new Projectile(x, y);
+        p.setSpeed(speed);
         p.posX -= p.getWidth()/2;
         p.posY -= p.getHeight();
         //autoaim

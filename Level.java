@@ -81,7 +81,7 @@ public class Level {
 
         platforms.addElement(plat);
 
-        if(r.nextDouble() < 1 && (type == Platform.NORMAL || type == Platform.MOVE)){
+        if(r.nextDouble() < 0.2 && (type == Platform.NORMAL || type == Platform.MOVE)){
 
             int itemType = Item.SPRING;
             int n = r.nextInt(100);
