@@ -21,4 +21,9 @@ public class Projectile extends GameObject {
         speedX = xdist * fraction;
         speedY = ydist * fraction;
     }
+
+    public void setSpeed(double newSpeed){
+        SPEED += newSpeed;
+    }
+
 }
