@@ -1,7 +1,8 @@
 richtige sounds
 grafikstil, animationen, splatter
+verschiedene monster, 
 
-verschiedene monster, schwarze loecher, ufos
+schwarze loecher, ufos
 
 
 
@@ -13,4 +14,3 @@ plattformen werden nach und nach erzeugt, und nicht mehrere auf einmal
 
 bewegende plattformen
 
-initNewGame muss items und score zuruecksetzen
