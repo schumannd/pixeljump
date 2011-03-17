@@ -57,8 +57,7 @@ public class Level {
                 y +=height;
             int type = r.nextInt(2);
 
-            if(addNewPlat(x, y, type))
-                i++;
+            addNewPlat(x, y, type);
             
         }
     }
@@ -77,13 +76,13 @@ public class Level {
     }
     
 
-    private boolean addNewPlat(int x, int y, int type){
+    private void addNewPlat(int x, int y, int type){
         Platform plat = new Platform(x, y, type);
-        boolean retItem = false;
+
         platforms.addElement(plat);
 
         if(r.nextDouble() < 1 && (type == Platform.NORMAL || type == Platform.MOVE)){
-            retItem = true;
+
             int itemType = Item.SPRING;
             int n = r.nextInt(100);
             if(80 < n )
@@ -99,7 +98,6 @@ public class Level {
             plat.item = item;
             items.addElement(item);
         }
-        return retItem;
     }
     
     public void move(int ms) {
