@@ -77,7 +77,7 @@ public class Level {
     
 
     private void addNewPlat(int x, int y, int type){
-        Platform plat = new Platform(x, y, type);
+        Platform plat = new Platform(x, y, type, false);
 
         platforms.addElement(plat);
 
