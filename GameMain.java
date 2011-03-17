@@ -124,6 +124,8 @@ class GameMain extends GameCanvas {
         arena = new Arena(getHeight());
         l = new Level(3,getWidth(), getHeight(), arena);
         b2d = new Background2D(getWidth(), getHeight());
+        Item.reset();
+        score = 0;
         gameState = 1;
     }
     

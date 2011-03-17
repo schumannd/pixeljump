@@ -11,19 +11,17 @@ public class Tools {
     public static Image[] monsterImages = new Image[1];
     
     public static String res;
-    //fix, damit sowohl bluej als auch eclipse die ressourcen finden
-    static {
-        try{
-            pixelImage = Image.createImage("/pixelman.png");
-            res = "";
-        }catch(Exception e){res = "/res";}
-    }
-        
-    
     
     public static void init() {
         if (pixelImage != null)
             return; //wurde bereits initialisiert
+            
+        //fix, damit sowohl bluej als auch eclipse die ressourcen finden
+        try{
+            pixelImage = Image.createImage("/pixelman.png");
+            res = "";
+        }catch(Exception e){res = "/res";}
+        
         try{
             pixelImage = Image.createImage(res+"/pixelman.png");
             projectileImage = Image.createImage(res+"/projectile.png");

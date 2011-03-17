@@ -89,4 +89,10 @@ public class Item extends GameObject {
         Debug.add("FUUUUUUU");
         return -9001;
     }
+    
+    public static void reset(){
+        shoeTimer = -1;
+        rocketTimer = 0;
+        shieldTimer = 0;
+    }
 }
