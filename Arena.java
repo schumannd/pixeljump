@@ -49,7 +49,9 @@ public class Arena {
                 Projectile p = getProjectile(j);
                 if (m.collidesWith(p, false)) {
                     monsters.removeElementAt(i);
+                    projectiles.removeElementAt(j);
                     i--;
+                    break;
                 }
             }
         }
