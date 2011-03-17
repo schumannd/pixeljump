@@ -4,7 +4,7 @@ public class Item extends GameObject {
 
     private int x;
     private Platform p;
-    public int type; // 0 = Feder, 1 = Trampolin, 2 = Springschuh, 3 = Rakete
+    public int type;
     private Random r = new Random();
 
     public static final int NOITEM = -1;
@@ -16,7 +16,7 @@ public class Item extends GameObject {
     
     private static long shieldTimer;
     private static long rocketTimer;
-    private static int shoeTimer = -1;
+    private static int shoeTimer = 0;
 
 
     public Item(Platform p, int type){
@@ -37,17 +37,14 @@ public class Item extends GameObject {
             shoeTimer = 6;
             this.p.item = null;
             break;
-
         case ROCKET:
             rocketTimer = System.currentTimeMillis();
             this.p.item = null;
             break;
-            
         case SHIELD:
             shieldTimer = System.currentTimeMillis();
             this.p.item = null;
             break;
-
         default:
             return;
         }
@@ -91,7 +88,7 @@ public class Item extends GameObject {
     }
     
     public static void reset(){
-        shoeTimer = -1;
+        shoeTimer = 0;
         rocketTimer = 0;
         shieldTimer = 0;
     }

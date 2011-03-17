@@ -10,7 +10,7 @@ public class Tools {
     public static Image[] itemImages = new Image[5];
     public static Image[] monsterImages = new Image[1];
     
-    public static String res;
+    private static String res;
     
     public static void init() {
         if (pixelImage != null)

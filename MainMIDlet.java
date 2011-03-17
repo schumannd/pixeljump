@@ -62,6 +62,4 @@ public class MainMIDlet extends MIDlet implements CommandListener {
             canvas.addCommand(cmPause);
         }
     }
-
-
 }
