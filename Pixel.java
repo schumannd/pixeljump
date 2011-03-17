@@ -22,16 +22,22 @@ public class Pixel extends GameObject {
     public void accelerate(int leftright, int ms) {
         double fraction = 15*ms/1000.0d;
         
-        if(speedX*leftright < 0)
-            speedX /= 4/fraction;
-        speedX+= leftright*fraction*ACCELERATION;
-        if (speedX > SPEEDLIMIT)
-            speedX = SPEEDLIMIT;
-        else if (speedX < -SPEEDLIMIT)
-            speedX = -SPEEDLIMIT;
-        
-        if (leftright == 0)
-            speedX /= 2/fraction;
+        //bremsen wenn nichts gedrueckt wurde
+        if (leftright == 0 && speedX != 0) {
+            if (Math.abs(speedX) < fraction* ACCELERATION*2)
+                speedX = 0;
+            else
+                speedX -= fraction* ACCELERATION*2 * ((speedX < 0) ? -1 : 1);
+        }
+        else if (leftright != 0) {
+            if(speedX*leftright < 0)
+                speedX += leftright*fraction*ACCELERATION;
+            speedX += leftright*fraction*ACCELERATION;
+            if (speedX > SPEEDLIMIT)
+                speedX = SPEEDLIMIT;
+            else if (speedX < -SPEEDLIMIT)
+                speedX = -SPEEDLIMIT;
+        }
     }
     
     public void move(Vector platforms, Vector items, int ms) {
