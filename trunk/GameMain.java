@@ -9,7 +9,7 @@ class GameMain extends GameCanvas {
     private Pixel pixel;
     private Background2D b2d;
     //private Background3D b3d;
-    private Level l;
+    private Level level;
     private Arena arena;
     private int score = 0;
     
@@ -23,16 +23,12 @@ class GameMain extends GameCanvas {
     public void init() {
         initNewGame();
         
-        new SoundManager().init();
+        SoundManager.init();
         
         GameObject.init(getWidth(), getHeight());
     }
 
     public void paint(Graphics g) {
-        //clear everything
-        g.setColor(255, 255, 255);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(0, 0, 0);
         b2d.draw(g);
 
         switch (gameState) {
@@ -41,7 +37,7 @@ class GameMain extends GameCanvas {
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
         case 1: //im spiel
-            l.paintPlatAndItems(g);
+            level.paintPlatAndItems(g);
             arena.paint(g);
             pixel.paint(g);
             
@@ -51,7 +47,6 @@ class GameMain extends GameCanvas {
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
-
             break;
         }
         Debug.print(g);
@@ -67,8 +62,8 @@ class GameMain extends GameCanvas {
             leftright = 1;
         
         pixel.accelerate(leftright, ms);
-        pixel.move(getWidth(), l.platforms, l.items, ms);
-        l.move(ms);
+        pixel.move(level.platforms, level.items, ms);
+        level.move(ms);
         arena.move(ms);
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
@@ -92,7 +87,7 @@ class GameMain extends GameCanvas {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
             b2d.moveDown(dist);
-            l.moveDown(dist);
+            level.moveDown(dist);
             arena.moveDown(dist);
             pixel.moveDown(dist);
             score += dist;
@@ -122,7 +117,7 @@ class GameMain extends GameCanvas {
         pixel = new Pixel(getWidth() / 2, getHeight() / 2);
         SoundManager.start();
         arena = new Arena(getHeight());
-        l = new Level(3,getWidth(), getHeight(), arena);
+        level = new Level(3,getWidth(), getHeight(), arena);
         b2d = new Background2D(getWidth(), getHeight());
         Item.reset();
         score = 0;

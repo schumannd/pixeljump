@@ -12,13 +12,12 @@ public class Arena {
     }
     
     public void shoot(double x, double y, double speed) {
-        Projectile p = new Projectile(x, y);
-        p.setSpeed(speed);
+        Projectile p = new Projectile(x, y, speed);
         p.posX -= p.getWidth()/2;
         p.posY -= p.getHeight();
         //autoaim
         int nearestMonster = -1;
-        double nearestMonsterDist = -1;
+        double nearestMonsterDist = 9001;
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = getMonster(i);
             if (!m.isOnScreen())
@@ -26,18 +25,18 @@ public class Arena {
             double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
             double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
             double dist = Math.sqrt(xdist*xdist+ydist*ydist);
-            if (dist > nearestMonsterDist) {
+            if (dist < nearestMonsterDist) {
                 nearestMonster = i;
                 nearestMonsterDist = dist;
             }
         }
-        if (nearestMonsterDist != -1) {
+        if (nearestMonster != -1) {
            Monster m = getMonster(nearestMonster);
            double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
            double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
            p.setDirection(xdist, ydist);
         }
-        else 
+        else //kein monster da, nach oben schiessen
             p.setDirection(0, 1);
         
         projectiles.addElement(p);

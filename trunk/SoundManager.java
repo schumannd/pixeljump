@@ -2,8 +2,8 @@ import java.io.*;
 import javax.microedition.media.*;
 
 public class SoundManager {
-    /* neuen ton hinzufuegen: konstante hinzufuegen, bei new Player[x] das x 
-     * hochzaehlen, und dateinamen zu filenames hinzufuegen
+    /* neuen ton hinzufuegen: konstante hinzufuegen
+     * und dateinamen zu filenames hinzufuegen
      */
     public static final int MUSIC = 0;
     public static final int JUMP = 1;
@@ -11,22 +11,25 @@ public class SoundManager {
     public static final int DIE = 3;
     public static final int DIEM = 4;
     
-    private static final Player[] players = new Player[5];
-    private static String[] filenames = { "giana.mp3", "jumpsound0.wav", "shootsound0.wav", "die.mp3", "diem.mp3" };
+    private static final String[] filenames = { "giana.mp3", "jumpsound0.wav", 
+        "shootsound0.wav", "die.mp3", "diem.mp3" };
+    private static final Player[] players = new Player[filenames.length];
     
-    public void init() {
+    
+    public static void init() {
         String res = "";
-        if (getClass().getResourceAsStream("/" + filenames[0]) == null) 
+        SoundManager sm = new SoundManager();
+        if (sm.getClass().getResourceAsStream("/" + filenames[0]) == null) 
             res = "/res";
 
         try {
             for (int i = 0; i < players.length; i++) {
-                InputStream is = getClass().getResourceAsStream(
+                InputStream is = sm.getClass().getResourceAsStream(
                         res + "/" + filenames[i]);
                 String type = null;
                 if (filenames[i].endsWith(".wav")) type = "audio/x-wav";
-                if (filenames[i].endsWith(".mp3")) type = "audio/mpeg";
-                if (filenames[i].endsWith(".mid")) type = "audio/midi";
+                else if (filenames[i].endsWith(".mp3")) type = "audio/mpeg";
+                else if (filenames[i].endsWith(".mid")) type = "audio/midi";
                 players[i] = Manager.createPlayer(is, type);
                 players[i].prefetch();
             }
@@ -36,6 +39,7 @@ public class SoundManager {
         } catch (MediaException e) {
         }
     }
+    
     public static void death(){
         stopSound(MUSIC);
         playSound(DIE);

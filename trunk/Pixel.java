@@ -34,7 +34,7 @@ public class Pixel extends GameObject {
             speedX /= 2/fraction;
     }
     
-    public void move(int width, Vector platforms, Vector items, int ms) {
+    public void move(Vector platforms, Vector items, int ms) {
         double fraction = 15*ms/1000.0d;
         //die diesen zug zurueckzulegende distanz.
         double moveY = speedY*fraction;
@@ -43,8 +43,7 @@ public class Pixel extends GameObject {
         if(Item.isRocketActive()){
             //speedY auf raketenspeed
             speedY = JUMPSPEED*3;
-            moveY = speedY*fraction;
-            posY += moveY;
+            posY += speedY*fraction;
         }
         else if (!collisionDetection(platforms, items, moveX, moveY)) {
             //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
@@ -54,13 +53,11 @@ public class Pixel extends GameObject {
         posX += moveX;
         
         //linke wand
-        if (posX < 0){
+        if (posX < 0)
             posX = width;
-        }
         //rechte wand
-        else if (posX > width){
+        else if (posX > width)
             posX = 0;
-        }
         
         this.setRefPixelPosition((int) posX, (int) posY);
         //Gavitation.
@@ -69,7 +66,8 @@ public class Pixel extends GameObject {
     
     
     public boolean monsterCollision(Vector monsters) {
-        if(Item.isRocketActive() || Item.isShieldActive()){ return false; }
+        if(Item.isRocketActive() || Item.isShieldActive())
+            return false;
         for(int i = 0; i < monsters.size(); i++){
             Monster m = (Monster) monsters.elementAt(i);
             if (this.collidesWith(m, false))
