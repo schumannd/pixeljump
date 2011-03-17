@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Item extends GameObject {
 
-    private int x;
-    private Platform p;
-    public int type;
-    private Random r = new Random();
+    private final int offset;
+    private final Platform p;
+    public final int type;
+    private static final Random r = new Random();
 
     public static final int NOITEM = -1;
     public static final int SPRING = 0;
@@ -23,8 +23,8 @@ public class Item extends GameObject {
         super(Tools.itemImages[type], p.posX, p.posY);
         this.p = p;
         this.type = type;
-        x = r.nextInt(30-Tools.itemImages[type].getWidth());
-        posX = p.posX + x;
+        offset = r.nextInt(30-Tools.itemImages[type].getWidth());
+        posX = p.posX + offset;
 
         defineReferencePixel(0, 16);
         setRefPixelPosition((int) posX,(int) posY);

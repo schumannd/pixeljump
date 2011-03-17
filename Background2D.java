@@ -1,18 +1,25 @@
-import java.util.Random;
-import java.util.Vector;
+//import java.util.*;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.TiledLayer;
 
 public class Background2D {
-    private Vector stars;
+//    private Vector stars;
     private double posY;
-    private TiledLayer landscape;
-    private Random r = new Random();
+    private final TiledLayer landscape;
 
     public Background2D(int width, int height) {
-        createLandscape(height);
+        int anzahl = (height / 10) + 1;
+        Image img = Tools.backgroundImage;
+        landscape = new TiledLayer(1, anzahl, img, img.getWidth(), img.getHeight());
+        posY = -(anzahl*10) + height;
+        landscape.setPosition(0, (int) posY );
 
+        for (int i = 0; i < anzahl; i++) {
+            landscape.setCell(0, i, 1);
+        }
+        
+//        Random r = new Random();
 //        stars = new Vector();7
 //        for (int i = 0; i < 200; i++) {
 //            stars.addElement(new Star(r.nextInt(width), r.nextInt(height), r.nextInt(2)+1));
@@ -42,18 +49,6 @@ public class Background2D {
 //            if (star.y > height)
 //                star.y = 0;
 //        }
-    }
-
-    private void createLandscape(int height) {
-        int anzahl = (height / 10) + 1;
-        Image img = Tools.backgroundImage;
-        landscape = new TiledLayer(1, anzahl, img, img.getWidth(), img.getHeight());
-        posY = -(anzahl*10) + height;
-        landscape.setPosition(0, (int) posY );
-
-        for (int i = 0; i < anzahl; i++) {
-            landscape.setCell(0, i, 1);
-        }
     }
     
     

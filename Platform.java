@@ -1,11 +1,9 @@
-import java.util.Random;
 import javax.microedition.lcdui.Graphics;
 
 public class Platform extends GameObject{
     
     public int type;
     public Item item = null;
-    private Random r = new Random();
     
     public static final int NORMAL = 0;
     public static final int BREAK = 1;
@@ -15,12 +13,10 @@ public class Platform extends GameObject{
     private boolean moves = false;
     
     
-    public Platform(double x, double y, int t) {
-        super(Tools.platImages[t], x, y);
-        type = t;
-        
-        if (r.nextDouble() < 0.5)
-            moves = true;
+    public Platform(double x, double y, int type, boolean moves) {
+        super(Tools.platImages[type], x, y);
+        this.type = type;
+        this.moves = moves;
     }
     
     
