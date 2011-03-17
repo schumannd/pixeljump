@@ -80,6 +80,7 @@ public class Level {
         Platform plat = new Platform(x, y, type, false);
 
         platforms.addElement(plat);
+//        GameMain.b3d.addPlatform(x, y);
 
         if(r.nextDouble() < 0.2 && (type == Platform.NORMAL || type == Platform.MOVE)){
 

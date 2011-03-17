@@ -147,7 +147,7 @@ public class Background3D
     
     
     /** Alle Plattformen um dist pixel verschieben. **/
-    public void move (double dist) {
+    public void moveDown (double dist) {
         allPlatforms.translate(0, (float)(-dist / (height/2))*2.68f, 0);
     }
     
