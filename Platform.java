@@ -11,10 +11,20 @@ public class Platform extends GameObject{
     public static final int MOVE = 3;
     
     private boolean moves = false;
+    private final double startX;
+    private double startY;
+    private final double endX;
+    private double endY;
     
     
-    public Platform(double x, double y, int type, boolean moves) {
+    public Platform(double x, double y, int type, double xdist, double ydist) {
         super(Tools.platImages[type], x, y);
+        startX = x;
+        startY = y;
+        if (xdist != 0 || ydist != 0)
+            moves = true;
+        endX = startX + xdist;
+        endY = startY + ydist;
         this.type = type;
         this.moves = moves;
     }
@@ -22,6 +32,8 @@ public class Platform extends GameObject{
     
     public void moveDown(double dist) {
         super.moveDown(dist);
+        startY += dist;
+        endY += dist;
         if (item != null) {
             item.moveDown(dist);
         }
@@ -31,10 +43,11 @@ public class Platform extends GameObject{
     public void moveSide(int ms) {
         if (!moves)
             return;
-//        posX += 20f/(1000f/ms);
-//        setRefPixelPosition((int) posX, (int) posY);
-//        if (item != null)
-//            item.updatePos();
+        
+        //posX += 1;
+        setRefPixelPosition((int) posX, (int) posY);
+        //if (item != null)
+            //item.updatePos();
     }
     
     
