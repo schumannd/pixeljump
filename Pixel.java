@@ -130,11 +130,11 @@ public class Pixel extends GameObject {
                     continue;
                 SoundManager.playSound(SoundManager.JUMP);
                 // loesche platform ohne kollision wenn fake
-                if(p.type == Platform.FAKE) {
+                if(p.getType() == Platform.FAKE) {
                     platforms.removeElementAt(i);
                     continue;
                 }
-                if(p.type == Platform.BREAK)
+                if(p.getType() == Platform.BREAK)
                     platforms.removeElementAt(i);
 
                 //bewege pixel bis zur kollision
