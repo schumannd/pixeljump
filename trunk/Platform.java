@@ -2,7 +2,7 @@ import javax.microedition.lcdui.Graphics;
 
 public class Platform extends GameObject{
     
-    public int type;
+    private int type;
     public Item item = null;
     
     public static final int NORMAL = 0;
@@ -29,6 +29,9 @@ public class Platform extends GameObject{
         this.moves = moves;
     }
     
+    public int getType() {
+        return type;
+    }
     
     public void moveDown(double dist) {
         super.moveDown(dist);

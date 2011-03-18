@@ -63,7 +63,7 @@ class GameMain extends GameCanvas {
             leftright = 1;
         
         pixel.accelerate(leftright, ms);
-        pixel.move(level.platforms, level.items, ms);
+        pixel.move(level.visiblePlat, level.items, ms);
         level.move(ms);
         arena.move(ms);
         arena.monsterProjectileCollision();
@@ -82,14 +82,16 @@ class GameMain extends GameCanvas {
             SoundManager.death();
             return;
         }
-        
+
         //Abstand des Pixels zu Bildschirmmitte.
-        double dist = getHeight() / 2 - pixel.posY;
+        double dist = getHeight() / 2 - pixel.getPosY();
+
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
             b2d.moveDown(dist);
-//            b3d.moveDown(dist);
+            
             level.moveDown(dist);
+            
             arena.moveDown(dist);
             pixel.moveDown(dist);
             score += dist;
