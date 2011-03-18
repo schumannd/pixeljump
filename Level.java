@@ -55,7 +55,7 @@ public class Level {
     }
     
     private void addPlat(int x, int y, int type){
-        Platform plat = new Platform(x, y, type, false);
+        Platform plat = new Platform(x, y, type, 1, 0);
 
         platforms.addElement(plat);
     }

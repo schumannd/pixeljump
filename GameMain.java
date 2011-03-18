@@ -118,7 +118,7 @@ class GameMain extends GameCanvas {
     }
 
     public void initNewGame() {
-        pixel = new Pixel(getWidth() / 2, getHeight() / 2);
+        pixel = new Pixel(getWidth() / 2, getHeight()-1);
         SoundManager.start();
         arena = new Arena(getHeight());
         level = new Level(3,getWidth(), getHeight(), arena);
