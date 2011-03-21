@@ -13,6 +13,7 @@ public class Level {
     private int num = 0;
     private double lastSolvable = 0;
     private double lastPlat = 0;
+    private double lastMonster = 0;
     private double highest;
     Arena arena;
     
@@ -22,21 +23,28 @@ public class Level {
         height = h;
         highest = height/2;
         this.arena = arena;
-        createLvl(0);
     }
-    
-    private void createLvl(int rand) {
-        if(num == 0) {
-            addVisPlat((width-15)/2, 0, 0);
-            addVisPlat((width-15)/2, 80, 0);
-            addVisPlat((width-15)/2, 160, 0);
+
+    private void createMonsters() {
+        int pixel = 0;
+        int yVal;
+        while(pixel < 1000) {
+            if(num+diff <=90)
+                yVal = r.nextInt(5000-(num+diff)*50)+1;
+            //falls lvl ueber 90
+            else {
+                yVal = r.nextInt(500)+1;
+            }
+            if(pixel + yVal <= 1000)
+                arena.newInvisibleM(r.nextInt(width - 30), yVal, 0);
+            pixel += yVal;
         }
     }
     
-    private void easier() {
+    private void createPlats() {
         int pixel = 0;
         while(pixel < 1000) {
-            int yVal = r.nextInt(num*4+20)+1;
+            int yVal = r.nextInt((num+diff)*4+20)+1;
             if(pixel + yVal <= 1000)
                 addPlat(r.nextInt(width - 30), yVal, r.nextInt(3));
             //falls Platform ueber 1000sten Pixel
@@ -45,13 +53,6 @@ public class Level {
             }
             pixel += yVal;
         }
-        num++;
-    }
-    
-    private void monsterChance() {
-        for(int i = 0; i < 5+num-diff; i++)
-            if(r.nextDouble() < 0.5 && i< 11)
-                arena.newMonster(r.nextInt(width), r.nextInt(height)-height, 0);
     }
     
     private void addPlat(int x, int y, int type){
@@ -93,6 +94,8 @@ public class Level {
         lastSolvable += dist;
         //Abstand zur letzten  Platform
         lastPlat += dist;
+        //Abstand zum letzten  Monster
+        lastMonster += dist;
         
         //sichtbare platformen bewegen
         for (int i = 0; i < visiblePlat.size(); i++) {
@@ -106,8 +109,11 @@ public class Level {
             }
 
         }
-        if(highest >= 1000*num+height/2)
-            easier();
+        if(highest >= 1000*num+height/2) {
+            createPlats();
+            createMonsters();
+            num++;
+        }
         
         //letze essentielle Platfrom zu weit weg?
         if(lastSolvable >= 85) {
@@ -115,13 +121,18 @@ public class Level {
             lastSolvable = 0;
 
         }
-        
+
         //platformen oben erscheinen lassen
         while(platforms.size() > 0 && getPlat(0).getPosY() <= lastPlat) {
             lastPlat = 0;
             addVisPlat((int)getPlat(0).getPosX(), 0, getPlat(0).getType());
             platforms.removeElementAt(0);
-
+        }
+        //Monster oben erscheinen lassen
+        while(arena.invisibleM.size() > 0 && arena.getInvisibleM(0).getPosY() <= lastMonster) {
+            lastMonster = 0;
+            arena.newMonster((int)arena.getInvisibleM(0).getPosX(), 0, 0);
+            arena.invisibleM.removeElementAt(0);
         }
 
     }
