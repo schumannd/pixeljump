@@ -1,16 +1,13 @@
-richtige sounds
-grafikstil, animationen, splatter
-verschiedene monster, 
+TOP:
+Startscreen, Todesscreen verbessern
+Animationen teilweise erscheinen lassen (Doodler links/rechts, Monster oben/unten ausm Bildschirm)
+Sound bei Trampolin, Spring etc.
 
-schwarze loecher, ufos
-
-
+Kollision mit Platformen optimieren
+bewegende plattformen, Monster
+Levelblöcke einfügen ermöglichen
+Score Reparieren
 
 auf monster raufspringen
-monster bewegen sich
-
-leveldesign, u.U. mit sinnvollen trampolins/raketen/monstern usw
-plattformen werden nach und nach erzeugt, und nicht mehrere auf einmal
-
-bewegende plattformen
-
+animationen
+verschiedene monster (schwarze loecher, ufos)
