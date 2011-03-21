@@ -3,6 +3,7 @@ import javax.microedition.lcdui.Graphics;
 
 public class Arena {
     public Vector monsters = new Vector();
+    public Vector invisibleM = new Vector();
     public Vector projectiles = new Vector();
     private int height;
     
@@ -79,13 +80,20 @@ public class Arena {
             getProjectile(i).moveDown(dist);
         }
     }
-    
+
     public void newMonster(int x, int y, int type) {
         monsters.addElement(new Monster(x, y, type));
     }
-    
+    public void newInvisibleM(int x, int y, int type) {
+        invisibleM.addElement(new Monster(x, y, type));
+    }
+
     public Monster getMonster(int i){
         return (Monster) monsters.elementAt(i);
+    }
+
+    public Monster getInvisibleM(int i){
+        return (Monster) invisibleM.elementAt(i);
     }
     
     public Projectile getProjectile(int i){

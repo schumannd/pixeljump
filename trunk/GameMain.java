@@ -23,9 +23,10 @@ class GameMain extends GameCanvas {
     public void init() {
 //        b3d = new Background3D();
 //        b3d.init(getWidth(), getHeight());
+        b2d = new Background2D(getWidth(), getHeight());
+        SoundManager.init();
         initNewGame();
         
-        SoundManager.init();
         GameObject.init(getWidth(), getHeight());
     }
 
@@ -119,10 +120,9 @@ class GameMain extends GameCanvas {
 
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
-        SoundManager.start();
         arena = new Arena(getHeight());
-        level = new Level(3,getWidth(), getHeight(), arena);
-        b2d = new Background2D(getWidth(), getHeight());
+        level = new Level(0,getWidth(), getHeight(), arena);
+        SoundManager.start();
         Item.reset();
 //        b3d.removeAll();
         score = 0;
