@@ -5,7 +5,7 @@ Sound bei Trampolin, Spring etc.
 
 Kollision mit Platformen optimieren
 bewegende plattformen, Monster
-Levelblöcke einfügen ermöglichen
+Levelbloecke einfuegen ermoeglichen
 Score Reparieren
 
 auf monster raufspringen

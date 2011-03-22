@@ -11,7 +11,7 @@ public abstract class GameObject extends Sprite {
 
     public GameObject(Image image, double x, double y) {
         super(image);
-        posX = x;
+        posX = x; 
         posY = y;
         setRefPixelPosition((int) posX, (int) posY);
     }

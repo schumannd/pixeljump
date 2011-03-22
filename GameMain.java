@@ -13,7 +13,7 @@ class GameMain extends GameCanvas {
     private Arena arena;
     private int score = 0;
     
-    private final int FPS = 40;
+    private final int FPS = 20;
 
     public GameMain() {
         super(false);
@@ -120,7 +120,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
-        level = new Level(0,getWidth(), getHeight(), arena);
+        level = new Level(100,getWidth(), getHeight(), arena);
         SoundManager.start();
         Item.reset();
 //        b3d.removeAll();
