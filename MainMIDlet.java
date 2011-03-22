@@ -14,6 +14,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     public MainMIDlet() {
         display = Display.getDisplay(this);
         canvas = new GameMain();
+        Debug.canvas = canvas;
 
         canvas.addCommand(cmExit);
         canvas.addCommand(cmNewGame);
@@ -23,7 +24,6 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         display.setCurrent(canvas);
         Tools.init();
         canvas.init();
-        Debug.canvas = canvas;
     }
 
     public void startApp() {
