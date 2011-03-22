@@ -13,6 +13,8 @@ public class Debug {
     
     /** Adds a String to the list. **/
     public static void add(String s) {
+        if (s == null)
+            add("string is null");
         addRepaint(s);
     }
     
@@ -31,6 +33,8 @@ public class Debug {
     
     /** Adds the output from the given objects toString() to the list. **/
     public static void add(Object o) {
+        if (o == null)
+            add("object is null");
         addRepaint(o.toString());
     }
     

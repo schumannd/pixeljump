@@ -12,6 +12,7 @@ class GameMain extends GameCanvas {
     private Level level;
     private Arena arena;
     private int score = 0;
+    Highscore highscore;
     
     private final int FPS = 20;
 
@@ -26,6 +27,7 @@ class GameMain extends GameCanvas {
         b2d = new Background2D(getWidth(), getHeight());
         SoundManager.init();
         initNewGame();
+        highscore = new Highscore();
         
         GameObject.init(getWidth(), getHeight());
     }
