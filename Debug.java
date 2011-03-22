@@ -1,33 +1,42 @@
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 
+import javax.microedition.lcdui.game.GameCanvas;
+
 public class Debug {
     /** How many Strings are printed. **/
     private final static int capacity = 10;
     /** List of all Strings that should be printed. **/
     private static Vector strings = new Vector();
     
+    public static GameCanvas canvas;
+    
     /** Adds a String to the list. **/
     public static void add(String s) {
-        strings.addElement(s);
+        addRepaint(s);
     }
     
     /** Adds a number of any type to the list. **/
     public static void add(double d) {
-        strings.addElement(Double.toString(d));
+        addRepaint(Double.toString(d));
     }
     
     /** Adds a boolean as "true" or "false" to the list. **/
     public static void add(boolean b) {
         if(b)
-            strings.addElement("true");
+            addRepaint("true");
         else
-            strings.addElement("false");
+            addRepaint("false");
     }
     
     /** Adds the output from the given objects toString() to the list. **/
     public static void add(Object o) {
-        strings.addElement(o.toString());
+        addRepaint(o.toString());
+    }
+    
+    private static void addRepaint(String s) {
+        strings.addElement(s);
+        canvas.repaint();
     }
     
     /** Removes the oldest elements until the list is not bigger than capacity. **/

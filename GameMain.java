@@ -31,7 +31,7 @@ class GameMain extends GameCanvas {
     }
 
     public void paint(Graphics g) {
-        b2d.draw(g);
+         b2d.draw(g);
 //        b3d.paint(g);
         switch (gameState) {
         case 0: //startbildschirm
@@ -62,7 +62,6 @@ class GameMain extends GameCanvas {
             leftright = -1;
         if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
-        
         pixel.accelerate(leftright, ms);
         pixel.move(level.visiblePlat, level.items, ms);
         level.move(ms);
