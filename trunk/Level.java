@@ -116,7 +116,7 @@ public class Level {
         }
         
         //letze essentielle Platfrom zu weit weg?
-        if(lastSolvable >= 85) {
+        if(lastSolvable >= 80) {
             addVisPlat(r.nextInt(width - 30), 0, 0);
             lastSolvable = 0;
 

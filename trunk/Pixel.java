@@ -60,10 +60,10 @@ public class Pixel extends GameObject {
         posX += moveX;
         
         //linke wand
-        if (posX < 0)
-            posX = width;
+        if (posX+getWidth()/2 < 0)
+            posX = width-getWidth()/2;
         //rechte wand
-        else if (posX > width)
+        else if (posX+getWidth()/2 > width)
             posX = 0;
         
         this.setRefPixelPosition((int) posX, (int) posY);
@@ -126,7 +126,7 @@ public class Pixel extends GameObject {
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + moveX * fraction2;
                 // +13 und +3 fuer die positionen der beine
-                if (newPosX+13  <= p.posX || newPosX +3 >= (p.posX + p.getWidth()))
+                if (newPosX+28  <= p.posX || newPosX +3 >= (p.posX + p.getWidth()))
                     //die position ist nicht auf der plattform, also keine kollision, abbruch
                     continue;
                 SoundManager.playSound(SoundManager.JUMP);
