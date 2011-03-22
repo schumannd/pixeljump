@@ -23,6 +23,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         display.setCurrent(canvas);
         Tools.init();
         canvas.init();
+        Debug.canvas = canvas;
     }
 
     public void startApp() {
