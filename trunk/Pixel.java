@@ -7,8 +7,9 @@ public class Pixel extends GameObject {
     private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
-    private int shotOriginX;
-    private int shotOriginY;
+    private final int GRAVITY = 2;
+    private final int shotOriginX;
+    private final int shotOriginY;
 
     
     public Pixel(double x, double y) {
@@ -42,22 +43,19 @@ public class Pixel extends GameObject {
     }
     
     public void move(Vector platforms, Vector items, int ms) {
-        double fraction = 15*ms/1000.0d;
-        //die diesen zug zurueckzulegende distanz.
-        double moveY = speedY*fraction;
-        double moveX = speedX*fraction;
+        double time = 15*ms/1000.0d;
         
         if(Item.isRocketActive()){
             //speedY auf raketenspeed
             speedY = JUMPSPEED*3;
-            posY += speedY*fraction;
+            posY += speedY*time;
         }
-        else if (!collisionDetection(platforms, items, moveX, moveY)) {
-            //wenn kollision stattdfand, wurde posY schonvon der kollisionsberechnung neu gesetzt
-            moveY = speedY*fraction;
-            posY += moveY; 
+        else {
+            itemCollDetec(items);
+            //diese methode berechnet auch die neue posY
+            platformCollDetec(platforms, time);
         }
-        posX += moveX;
+        posX += speedX*time;
         
         //linke wand
         if (posX+getWidth()/2 < 0)
@@ -68,7 +66,7 @@ public class Pixel extends GameObject {
         
         this.setRefPixelPosition((int) posX, (int) posY);
         //Gavitation.
-        speedY += 2*fraction;
+        speedY += GRAVITY*time;
     }
     
     
@@ -82,13 +80,8 @@ public class Pixel extends GameObject {
         }
         return false;
     }
-
-
-    public boolean collisionDetection(Vector platforms, Vector items, double moveX, double moveY){
-        itemCollDetec(items);
-        return platformCollDetec(platforms, moveX, moveY);
-    }
-
+    
+    
     private void itemCollDetec(Vector items){
         for(int i = 0; i < items.size(); i++){
             Item it = (Item) items.elementAt(i);
@@ -111,7 +104,8 @@ public class Pixel extends GameObject {
         }
     }
 
-    private boolean platformCollDetec(Vector platforms, double moveX, double moveY){
+    private boolean platformCollDetec(Vector platforms, double time){
+        double moveY = GRAVITY*time*time/2 + speedY*time;
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
         if (speedY > 0) {
            for (int i = 0; i < platforms.size(); i++) {
@@ -122,35 +116,42 @@ public class Pixel extends GameObject {
                 //groesser als die zurueckzulegende strecke ist, abbruch.
                 if (distanceY < 0 || distanceY > moveY)
                     continue;
-                //der bruchteil der zeit dieses frames, nach dem
-                //der pixel auf der hoehe der plattform angekommen is
-                double fraction2 = distanceY/moveY;
+                //die zeit, nach der der pixel auf der hoehe der plattform angekommen ist
+                double time2 = -(speedY/2)+Math.sqrt((speedY*speedY/4)+distanceY);
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
-                double newPosX = posX + moveX * fraction2;
+                double newPosX = posX + speedX * time2;
                 // +13 und +3 fuer die positionen der beine
                 if (newPosX+28  <= p.posX || newPosX +3 >= (p.posX + p.getWidth()))
                     //die position ist nicht auf der plattform, also keine kollision, abbruch
                     continue;
-                SoundManager.playSound(SoundManager.JUMP);
-                // loesche platform ohne kollision wenn fake
                 if(p.getType() == Platform.FAKE) {
                     platforms.removeElementAt(i);
                     continue;
                 }
+                //jetzt hat eine ernstzunehmende kollision stattgefunden.
+                SoundManager.playSound(SoundManager.JUMP);
                 if(p.getType() == Platform.BREAK)
                     platforms.removeElementAt(i);
 
                 //bewege pixel bis zur kollision
-                posY = posY + moveY * fraction2;
+                posY += distanceY;
+                
                 //neue geschwindigkeit
                 if (Item.isShoeActive(true))
                     speedY = JUMPSPEED * Item.getJumheightMulti(Item.SPRINGSHOE);
                 else
                     speedY = JUMPSPEED;
+                
+                //verbleibende zeit = gesamtzeit - zeit bis zur kollision
+                double time3 = time-time2;
+                posY += GRAVITY*time3*time3/2 + speedY*time3;
+                speedY += GRAVITY*time3;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
                 return true;
             }
         }
+        //keine kollision.
+        posY += moveY;
         return false;
     }
     
