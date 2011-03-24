@@ -56,14 +56,14 @@ public class Level {
     }
     
     private void addPlat(int x, int y, int type){
-        Platform plat = new Platform(x, y, type, 1, 0);
+        Platform plat = new Platform(type, new double[][]{{x, y}});
 
         platforms.addElement(plat);
     }
     
 
     private void addVisPlat(int x, int y, int type){
-        Platform plat = new Platform(x, y, type, 1, 0);
+        Platform plat = new Platform(type, new double[][]{{x, y}});
 
         visiblePlat.addElement(plat);
 //        GameMain.b3d.addPlatform(x, y);
