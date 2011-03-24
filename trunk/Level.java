@@ -116,7 +116,7 @@ public class Level {
         }
         
         //letze essentielle Platfrom zu weit weg?
-        if(lastSolvable >= 80) {
+        if(lastSolvable >= 75) {
             addVisPlat(r.nextInt(width - 30), 0, 0);
             lastSolvable = 0;
 
@@ -125,13 +125,14 @@ public class Level {
         //platformen oben erscheinen lassen
         while(platforms.size() > 0 && getPlat(0).getPosY() <= lastPlat) {
             lastPlat = 0;
-            addVisPlat((int)getPlat(0).getPosX(), 0, getPlat(0).getType());
+            addVisPlat((int)getPlat(0).getPosX(), -getPlat(0).getHeight(), getPlat(0).getType());
             platforms.removeElementAt(0);
         }
         //Monster oben erscheinen lassen
         while(arena.invisibleM.size() > 0 && arena.getInvisibleM(0).getPosY() <= lastMonster) {
             lastMonster = 0;
-            arena.newMonster((int)arena.getInvisibleM(0).getPosX(), 0, 0);
+            arena.newMonster((int)arena.getInvisibleM(0).getPosX(), -arena.getInvisibleM(0).getHeight(),
+                            arena.getInvisibleM(0).getType());
             arena.invisibleM.removeElementAt(0);
         }
 
