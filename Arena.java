@@ -24,7 +24,7 @@ public class Arena {
             if (!m.isOnScreen())
                 continue;
             double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-            double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
+            double ydist = p.posY + p.getHeight()/2-(m.posY - m.getHeight()/2);
             double dist = Math.sqrt(xdist*xdist+ydist*ydist);
             if (dist < nearestMonsterDist) {
                 nearestMonster = i;
@@ -34,7 +34,7 @@ public class Arena {
         if (nearestMonster != -1) {
            Monster m = getMonster(nearestMonster);
            double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-           double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
+           double ydist = p.posY + p.getHeight()/2-(m.posY - m.getHeight()/2);
            p.setDirection(xdist, ydist);
         }
         else //kein monster da, nach oben schiessen
