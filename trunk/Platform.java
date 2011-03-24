@@ -1,18 +1,16 @@
-import javax.microedition.lcdui.Graphics;
 
 public class Platform extends GameObject{
     
-    private int type;
+    private final int type;
     public Item item = null;
     
     public static final int NORMAL = 0;
     public static final int BREAK = 1;
     public static final int FAKE = 2;
-    public static final int MOVE = 3;
     
-    private boolean moves = false;
+    private final boolean moves;
     
-    private double [][] coords;
+    private final double [][] coords;
     private int targetCoord = 0;
     private final double SPEED = 10;
     private double distToTarget = 0;
@@ -28,8 +26,9 @@ public class Platform extends GameObject{
             double distY = posY - coords[targetCoord][1];
             distToTarget = Math.sqrt(distX*distX + distY*distY);
         }
+        else
+            moves = false;
         this.type = type;
-        this.moves = moves;
     }
     
     public int getType() {
@@ -44,7 +43,7 @@ public class Platform extends GameObject{
     }
     
     
-    public void moveSide(int ms) {
+    public void moveSide(double time) {
         if (!moves)
             return;
         
@@ -65,14 +64,5 @@ public class Platform extends GameObject{
         double distX = posX - coords[targetCoord][0];
         double distY = posY - coords[targetCoord][1];
         return Math.sqrt(distX*distX + distY*distY);
-    }
-    
-    
-    public void paint2(Graphics g) {
-        if (this.posY < -10)
-            return;
-        super.paint(g);
-        if (item != null)
-            item.paint(g);
     }
 }

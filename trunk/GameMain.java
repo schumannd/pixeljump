@@ -22,8 +22,7 @@ class GameMain extends GameCanvas {
     }
 
     public void init() {
-//        b3d = new Background3D();
-//        b3d.init(getWidth(), getHeight());
+//        b3d = new Background3D(getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         SoundManager.init();
         initNewGame();
@@ -59,16 +58,17 @@ class GameMain extends GameCanvas {
 
 
     private void doGamePlay(int ms) {
+        double time  = 15*ms/1000.d;
         int keycode = getKeyStates();
         int leftright = 0;
         if ((keycode & LEFT_PRESSED) != 0)
             leftright = -1;
         if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
-        pixel.accelerate(leftright, ms);
-        pixel.move(level.visiblePlats, level.items, ms);
-        level.move(ms);
-        arena.move(ms);
+        pixel.accelerate(leftright, time);
+        pixel.move(level.visiblePlats, level.items, time);
+        level.move(time);
+        arena.move(time);
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
         if (pixel.monsterCollision(arena.monsters)) {
@@ -92,9 +92,7 @@ class GameMain extends GameCanvas {
         //Wenn der Pixel ueber der Mitte ist, bewege alle Plattformen und den Pixel entsprchend.
         if (dist > 0) {
             b2d.moveDown(dist);
-            
             level.moveDown(dist);
-            
             arena.moveDown(dist);
             pixel.moveDown(dist);
             score += dist;
@@ -123,10 +121,10 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
+//        b3d.removeAll();
         level = new Level(0,getWidth(), getHeight(), arena);
         SoundManager.start();
         Item.reset();
-//        b3d.removeAll();
         score = 0;
         gameState = 1;
     }

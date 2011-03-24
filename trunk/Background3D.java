@@ -66,7 +66,7 @@ public class Background3D
     private float height;
     private float width;
     
-    public void init(float width, float height)
+    public Background3D(float width, float height)
     {
         this.height = height;
         this.width = width;

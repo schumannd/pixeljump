@@ -21,20 +21,19 @@ public class Pixel extends GameObject {
     }
     
     
-    public void accelerate(int leftright, int ms) {
-        double fraction = 15*ms/1000.0d;
+    public void accelerate(int leftright, double time) {
         
         //bremsen wenn nichts gedrueckt wurde
         if (leftright == 0 && speedX != 0) {
-            if (Math.abs(speedX) < fraction* ACCELERATION*2)
+            if (Math.abs(speedX) < time * ACCELERATION*2)
                 speedX = 0;
             else
-                speedX -= fraction* ACCELERATION*2 * ((speedX < 0) ? -1 : 1);
+                speedX -= time * ACCELERATION * 2 * ((speedX < 0) ? -1 : 1);
         }
         else if (leftright != 0) {
-            if(speedX*leftright < 0)
-                speedX += leftright*fraction*ACCELERATION;
-            speedX += leftright*fraction*ACCELERATION;
+            if(speedX * leftright < 0)
+                speedX += leftright * time * ACCELERATION;
+            speedX += leftright * time * ACCELERATION;
             if (speedX > SPEEDLIMIT)
                 speedX = SPEEDLIMIT;
             else if (speedX < -SPEEDLIMIT)
@@ -42,9 +41,7 @@ public class Pixel extends GameObject {
         }
     }
     
-    public void move(Vector platforms, Vector items, int ms) {
-        double time = 15*ms/1000.0d;
-        
+    public void move(Vector platforms, Vector items, double time) {
         if(Item.isRocketActive()){
             //speedY auf raketenspeed
             speedY = JUMPSPEED*3;

@@ -2,10 +2,10 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 
 public class Arena {
-    public Vector monsters = new Vector();
-    public Vector invisibleM = new Vector();
-    public Vector projectiles = new Vector();
-    private int height;
+    public final Vector monsters = new Vector();
+    public final Vector invisibleM = new Vector();
+    private final Vector projectiles = new Vector();
+    private final int height;
     
     
     public Arena (int height) {
@@ -58,10 +58,10 @@ public class Arena {
         }
     }
     
-    public void move(int ms) {
+    public void move(double time) {
         for (int i = 0; i < projectiles.size(); i++) {
             Projectile p = getProjectile(i);
-            p.move(ms);
+            p.move(time);
             if (!p.isOnScreen())
                 projectiles.removeElementAt(i);
         }

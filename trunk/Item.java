@@ -7,15 +7,14 @@ public class Item extends GameObject {
     public final int type;
     private static final Random r = new Random();
 
-    public static final int NOITEM = -1;
     public static final int SPRING = 0;
     public static final int TRAMPOLINE = 1;
     public static final int SPRINGSHOE = 2;
     public static final int ROCKET = 3;
     public static final int SHIELD = 4;
     
-    private static long shieldTimer;
-    public static long rocketTimer;
+    private static long shieldTimer = 0;
+    public static long rocketTimer = 0;
     private static int shoeTimer = 0;
 
 
