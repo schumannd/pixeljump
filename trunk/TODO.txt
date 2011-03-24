@@ -1,6 +1,5 @@
 TOP:
 Startscreen, Todesscreen verbessern
-Animationen teilweise erscheinen lassen (Doodler links/rechts, Monster oben/unten ausm Bildschirm)
 Sound bei Trampolin, Spring etc.
 
 Kollision mit Platformen optimieren
