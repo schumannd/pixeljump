@@ -14,7 +14,7 @@ class GameMain extends GameCanvas {
     private int score = 0;
     Highscore highscore;
     
-    private final int FPS = 20;
+    private final int FPS = 40;
 
     public GameMain() {
         super(false);
