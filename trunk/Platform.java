@@ -11,20 +11,23 @@ public class Platform extends GameObject{
     public static final int MOVE = 3;
     
     private boolean moves = false;
-    private final double startX;
-    private double startY;
-    private final double endX;
-    private double endY;
+    
+    private double [][] coords;
+    private int targetCoord = 0;
+    private final double SPEED = 10;
+    private double distToTarget = 0;
     
     
-    public Platform(double x, double y, int type, double xdist, double ydist) {
-        super(Tools.platImages[type], x, y);
-        startX = x;
-        startY = y;
-        if (xdist != 0 || ydist != 0)
+    public Platform(int type, double [][] coordinates) {
+        super(Tools.platImages[type], coordinates[0][0], coordinates[0][1]);
+        this.coords = coordinates;
+        if (coordinates.length > 1) {
             moves = true;
-        endX = startX + xdist;
-        endY = startY + ydist;
+            targetCoord = 1;
+            double distX = posX - coords[targetCoord][0];
+            double distY = posY - coords[targetCoord][1];
+            distToTarget = Math.sqrt(distX*distX + distY*distY);
+        }
         this.type = type;
         this.moves = moves;
     }
@@ -35,8 +38,6 @@ public class Platform extends GameObject{
     
     public void moveDown(double dist) {
         super.moveDown(dist);
-        startY += dist;
-        endY += dist;
         if (item != null) {
             item.moveDown(dist);
         }
@@ -47,10 +48,23 @@ public class Platform extends GameObject{
         if (!moves)
             return;
         
+        double distX = posX - coords[targetCoord][0];
+        double distY = posY - coords[targetCoord][1];
+        posX += distX * (SPEED/distToTarget);
+        posY += distY * (SPEED/distToTarget);
+        
+        distToTarget = Math.sqrt(distX*distX + distY*distY);
+        
         //posX += 1;
         setRefPixelPosition((int) posX, (int) posY);
         //if (item != null)
             //item.updatePos();
+    }
+    
+    private double distToNextCoord() {
+        double distX = posX - coords[targetCoord][0];
+        double distY = posY - coords[targetCoord][1];
+        return Math.sqrt(distX*distX + distY*distY);
     }
     
     
