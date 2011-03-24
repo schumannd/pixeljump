@@ -46,7 +46,7 @@ class GameMain extends GameCanvas {
             pixel.paint(g);
             
             g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
-            g.drawString("Lvl: "+Integer.toString(level.num), 15, 15, Graphics.TOP | Graphics.LEFT);
+            g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
@@ -66,7 +66,7 @@ class GameMain extends GameCanvas {
         if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
         pixel.accelerate(leftright, ms);
-        pixel.move(level.visiblePlat, level.items, ms);
+        pixel.move(level.visiblePlats, level.items, ms);
         level.move(ms);
         arena.move(ms);
         arena.monsterProjectileCollision();
