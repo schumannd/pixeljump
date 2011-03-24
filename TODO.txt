@@ -1,6 +1,5 @@
 TOP:
 Startscreen, Todesscreen verbessern
-Sound bei Trampolin, Spring etc.
 
 Kollision mit Platformen optimieren
 bewegende plattformen, Monster
