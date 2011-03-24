@@ -7,7 +7,7 @@ public class Debug {
     /** How many Strings are printed. **/
     private final static int capacity = 10;
     /** List of all Strings that should be printed. **/
-    private static Vector strings = new Vector();
+    private final static Vector strings = new Vector();
     
     public static GameCanvas canvas;
     
@@ -15,7 +15,8 @@ public class Debug {
     public static void add(String s) {
         if (s == null)
             add("string is null");
-        addRepaint(s);
+        else
+            addRepaint(s);
     }
     
     /** Adds a number of any type to the list. **/
@@ -35,7 +36,8 @@ public class Debug {
     public static void add(Object o) {
         if (o == null)
             add("object is null");
-        addRepaint(o.toString());
+        else
+            addRepaint(o.toString());
     }
     
     private static void addRepaint(String s) {

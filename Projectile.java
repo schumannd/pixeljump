@@ -9,9 +9,9 @@ public class Projectile extends GameObject {
         speed += addSpeed;
     }
     
-    public void move(int ms) {
-        posY += speedY * (15*ms/1000d);
-        posX += speedX * (15*ms/1000d);
+    public void move(double time) {
+        posY += speedY * time;
+        posX += speedX * time;
         setRefPixelPosition((int) posX, (int) posY);
     }
     

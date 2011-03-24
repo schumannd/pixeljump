@@ -4,17 +4,17 @@ import javax.microedition.lcdui.Graphics;
 
 public class Level {
     public int diff;
-    public Vector invisPlats = new Vector();
-    public Vector visiblePlats = new Vector();
-    public Vector items = new Vector();
-    private int width;
-    private int height;
-    private Random r = new Random();
+    private final Vector invisPlats = new Vector();
+    public final Vector visiblePlats = new Vector();
+    public final Vector items = new Vector();
+    private final int width;
+    private final int height;
+    private final Random r = new Random();
     private double lastSolvable = 0;
     private double lastPlat = 0;
     private double lastMonster = 0;
     private double highest;
-    Arena arena;
+    private final Arena arena;
     
     public Level(int d, int w, int h, Arena arena) {
         diff = d;
@@ -114,7 +114,7 @@ public class Level {
         visiblePlats.addElement(plat);
 //        GameMain.b3d.addPlatform(x, y);
 
-        if(r.nextDouble() < 0.2 && (type == Platform.NORMAL || type == Platform.MOVE)){
+        if(r.nextDouble() < 0.2 && (type == Platform.NORMAL)){
 
             int itemType = Item.SPRING;
             int n = r.nextInt(100);
@@ -151,9 +151,9 @@ public class Level {
         return (Item) items.elementAt(i);
     }
     
-    public void move(int ms) {
+    public void move(double time) {
         for (int i = 0; i < visiblePlats.size(); i++) {
-            getVisPlat(i).moveSide(ms);
+            getVisPlat(i).moveSide(time);
         }
     }
     

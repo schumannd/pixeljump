@@ -1,4 +1,3 @@
-//import java.util.*;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.TiledLayer;
@@ -12,7 +11,7 @@ public class Background2D {
         int anzahl = (height / 10) + 1;
         Image img = Tools.backgroundImage;
         landscape = new TiledLayer(1, anzahl, img, img.getWidth(), img.getHeight());
-        posY = -(anzahl*10) + height;
+        posY = -height%10;
         landscape.setPosition(0, (int) posY );
 
         for (int i = 0; i < anzahl; i++) {
