@@ -46,6 +46,7 @@ class GameMain extends GameCanvas {
             pixel.paint(g);
             
             g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
+            g.drawString("Lvl: "+Integer.toString(level.num), 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
@@ -122,7 +123,7 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
-        level = new Level(100,getWidth(), getHeight(), arena);
+        level = new Level(0,getWidth(), getHeight(), arena);
         SoundManager.start();
         Item.reset();
 //        b3d.removeAll();

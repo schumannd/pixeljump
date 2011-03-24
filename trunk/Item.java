@@ -15,7 +15,7 @@ public class Item extends GameObject {
     public static final int SHIELD = 4;
     
     private static long shieldTimer;
-    private static long rocketTimer;
+    public static long rocketTimer;
     private static int shoeTimer = 0;
 
 

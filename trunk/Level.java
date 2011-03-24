@@ -10,7 +10,7 @@ public class Level {
     private int width;
     private int height;
     private Random r = new Random();
-    private int num = 0;
+    public int num = 0;
     private double lastSolvable = 0;
     private double lastPlat = 0;
     private double lastMonster = 0;
