@@ -94,8 +94,10 @@ public class Pixel extends GameObject {
             Item it = (Item) items.elementAt(i);
             if(this.collidesWith(it, false)){
                 if ((it.type == Item.SPRING || it.type == Item.TRAMPOLINE))
-                    if (speedY > 0)
+                    if (speedY > 0) {
                         speedY = JUMPSPEED * Item.getJumheightMulti(it.type);
+                        SoundManager.playSound(SoundManager.JUMP);
+                    }
                     else //ignorieren, wenn pixel nach oben fliegt
                         return;
                 else if (it.type == Item.SPRINGSHOE && speedY <= 0)
