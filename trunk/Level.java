@@ -20,7 +20,7 @@ public class Level {
         diff = d;
         width = w;
         height = h;
-        highest = height/2;
+        highest = 1000;
         this.arena = arena;
     }
 
@@ -46,18 +46,21 @@ public class Level {
 
         }
         //random level erzeugen (einmal alle 1000 pixel)
-        if(highest >= 1000*diff+height/2) {
+        if(highest >= 1000) {
             createPlats();
             createMonsters();
             diff++;
+            highest = 0;
         }
-
         //level solvable machen (jeden move)
         if(lastSolvable >= 75) {
             addVisPlat(r.nextInt(width - 30), 0, 0);
             lastSolvable = 0;
 
         }
+
+
+
 
         //platformen oben erscheinen lassen
         while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
@@ -80,7 +83,7 @@ public class Level {
         int pixel = 0;
         int yVal;
         while(pixel < 1000) {
-            if(diff <=90)
+            if(diff <=80)
                 yVal = r.nextInt(5000-diff*50)+1;
             //falls lvl ueber 90
             else {

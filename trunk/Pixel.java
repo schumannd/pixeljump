@@ -17,7 +17,7 @@ public class Pixel extends GameObject {
         shotOriginX = getWidth()/2;
         shotOriginY = 0;
         defineReferencePixel(0, Tools.pixelImage.getHeight()-1);
-        speedY = JUMPSPEED*2;
+        speedY = JUMPSPEED*2.1;
     }
     
     
