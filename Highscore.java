@@ -1,11 +1,12 @@
 import java.util.Vector;
-
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.rms.*;
 
 public class Highscore{
     
     RecordStore highscore;
-    
+    int heigth;
+    int width;
     Vector data = new Vector();
     
     public Highscore(){
@@ -22,7 +23,7 @@ public class Highscore{
     
     public void addScore(int s){
         // To add a new HiScore we use a quick string comma-separated
-        String name = "Pixel, ";
+        String name = "Pixel";
         String score = Integer.toString(s);
         
         for (int i = 1; i < data.size(); i+=2) {
@@ -38,8 +39,14 @@ public class Highscore{
                         highscore.setRecord(j, curr.getBytes(), 0, curr.length());
                     }
                 } catch (Exception e) {}
+                return;
             }
         }
+    }
+    
+    public void init(int heigth, int width){
+        this.heigth = heigth;
+        this.width = width;
     }
     
     private void init() {
@@ -87,5 +94,13 @@ public class Highscore{
             highscore.addRecord(scoreb, 0, scoreb.length);
         } catch (Exception e) {}
     }
-
+    
+    public void showHighscores(Graphics g) {
+        for (int i = 0; i < data.size(); i+=2){
+            g.drawString((String) data.elementAt(i), width/3, i * 7 + heigth/5, 0);
+        }
+        for (int i = 1; i < data.size(); i+=2){
+            g.drawString((String) data.elementAt(i), width/3 + 50, (i-1) * 7 + heigth/5, 0);
+        }
+    }
 }

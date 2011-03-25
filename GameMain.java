@@ -27,6 +27,7 @@ class GameMain extends GameCanvas {
         SoundManager.init();
         initNewGame();
         highscore = new Highscore();
+        highscore.init(getHeight(), getWidth());
         
         GameObject.init(getWidth(), getHeight());
     }
@@ -51,6 +52,7 @@ class GameMain extends GameCanvas {
             g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
+            highscore.showHighscores(g);
             break;
         }
         Debug.print(g);
@@ -72,16 +74,14 @@ class GameMain extends GameCanvas {
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
         if (pixel.monsterCollision(arena.monsters)) {
-            gameState = 3;
-            stopTimer();
+            gameOver();
             SoundManager.deathm();
             return;
         }
         
         //gameover weil unten rausgefallen
         if(pixel.posY > getHeight()) {
-            gameState = 3;
-            stopTimer();
+            gameOver();
             SoundManager.death();
             return;
         }
@@ -127,6 +127,12 @@ class GameMain extends GameCanvas {
         Item.reset();
         score = 0;
         gameState = 1;
+    }
+
+    public void gameOver(){
+        gameState = 3;
+        stopTimer();
+        highscore.addScore(score);
     }
     
     
