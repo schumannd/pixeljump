@@ -49,7 +49,7 @@ class GameMain extends GameCanvas {
             g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case 3: //gameover
-            g.drawString("GAME OVER", getWidth() / 2, getHeight() / 2,Graphics.BASELINE | Graphics.HCENTER);
+            g.drawString("GAME OVER", getWidth() / 2, getHeight() * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
             highscore.showHighscores(g);
