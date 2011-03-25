@@ -23,17 +23,18 @@ while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
 - die schleife laeft nur einmal durch, da lastPlat auf 0 gesetzt wird und getInvisPlat(0).getPosY() > 0 ist.
     guck ob das so gedacht ist.
 - das gilt alles auch fuer die while-schleife darunter
+//invis plats ist bei mir sehr selten null und getInvisPlat(0).getPosY() ist nicht zwangsweise > 0
 
 addVisPlat((int)p.getPosX(), -p.getHeight(), p.getType());
 -p.getHeight() stimmt nicht, dadurch ist der abstand zur letzten plattform nicht richtig
-
-
-z. 49 if(highest >= 1000*diff+height/2) {
-ueberleg ob das +height/2 noch sinn mach und entferne es ggf
+//Wenn die plats Ÿberall bei -Height statt 0 spawnen, und die height aller plats gleich ist ist auhc der abstand gleich.
 
 
 solvable muss 1. die plattformen ueberm bildschirm erzeugen und sollte 2. vernuenftig in
     die anderen plattformen integriert werden
-    
+//Mach ich irgendwann
+
 createMonsters macht logisch ueberhaupt keinen sinn, neu schreiben
+//was macht da keinen sinn?
 createPlats ist aehnlich unlogisch, mindestens kommentare
+//ich habs versucht...
