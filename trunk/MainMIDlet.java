@@ -7,6 +7,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
+    private Command cmHighscore = new Command("Highscore", Command.SCREEN, 2);
 
     private Display display;
     private GameMain canvas;
@@ -19,6 +20,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         canvas.addCommand(cmExit);
         canvas.addCommand(cmNewGame);
         canvas.addCommand(cmPause);
+        canvas.addCommand(cmHighscore);
         canvas.setCommandListener(this);
 
         display.setCurrent(canvas);
