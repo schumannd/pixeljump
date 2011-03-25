@@ -83,12 +83,15 @@ public class Level {
         int pixel = 0;
         int yVal;
         while(pixel < 1000) {
-            if(diff <=80)
+            if(diff <=90)
+                //zufaelliger abstand zum naechsten monster, je
+                //hoeher das level, desto oefter kommen monster
                 yVal = r.nextInt(5000-diff*50)+1;
-            //falls lvl ueber 90
+            //falls lvl ueber 90, kein negativer wert in nextInt()
             else {
                 yVal = r.nextInt(500)+1;
             }
+            //was ist hier nicht logisch?
             if(pixel + yVal <= 1000)
                 arena.newInvisibleM(r.nextInt(width - 30), yVal, 0);
             pixel += yVal;
@@ -98,6 +101,7 @@ public class Level {
     private void createPlats() {
         int pixel = 0;
         while(pixel < 1000) {
+            //random abstand zur naechsten plat, jedes level um ø 2 pixel groesser
             int yVal = r.nextInt(diff*4+20)+1;
             int type = r.nextInt(3);
             if(pixel + yVal <= 1000)
