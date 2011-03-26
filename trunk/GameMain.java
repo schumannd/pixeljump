@@ -1,8 +1,6 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
-import javax.microedition.midlet.MIDlet;
-
 
 class GameMain extends GameCanvas {
 
@@ -14,9 +12,9 @@ class GameMain extends GameCanvas {
     private Level level;
     private Arena arena;
     private int score = 0;
+    private boolean enterName = false;
     Highscore highscore;
     MainMIDlet midlet;
-    
     
     private final int FPS = 40;
 
@@ -26,13 +24,14 @@ class GameMain extends GameCanvas {
     }
 
     public void init(MainMIDlet m) {
+        midlet = m;
 //        b3d = new Background3D(getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         SoundManager.init();
         initNewGame();
         highscore = new Highscore();
         highscore.init(getHeight(), getWidth());
-        midlet = m;
+        
         GameObject.init(getWidth(), getHeight());
     }
 
@@ -57,6 +56,8 @@ class GameMain extends GameCanvas {
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
             highscore.showHighscores(g);
+            if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("YOU"))
+                g.drawString("Press DOWN to enter your Name!", 10, getHeight() - 20 , 0);
             break;
         }
         Debug.print(g);
@@ -78,15 +79,15 @@ class GameMain extends GameCanvas {
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
         if (pixel.monsterCollision(arena.monsters)) {
-            gameOver();
             SoundManager.deathm();
+            gameOver();
             return;
         }
         
         //gameover weil unten rausgefallen
-        if(pixel.posY > getHeight()) {
-            gameOver();
+        if(pixel.posY > getHeight()) {            
             SoundManager.death();
+            gameOver();
             return;
         }
 
@@ -136,17 +137,31 @@ class GameMain extends GameCanvas {
     public void gameOver(){
         gameState = 3;
         stopTimer();
-        midlet.setSpielerName();
+        if(highscore.isNewHighscore(score)){
+            highscore.addScore(score, "YOU");
+            while(!enterName) {
+                repaint();
+            }
+            midlet.setSpielerName();
+            enterName = false;
+        }
+        else
+            midlet.showHighscore();
         
     }
     
     
     protected void keyPressed( int keyCode ) {
-        if (keyCode == getKeyCode(UP))
+        if (keyCode == getKeyCode(UP) && gameState == 1)
             pixel.shoot(arena);
+        if (keyCode == getKeyCode(DOWN))
+            enterName = true;
+
     }
 
     public int getScore() {
         return score;
     }
+
+
 }

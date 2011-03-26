@@ -153,6 +153,7 @@ public class Pixel extends GameObject {
     }
     
     public void shoot(Arena arena) {
+
         SoundManager.playSound(SoundManager.SHOOT);
         arena.shoot(posX + shotOriginX, posY + shotOriginY, speedY);
     }

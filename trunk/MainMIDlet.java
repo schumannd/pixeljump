@@ -1,7 +1,7 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.MIDlet;
 
-public class MainMIDlet extends MIDlet implements CommandListener {
+public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandListener{
 
     private Command cmExit = new Command("Exit", Command.EXIT, 1);;
     private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
@@ -11,14 +11,16 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     private Command cmOk = new Command("OK", Command.OK, 0);
     
     
-    public TextBox pixelName;
+    public TextField pixelName;
+    public Form highscores;
     private Display display;
     private GameMain canvas;
 
     public MainMIDlet() {
         display = Display.getDisplay(this);
         canvas = new GameMain();
-        pixelName = new TextBox("Name: ", "Bitte deinen Namen eingeben!", 30, TextField.ANY);
+        pixelName = new TextField("Bitte deinen Namen eingeben!","" , 7, TextField.ANY);
+        highscores = new Form("Highscore");
         Debug.canvas = canvas;
 
         canvas.addCommand(cmExit);
@@ -28,7 +30,9 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         canvas.setCommandListener(this);
 
         pixelName.addCommand(cmOk);
-        pixelName.setCommandListener(this);
+        pixelName.setItemCommandListener(this);
+
+        highscores.append(pixelName);
 
         display.setCurrent(canvas);
         Tools.init();
@@ -75,14 +79,21 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         else if (c == cmHighscore) {
             canvas.gameOver();
         }
-        else if (c == cmOk) {
-            canvas.highscore.addScore(canvas.getScore(), pixelName.getString());
-            display.setCurrent(canvas);
+       
+    }
 
+    public void commandAction(Command c, javax.microedition.lcdui.Item item) {
+        if (c == cmOk) {
+            canvas.highscore.data.setElementAt(pixelName.getString(), canvas.highscore.nameIndex);
+            display.setCurrent(canvas);
         }
     }
 
     public void setSpielerName() {
-        display.setCurrent(pixelName);
+        display.setCurrent(highscores);
+    }
+
+    public void showHighscore() {
+        display.setCurrent(canvas);
     }
 }
