@@ -8,13 +8,17 @@ public class MainMIDlet extends MIDlet implements CommandListener {
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
     private Command cmHighscore = new Command("Highscore", Command.SCREEN, 2);
-
+    private Command cmOk = new Command("OK", Command.OK, 0);
+    
+    
+    public TextBox pixelName;
     private Display display;
     private GameMain canvas;
 
     public MainMIDlet() {
         display = Display.getDisplay(this);
         canvas = new GameMain();
+        pixelName = new TextBox("Name: ", "Bitte deinen Namen eingeben!", 30, TextField.ANY);
         Debug.canvas = canvas;
 
         canvas.addCommand(cmExit);
@@ -23,9 +27,12 @@ public class MainMIDlet extends MIDlet implements CommandListener {
         canvas.addCommand(cmHighscore);
         canvas.setCommandListener(this);
 
+        pixelName.addCommand(cmOk);
+        pixelName.setCommandListener(this);
+
         display.setCurrent(canvas);
         Tools.init();
-        canvas.init();
+        canvas.init(this);
     }
 
     public void startApp() {
@@ -36,6 +43,7 @@ public class MainMIDlet extends MIDlet implements CommandListener {
 
     public void pauseApp() {
         canvas.stopTimer();
+        
     }
 
     public void destroyApp(boolean unconditional) {
@@ -64,5 +72,17 @@ public class MainMIDlet extends MIDlet implements CommandListener {
             canvas.removeCommand(cmResume);
             canvas.addCommand(cmPause);
         }
+        else if (c == cmHighscore) {
+            canvas.gameOver();
+        }
+        else if (c == cmOk) {
+            canvas.highscore.addScore(canvas.getScore(), pixelName.getString());
+            display.setCurrent(canvas);
+
+        }
+    }
+
+    public void setSpielerName() {
+        display.setCurrent(pixelName);
     }
 }
