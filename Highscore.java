@@ -4,10 +4,11 @@ import javax.microedition.rms.*;
 
 public class Highscore{
     
-    RecordStore highscore;
-    int heigth;
-    int width;
-    Vector data = new Vector();
+    private RecordStore highscore;
+    private int heigth;
+    private int width;
+    public int nameIndex = 0;
+    public Vector data = new Vector();
     
     public Highscore(){
         // We open the recordstore
@@ -24,12 +25,14 @@ public class Highscore{
     public void addScore(int s, String name){
         // To add a new HiScore we use a quick string comma-separated
         //String name = "Pixel";
+
         String score = Integer.toString(s);
         
         for (int i = 1; i < data.size(); i+=2) {
             int currScore = Integer.parseInt((String)data.elementAt(i));
             if (s > currScore) {
                 data.insertElementAt(name, i - 1);
+                nameIndex = i - 1;
                 data.insertElementAt(score, i);
                 data.setSize(10);
                 try {
@@ -42,6 +45,7 @@ public class Highscore{
                 return;
             }
         }
+
     }
     
     public void init(int heigth, int width){
@@ -63,22 +67,22 @@ public class Highscore{
     }
     
     private void loadHighscores(){
-        // To read all hiscores saved on the RMS
-        RecordEnumeration enu = null;
         try{
+            // To read all hiscores saved on the RMS
+            RecordEnumeration enu = null;
             RecordStore.openRecordStore("High Score", true);
             enu = highscore.enumerateRecords(null, null, false);
-        }
-        catch(Exception e){Debug.add("exception");};
-        byte[] record;
-        String str;
-        while (enu.hasNextElement( )) {
-            try{
+
+            while (enu.hasNextElement( )) {
+                byte[] record;
+                String str;
                 record = enu.nextRecord();
                 str = new String(record);
                 data.addElement(str);
             }
-            catch(Exception e){}
+        }
+        catch(Exception e){
+            Debug.add("exception");
         }
     }
     
@@ -96,11 +100,17 @@ public class Highscore{
     }
     
     public void showHighscores(Graphics g) {
+        //alle Namen ausgeben
         for (int i = 0; i < data.size(); i+=2){
             g.drawString((String) data.elementAt(i), width/3, i * 7 + heigth/5, 0);
         }
+        //alle scores ausgeben
         for (int i = 1; i < data.size(); i+=2){
             g.drawString((String) data.elementAt(i), width/3 + 50, (i-1) * 7 + heigth/5, 0);
         }
+    }
+
+    public boolean isNewHighscore(int score){
+        return score > Integer.parseInt((String) data.elementAt(data.size()-1));
     }
 }
