@@ -21,9 +21,9 @@ public class Highscore{
         catch(Exception e){}
     }
     
-    public void addScore(int s){
+    public void addScore(int s, String name){
         // To add a new HiScore we use a quick string comma-separated
-        String name = "Pixel";
+        //String name = "Pixel";
         String score = Integer.toString(s);
         
         for (int i = 1; i < data.size(); i+=2) {

@@ -9,6 +9,7 @@ Score Reparieren
 auf monster raufspringen
 animationen
 verschiedene monster (schwarze loecher, ufos)
+monster, die mehr als 1 schuss aushalten
 
 
 
@@ -27,7 +28,7 @@ while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
 
 addVisPlat((int)p.getPosX(), -p.getHeight(), p.getType());
 -p.getHeight() stimmt nicht, dadurch ist der abstand zur letzten plattform nicht richtig
-//Wenn die plats Ÿberall bei -Height statt 0 spawnen, und die height aller plats gleich ist ist auhc der abstand gleich.
+//Wenn die plats ï¿½berall bei -Height statt 0 spawnen, und die height aller plats gleich ist ist auhc der abstand gleich.
 
 
 solvable muss 1. die plattformen ueberm bildschirm erzeugen und sollte 2. vernuenftig in

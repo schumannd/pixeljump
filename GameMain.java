@@ -1,9 +1,11 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
+import javax.microedition.midlet.MIDlet;
+
 
 class GameMain extends GameCanvas {
-    
+
     private int gameState;
     private Timer mainTimer;
     private Pixel pixel;
@@ -13,6 +15,8 @@ class GameMain extends GameCanvas {
     private Arena arena;
     private int score = 0;
     Highscore highscore;
+    MainMIDlet midlet;
+    
     
     private final int FPS = 40;
 
@@ -21,14 +25,14 @@ class GameMain extends GameCanvas {
         gameState = 0;
     }
 
-    public void init() {
+    public void init(MainMIDlet m) {
 //        b3d = new Background3D(getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         SoundManager.init();
         initNewGame();
         highscore = new Highscore();
         highscore.init(getHeight(), getWidth());
-        
+        midlet = m;
         GameObject.init(getWidth(), getHeight());
     }
 
@@ -132,12 +136,17 @@ class GameMain extends GameCanvas {
     public void gameOver(){
         gameState = 3;
         stopTimer();
-        highscore.addScore(score);
+        midlet.setSpielerName();
+        
     }
     
     
     protected void keyPressed( int keyCode ) {
         if (keyCode == getKeyCode(UP))
             pixel.shoot(arena);
+    }
+
+    public int getScore() {
+        return score;
     }
 }
