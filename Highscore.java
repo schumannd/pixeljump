@@ -9,6 +9,7 @@ public class Highscore{
     private int width;
     public int nameIndex = 0;
     public Vector data = new Vector();
+
     
     public Highscore(){
         // We open the recordstore

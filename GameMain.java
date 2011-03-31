@@ -47,9 +47,11 @@ class GameMain extends GameCanvas {
             level.paintPlatAndItems(g);
             arena.paint(g);
             pixel.paint(g);
+            if(Item.isShieldActive())
+                g.drawImage(Tools.itemImages[5],(int) pixel.getPosX() - 25,(int) pixel.getPosY() -25, 0);
             
             g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
-            g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
+                g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case 3: //gameover
             g.drawString("GAME OVER", getWidth() / 2, getHeight() * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
