@@ -4,7 +4,6 @@ Startscreen, Todesscreen verbessern
 Kollision mit Platformen optimieren
 bewegende plattformen, Monster
 Levelbloecke einfuegen ermoeglichen
-Score Reparieren
 
 auf monster raufspringen
 animationen
