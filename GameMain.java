@@ -48,7 +48,7 @@ class GameMain extends GameCanvas {
             arena.paint(g);
             pixel.paint(g);
             if(Item.isShieldActive())
-                g.drawImage(Tools.itemImages[5],(int) pixel.getPosX() - 25,(int) pixel.getPosY() -25, 0);
+                g.drawImage(Tools.itemImages[5],(int) pixel.getPosX() - 25,(int) pixel.getPosY() - 60, 0);
             
             g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
                 g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
