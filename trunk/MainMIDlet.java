@@ -85,6 +85,7 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
     public void commandAction(Command c, javax.microedition.lcdui.Item item) {
         if (c == cmOk) {
             canvas.highscore.data.setElementAt(pixelName.getString(), canvas.highscore.nameIndex);
+            canvas.highscore.saveScore();
             display.setCurrent(canvas);
         }
     }

@@ -10,6 +10,7 @@ public class Highscore{
     public int nameIndex = 0;
     public Vector data = new Vector();
 
+
     
     public Highscore(){
         // We open the recordstore
@@ -23,12 +24,18 @@ public class Highscore{
         catch(Exception e){}
     }
     
-    public void addScore(int s, String name){
-        // To add a new HiScore we use a quick string comma-separated
-        //String name = "Pixel";
+    public void saveScore(){
+                try {
+                    for(int j = nameIndex; j < data.size(); j++){
+                        String curr = (String) data.elementAt(j);
+                        highscore.setRecord(j, curr.getBytes(), 0, curr.length());
+                    }
+                } catch (Exception e) {}
+    }
 
+    public void addScore(int s, String name){
         String score = Integer.toString(s);
-        
+
         for (int i = 1; i < data.size(); i+=2) {
             int currScore = Integer.parseInt((String)data.elementAt(i));
             if (s > currScore) {
@@ -36,17 +43,9 @@ public class Highscore{
                 nameIndex = i - 1;
                 data.insertElementAt(score, i);
                 data.setSize(10);
-                try {
-                    RecordStore.openRecordStore("High Score", true);
-                    for(int j = i - 1; j < data.size(); j++){
-                        String curr = (String) data.elementAt(j);
-                        highscore.setRecord(j, curr.getBytes(), 0, curr.length());
-                    }
-                } catch (Exception e) {}
                 return;
             }
         }
-
     }
     
     public void init(int heigth, int width){
@@ -56,7 +55,7 @@ public class Highscore{
     
     private void init() {
         try {
-            highscore = RecordStore.openRecordStore("High Score", true);
+            
             addElement("Malte", 10000);
             addElement("Malte", 9001);
             addElement("Malte", 8000);
@@ -71,7 +70,7 @@ public class Highscore{
         try{
             // To read all hiscores saved on the RMS
             RecordEnumeration enu = null;
-            RecordStore.openRecordStore("High Score", true);
+            
             enu = highscore.enumerateRecords(null, null, false);
 
             while (enu.hasNextElement( )) {
