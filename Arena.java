@@ -18,6 +18,7 @@ public class Arena {
         p.posY -= p.getHeight();
         //autoaim
         if (monsters.size() > 0) {
+            //finde das naheste monster
             int nearestMonster = -1;
             double nearestMonsterDist = 9001;
             for (int i = 0; i < monsters.size(); i++) {
@@ -32,6 +33,7 @@ public class Arena {
                     nearestMonsterDist = dist;
                 }
             }
+            //setze die richtung des projektils
             Monster m = getMonster(nearestMonster);
             double xdist = x-(m.posX + m.getWidth()/2);
             double ydist = y-(m.posY + m.getHeight()/2);

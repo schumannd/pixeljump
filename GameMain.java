@@ -63,7 +63,7 @@ class GameMain extends GameCanvas {
                 g.drawImage(Tools.itemImages[5], xMPixel - mShield, yMPixel - mShield, 0);
             }
                 
-            
+            //Aktuelles Level links oben und aktueller Score rechts oben
             g.drawString("Score: " + score, getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
             g.drawString("Lvl: " + level.diff, 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
@@ -71,7 +71,7 @@ class GameMain extends GameCanvas {
             g.drawString("GAME OVER", getWidth() / 2, getHeight() * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
-            highscore.showHighscores(g);
+            highscore.paintHighscores(g);
             if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("YOU"))
                 g.drawString("Press DOWN to enter your Name!", 10, getHeight() - 20 , 0);
             break;
@@ -82,6 +82,7 @@ class GameMain extends GameCanvas {
 
     private void doGamePlay(int ms) {
         double time  = 15*ms/1000.d;
+        //Handling von rechts/links-Tasten
         int keycode = getKeyStates();
         int leftright = 0;
         if ((keycode & LEFT_PRESSED) != 0) {
@@ -159,7 +160,7 @@ class GameMain extends GameCanvas {
             mainTimer.cancel();
         mainTimer = null;
     }
-
+    
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
@@ -170,11 +171,21 @@ class GameMain extends GameCanvas {
         score = 0;
         gameState = GS_GAME;
     }
-
+    
+    /**
+     * Beendet das Spiel, sorgt fuer die Anzeige der Highscores und ggf. fuer 
+     * die Eingabe des Spielernamens.
+     * 
+     * Wenn ein neuer Highscore erreicht wurde, wird zunaechst YOU als Spielername
+     * in die Liste eingetragen. Der Spieler kann dann durch druecken von DOWN
+     * seinen eigenen Namen eingeben.
+     */
     public void gameOver(){
-        gameState = GS_GAMEOVER; //
+        stopTimer();
+        gameState = GS_GAMEOVER;
         if(highscore.isNewHighscore(score)){
             highscore.addScore(score, "YOU");
+            //Eingabe des Spielernamens wenn DOWN gedrueckt wurde
             while((getKeyStates() & DOWN_PRESSED) == 0) {
                 repaint();
             }
@@ -182,7 +193,6 @@ class GameMain extends GameCanvas {
         }
         else
             midlet.showHighscore();
-        stopTimer();
     }
     
     protected void keyPressed(int keyCode) {
