@@ -36,7 +36,7 @@ public class Item extends GameObject {
             p.setImage(Tools.pixelImages[5], Tools.pixelImages[5].getWidth(), Tools.pixelImages[5].getHeight());
             p.defineReferencePixel(0, p.getHeight()-1);
             p.pictureActive = 5;
-            shoeTimer = 1000;
+            shoeTimer = 6;
             this.p.item = null;
             break;
         case ROCKET:
