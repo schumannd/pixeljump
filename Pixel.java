@@ -19,6 +19,7 @@ public class Pixel extends GameObject {
         shotOriginY = 0;
         defineReferencePixel(0, Tools.pixelImages[1].getHeight()-1);
         speedY = JUMPSPEED*2.1;
+        
     }
     
     public void accelerate(int leftright, double time) {
@@ -28,9 +29,13 @@ public class Pixel extends GameObject {
                 speedX = 0;
             else
                 speedX -= time * ACCELERATION * 2 * ((speedX < 0) ? -1 : 1);
+               
         }
         else if (leftright != 0) {
+           
+            
             if(speedX * leftright < 0)
+                
                 speedX += leftright * time * ACCELERATION;
             speedX += leftright * time * ACCELERATION;
             if (speedX > SPEEDLIMIT)

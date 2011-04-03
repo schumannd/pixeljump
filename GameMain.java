@@ -5,6 +5,8 @@ import javax.microedition.lcdui.game.GameCanvas;
 class GameMain extends GameCanvas {
 
     private int gameState;
+    private int statuslinks = 0;
+    private int statusrechts = 0;
     private Timer mainTimer;
     private Pixel pixel;
     private Background2D b2d;
@@ -14,6 +16,7 @@ class GameMain extends GameCanvas {
     private int score = 0;
     public Highscore highscore;
     private MainMIDlet midlet;
+
     
     private final int FPS = 40;
     private final int GS_GAMEOVER = 3;
@@ -81,17 +84,37 @@ class GameMain extends GameCanvas {
         double time  = 15*ms/1000.d;
         int keycode = getKeyStates();
         int leftright = 0;
-        if ((keycode & LEFT_PRESSED) != 0)
+        if ((keycode & LEFT_PRESSED) != 0) {
             leftright = -1;
-        if ((keycode & RIGHT_PRESSED) != 0)
+            pixel.setTransform(2); // bei Pfeil-Nach-Links-Taste wird der Pixel nach links gespiegelt
+            if(leftright == -1 && statuslinks == 0) { // wenn links-gedrückt und nicht schon links
+             pixel.setPosX(pixel.getPosX() + pixel.getWidth()); //rechtsverschiebung, da sonst nicht korrekt
+            statuslinks = 1;
+            statusrechts = 0;}
+            }
+
+            
+        if ((keycode & RIGHT_PRESSED) != 0){
             leftright = 1;
+           
+            pixel.setTransform(0);
+            if(leftright == 1 && statusrechts == 0) {
+            pixel.setPosX(pixel.getPosX() - pixel.getWidth());
+            statusrechts = 1;
+            statuslinks = 0;
+            }
+        }
+
         pixel.accelerate(leftright, time);
+        
         pixel.resetImage();
+
         pixel.move(level.visiblePlats, level.items, time);
         level.move(time);
         arena.move(time);
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
+
         if (pixel.monsterCollision(arena.monsters)) {
             SoundManager.deathm();
             gameOver();
