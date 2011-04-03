@@ -12,16 +12,13 @@ class GameMain extends GameCanvas {
     private Level level;
     private Arena arena;
     private int score = 0;
-    private boolean enterName = false;
-    Highscore highscore;
-    MainMIDlet midlet;
+    public Highscore highscore;
+    private MainMIDlet midlet;
     
     private final int FPS = 40;
     private final int GS_GAMEOVER = 3;
     private final int GS_GAME = 1;
-    private final int GS_START = 0;
-    private final int XM_PIXEL = 13;
-   
+    private final int GS_START = 0;   
     
 
     public GameMain() {
@@ -45,11 +42,11 @@ class GameMain extends GameCanvas {
          b2d.draw(g);
 //        b3d.paint(g);
         switch (gameState) {
-        case GS_START: //startbildschirm
+        case GS_START:
             g.drawString("press start!", getWidth() / 2, getHeight() / 2,
                     Graphics.BASELINE | Graphics.HCENTER);
             break;
-        case GS_GAME: //im spiel
+        case GS_GAME:
             level.paintPlatAndItems(g);
             arena.paint(g);
             pixel.paint(g);
@@ -58,16 +55,16 @@ class GameMain extends GameCanvas {
                 int xMPixel = (int) pixel.getPosX() + 13;
                 int yMPixel = (int) pixel.getPosY() - pixel.getHeight()/2;
                 //die koordinaten (x und y, weil quadratisch) des Mittelpunkts des Schilds
-                int mShield = (int) Tools.itemImages[5].getWidth()/2;
+                int mShield = Tools.itemImages[5].getWidth()/2;
                 //den Schild mittig auf den Pixel zeichnen
                 g.drawImage(Tools.itemImages[5], xMPixel - mShield, yMPixel - mShield, 0);
             }
                 
             
-            g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
-                g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
+            g.drawString("Score: " + score, getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
+            g.drawString("Lvl: " + level.diff, 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
-        case GS_GAMEOVER: //gameover
+        case GS_GAMEOVER:
             g.drawString("GAME OVER", getWidth() / 2, getHeight() * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
             g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
                     Graphics.BASELINE | Graphics.HCENTER);
@@ -152,34 +149,21 @@ class GameMain extends GameCanvas {
     }
 
     public void gameOver(){
-        enterName = false; //fals im spiel DOWN gedrückt wurde
         gameState = GS_GAMEOVER; //
-        stopTimer();
         if(highscore.isNewHighscore(score)){
             highscore.addScore(score, "YOU");
-            while(!enterName) {
+            while((getKeyStates() & DOWN_PRESSED) == 0) {
                 repaint();
             }
             midlet.setSpielerName();
-            enterName = false;
         }
         else
             midlet.showHighscore();
-        
+        stopTimer();
     }
     
-    
-    protected void keyPressed( int keyCode ) {
+    protected void keyPressed(int keyCode) {
         if (keyCode == getKeyCode(UP) && gameState == GS_GAME)
             pixel.shoot(arena);
-        if (keyCode == getKeyCode(DOWN))
-            enterName = true;
-
     }
-
-    public int getScore() {
-        return score;
-    }
-
-
 }

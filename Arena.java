@@ -17,25 +17,25 @@ public class Arena {
         p.posX -= p.getWidth()/2;
         p.posY -= p.getHeight();
         //autoaim
-        int nearestMonster = -1;
-        double nearestMonsterDist = 9001;
-        for (int i = 0; i < monsters.size(); i++) {
-            Monster m = getMonster(i);
-            if (!m.isOnScreen())
-                continue;
-            double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-            double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
-            double dist = Math.sqrt(xdist*xdist+ydist*ydist);
-            if (dist < nearestMonsterDist) {
-                nearestMonster = i;
-                nearestMonsterDist = dist;
+        if (monsters.size() > 0) {
+            int nearestMonster = -1;
+            double nearestMonsterDist = 9001;
+            for (int i = 0; i < monsters.size(); i++) {
+                Monster m = getMonster(i);
+                if (!m.isOnScreen())
+                    continue;
+                double xdist = x-(m.posX + m.getWidth()/2);
+                double ydist = y-(m.posY + m.getHeight()/2);
+                double dist = Math.sqrt(xdist*xdist+ydist*ydist);
+                if (dist < nearestMonsterDist) {
+                    nearestMonster = i;
+                    nearestMonsterDist = dist;
+                }
             }
-        }
-        if (nearestMonster != -1) {
-           Monster m = getMonster(nearestMonster);
-           double xdist = p.posX + p.getWidth()/2-(m.posX + m.getWidth()/2);
-           double ydist = p.posY + p.getHeight()/2-(m.posY + m.getHeight()/2);
-           p.setDirection(xdist, ydist);
+            Monster m = getMonster(nearestMonster);
+            double xdist = x-(m.posX + m.getWidth()/2);
+            double ydist = y-(m.posY + m.getHeight()/2);
+            p.setDirection(xdist, ydist);
         }
         else //kein monster da, nach oben schiessen
             p.setDirection(0, 1);

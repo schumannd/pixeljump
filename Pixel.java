@@ -10,7 +10,7 @@ public class Pixel extends GameObject {
     private final int GRAVITY = 2;
     private final int shotOriginX;
     private final int shotOriginY;
-    public int pictureActive = -1;
+    private int pictureActive = 1;
 
     
     public Pixel(double x, double y) {
@@ -20,17 +20,8 @@ public class Pixel extends GameObject {
         defineReferencePixel(0, Tools.pixelImages[1].getHeight()-1);
         speedY = JUMPSPEED*2.1;
     }
-
-    public void resetImage(){
-        if(!Item.isRocketActive() && !Item.isShoeActive(false) && !(pictureActive == -1)){
-            this.setImage(Tools.pixelImages[1], Tools.pixelImages[1].getWidth(), Tools.pixelImages[1].getHeight());
-            this.defineReferencePixel(0, getHeight() - 1);
-            pictureActive = -1;
-        }
-    }
     
     public void accelerate(int leftright, double time) {
-        
         //bremsen wenn nichts gedrueckt wurde
         if (leftright == 0 && speedX != 0) {
             if (Math.abs(speedX) < time * ACCELERATION*2)
@@ -76,7 +67,7 @@ public class Pixel extends GameObject {
     
     
     public boolean monsterCollision(Vector monsters) {
-        if(Item.isRocketActive() || Item.isShieldActive())
+        if(monsters.size() == 0 || Item.isRocketActive() || Item.isShieldActive())
             return false;
         for(int i = 0; i < monsters.size(); i++){
             Monster m = (Monster) monsters.elementAt(i);
@@ -91,36 +82,37 @@ public class Pixel extends GameObject {
         for(int i = 0; i < items.size(); i++){
             Item it = (Item) items.elementAt(i);
             if(this.collidesWith(it, false)){
-                if ((it.type == Item.SPRING || it.type == Item.TRAMPOLINE))
+                switch (it.type){
+                case Item.SPRING:
+                case Item.TRAMPOLINE:
                     if (speedY > 0) {
                         speedY = JUMPSPEED * Item.getJumheightMulti(it.type);
                         SoundManager.playSound(SoundManager.JUMP);
                     }
-                    else //ignorieren, wenn pixel nach oben fliegt
-                        return;
-                else if (it.type == Item.SPRINGSHOE && speedY <= 0)
-                    return; //ignoriere springschuhe wenn pixel nach oben fliegt
-                else if(it.type == Item.ROCKET){
-                    if(Item.isShoeActive(false))
-                        Item.shoeTimer = 0;
-                    it.activate(this);
+                    break;
+                case Item.SPRINGSHOE:
+                    if (speedY > 0) {
+                        it.activate();
+                        setImage(5);
+                        items.removeElementAt(i);
+                    }
+                    break;
+                case Item.ROCKET:
+                    it.activate();
+                    setImage(3);
                     items.removeElementAt(i);
-                }
-                else if(it.type == Item.SHIELD){
-                    it.activate(this);
+                    break;
+                case Item.SHIELD:
+                    it.activate();
                     items.removeElementAt(i);
-                }
-                else if(it.type == Item.SPRINGSHOE){
-                    it.activate(this);
-                    items.removeElementAt(i);
-
+                    break;
                 }
                 return;
             }
         }
     }
 
-    private boolean platformCollDetec(Vector platforms, double time){
+    private void platformCollDetec(Vector platforms, double time){
         double moveY = GRAVITY*time*time/2 + speedY*time;
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
         if (speedY > 0) {
@@ -163,17 +155,27 @@ public class Pixel extends GameObject {
                 posY += GRAVITY*time3*time3/2 + speedY*time3;
                 speedY += GRAVITY*time3;
                 //eine weitere kollision kann nicht gefunden werden, daher kompletter abbruch.
-                return true;
+                return;
             }
         }
         //keine kollision.
         posY += moveY;
-        return false;
     }
     
     public void shoot(Arena arena) {
-
         SoundManager.playSound(SoundManager.SHOOT);
         arena.shoot(posX + shotOriginX, posY + shotOriginY, speedY);
+    }
+    
+    public void resetImage(){
+        if(pictureActive != 1 && !Item.isRocketActive() && !Item.isShoeActive(false)){
+            setImage(1);
+        }
+    }
+    
+    public void setImage(int img) {
+        setImage(Tools.pixelImages[img], Tools.pixelImages[img].getWidth(), Tools.pixelImages[img].getHeight());
+        defineReferencePixel(0, getHeight()-1);
+        pictureActive = 5;
     }
 }

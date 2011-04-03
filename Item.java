@@ -14,8 +14,8 @@ public class Item extends GameObject {
     public static final int SHIELD = 4;
     
     private static long shieldTimer = 0;
-    public static long rocketTimer = 0;
-    public static int shoeTimer = 0;
+    private static long rocketTimer = 0;
+    private static int shoeTimer = 0;
 
 
     public Item(Platform p, int type){
@@ -25,24 +25,20 @@ public class Item extends GameObject {
         offset = r.nextInt(30-Tools.itemImages[type].getWidth());
         posX = p.posX + offset;
 
-        defineReferencePixel(0, 16);
+        defineReferencePixel(0, this.getHeight());
         setRefPixelPosition((int) posX,(int) posY);
     }
     
     
-    public void activate(Pixel p){
+    public void activate(){
         switch (type) {
         case SPRINGSHOE:
-            p.setImage(Tools.pixelImages[5], Tools.pixelImages[5].getWidth(), Tools.pixelImages[5].getHeight());
-            p.defineReferencePixel(0, p.getHeight()-1);
-            p.pictureActive = 5;
             shoeTimer = 6;
             this.p.item = null;
             break;
         case ROCKET:
-            p.setImage(Tools.pixelImages[3], Tools.pixelImages[3].getWidth(), Tools.pixelImages[3].getHeight());
-            p.defineReferencePixel(0, p.getHeight()-1);
-            p.pictureActive = 3;
+            if(isShoeActive(false))
+                shoeTimer = 0;
             rocketTimer = System.currentTimeMillis();
             this.p.item = null;
             break;
@@ -56,25 +52,19 @@ public class Item extends GameObject {
     }
     
     public static boolean isShieldActive() {
-        if (shieldTimer == 0)
-            return false;
+        //if (shieldTimer == 0)
+            //return false;
         if ((System.currentTimeMillis() - shieldTimer) < 5000)
             return true;
-        else {
-            shieldTimer = 0;
-            return false;
-        }
+        return false;
     }
     
     public static boolean isRocketActive() {
-        if (rocketTimer == 0)
-            return false;
+//        if (rocketTimer == 0)
+//            return false;
         if ((System.currentTimeMillis() - rocketTimer) < 2000)
             return true;
-        else {
-            rocketTimer = 0;
-            return false;
-        }
+        return false;
     }
     
     public static boolean isShoeActive(boolean jump) {
