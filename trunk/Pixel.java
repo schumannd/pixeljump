@@ -12,16 +12,23 @@ public class Pixel extends GameObject {
     private final int shotOriginY;
     private int pictureActive = 1;
 
-    
+    /**
+     * Erstellt neuen Pixel an der Position (x/y).
+     */
     public Pixel(double x, double y) {
         super(Tools.pixelImages[1], x, y);
         shotOriginX = getWidth()/2;
         shotOriginY = 0;
         defineReferencePixel(0, Tools.pixelImages[1].getHeight()-1);
-        speedY = JUMPSPEED*2.1;
-        
+        speedY = JUMPSPEED*2;
     }
     
+    
+    /**
+     * Beschleunigt den Pixel bei Tastendruck, bzw bremst, wenn nichts 
+     * gedrueckt wurde.
+     * @param leftright -1, 1 oder 0 wenn links, rechts oder nichts gedrueckt wurde
+     */
     public void accelerate(int leftright, double time) {
         //bremsen wenn nichts gedrueckt wurde
         if (leftright == 0 && speedX != 0) {
@@ -29,15 +36,14 @@ public class Pixel extends GameObject {
                 speedX = 0;
             else
                 speedX -= time * ACCELERATION * 2 * ((speedX < 0) ? -1 : 1);
-               
         }
         else if (leftright != 0) {
-           
-            
+            //doppelte Beschleunigung, falls z.B. rechts gedrueckt wurde, Pixel
+            //aber noch nach links fliegt.
             if(speedX * leftright < 0)
-                
                 speedX += leftright * time * ACCELERATION;
             speedX += leftright * time * ACCELERATION;
+            //Einhaltung des Speedlimits
             if (speedX > SPEEDLIMIT)
                 speedX = SPEEDLIMIT;
             else if (speedX < -SPEEDLIMIT)
@@ -45,6 +51,10 @@ public class Pixel extends GameObject {
         }
     }
     
+    /**
+     * Bewegt den Pixel um die angegebene Zeit. Ueberprueft Kollisionen mit 
+     * Plattformen und Items und sorgt fuer die Gravitation.
+     */
     public void move(Vector platforms, Vector items, double time) {
         if(Item.isRocketActive()){
             //speedY auf raketenspeed
@@ -70,7 +80,10 @@ public class Pixel extends GameObject {
         speedY += GRAVITY*time;
     }
     
-    
+    /**
+     * Ueberprueft, ob Pixel mit einem der angegebenen Monster kollidiert.
+     * @return true, wenn das der Fall ist, sonst false.
+     */
     public boolean monsterCollision(Vector monsters) {
         if(monsters.size() == 0 || Item.isRocketActive() || Item.isShieldActive())
             return false;
@@ -82,7 +95,10 @@ public class Pixel extends GameObject {
         return false;
     }
     
-    
+    /**
+     * Ueberprueft, ob Pixel mit einem der angegebenen Items kollidiert, und
+     * aktiviert ggf. das Item.
+     */
     private void itemCollDetec(Vector items){
         for(int i = 0; i < items.size(); i++){
             Item it = (Item) items.elementAt(i);
@@ -90,13 +106,13 @@ public class Pixel extends GameObject {
                 switch (it.type){
                 case Item.SPRING:
                 case Item.TRAMPOLINE:
-                    if (speedY > 0) {
+                    if (speedY > 0) { //ignorieren, falls Pixel nach oben fliegt
                         speedY = JUMPSPEED * Item.getJumheightMulti(it.type);
                         SoundManager.playSound(SoundManager.JUMP);
                     }
                     break;
                 case Item.SPRINGSHOE:
-                    if (speedY > 0) {
+                    if (speedY > 0) { //ignorieren, falls Pixel nach oben fliegt
                         it.activate();
                         setImage(5);
                         items.removeElementAt(i);
@@ -116,7 +132,11 @@ public class Pixel extends GameObject {
             }
         }
     }
-
+    
+    /**
+     * Ueberprueft, ob Pixel mit den angegebenen Plattformen kollidiert, und
+     * berechnet entsprechend die neue y-Position des Pixels.
+     */
     private void platformCollDetec(Vector platforms, double time){
         double moveY = GRAVITY*time*time/2 + speedY*time;
         // Kollisionen interessieren nicht, wenn pixel nach oben fliegt.
@@ -167,17 +187,27 @@ public class Pixel extends GameObject {
         posY += moveY;
     }
     
+    /**
+     * Gibts einen Schuss ab und spielt den Sound ab.
+     */
     public void shoot(Arena arena) {
         SoundManager.playSound(SoundManager.SHOOT);
         arena.shoot(posX + shotOriginX, posY + shotOriginY, speedY);
     }
     
+    /**
+     * Setzt das Bild des Pixels auf das normale Bild, falls Raketen oder
+     * Springschuhe abgelaufen sind.
+     */
     public void resetImage(){
         if(pictureActive != 1 && !Item.isRocketActive() && !Item.isShoeActive(false)){
             setImage(1);
         }
     }
     
+    /**
+     * Setzt das Bild des Pixels auf das Bild Tools.pixelImages[img].
+     */
     public void setImage(int img) {
         setImage(Tools.pixelImages[img], Tools.pixelImages[img].getWidth(), Tools.pixelImages[img].getHeight());
         defineReferencePixel(0, getHeight()-1);

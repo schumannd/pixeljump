@@ -99,7 +99,7 @@ public class Highscore{
         } catch (Exception e) {}
     }
     
-    public void showHighscores(Graphics g) {
+    public void paintHighscores(Graphics g) {
         //alle Namen ausgeben
         for (int i = 0; i < data.size(); i+=2){
             g.drawString((String) data.elementAt(i), width/3, i * 7 + heigth/5, 0);
