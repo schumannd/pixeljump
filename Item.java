@@ -15,7 +15,7 @@ public class Item extends GameObject {
     
     private static long shieldTimer = 0;
     public static long rocketTimer = 0;
-    private static int shoeTimer = 0;
+    public static int shoeTimer = 0;
 
 
     public Item(Platform p, int type){
@@ -30,13 +30,19 @@ public class Item extends GameObject {
     }
     
     
-    public void activate(){
+    public void activate(Pixel p){
         switch (type) {
         case SPRINGSHOE:
-            shoeTimer = 6;
+            p.setImage(Tools.pixelImages[5], Tools.pixelImages[5].getWidth(), Tools.pixelImages[5].getHeight());
+            p.defineReferencePixel(0, p.getHeight()-1);
+            p.pictureActive = 5;
+            shoeTimer = 1000;
             this.p.item = null;
             break;
         case ROCKET:
+            p.setImage(Tools.pixelImages[3], Tools.pixelImages[3].getWidth(), Tools.pixelImages[3].getHeight());
+            p.defineReferencePixel(0, p.getHeight()-1);
+            p.pictureActive = 3;
             rocketTimer = System.currentTimeMillis();
             this.p.item = null;
             break;

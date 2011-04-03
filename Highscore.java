@@ -25,12 +25,12 @@ public class Highscore{
     }
     
     public void saveScore(){
-                try {
-                    for(int j = nameIndex; j < data.size(); j++){
-                        String curr = (String) data.elementAt(j);
-                        highscore.setRecord(j, curr.getBytes(), 0, curr.length());
-                    }
-                } catch (Exception e) {}
+        try {
+            for(int j = nameIndex; j < data.size(); j++){
+                String curr = (String) data.elementAt(j);
+                highscore.setRecord(j, curr.getBytes(), 0, curr.length());
+            }
+        } catch (Exception e) {}
     }
 
     public void addScore(int s, String name){

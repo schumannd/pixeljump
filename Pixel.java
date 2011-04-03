@@ -10,16 +10,24 @@ public class Pixel extends GameObject {
     private final int GRAVITY = 2;
     private final int shotOriginX;
     private final int shotOriginY;
+    public int pictureActive = -1;
 
     
     public Pixel(double x, double y) {
-        super(Tools.pixelImage, x, y);
+        super(Tools.pixelImages[1], x, y);
         shotOriginX = getWidth()/2;
         shotOriginY = 0;
-        defineReferencePixel(0, Tools.pixelImage.getHeight()-1);
+        defineReferencePixel(0, Tools.pixelImages[1].getHeight()-1);
         speedY = JUMPSPEED*2.1;
     }
-    
+
+    public void resetImage(){
+        if(!Item.isRocketActive() && !Item.isShoeActive(false) && !(pictureActive == -1)){
+            this.setImage(Tools.pixelImages[1], Tools.pixelImages[1].getWidth(), Tools.pixelImages[1].getHeight());
+            this.defineReferencePixel(0, getHeight() - 1);
+            pictureActive = -1;
+        }
+    }
     
     public void accelerate(int leftright, double time) {
         
@@ -92,9 +100,20 @@ public class Pixel extends GameObject {
                         return;
                 else if (it.type == Item.SPRINGSHOE && speedY <= 0)
                     return; //ignoriere springschuhe wenn pixel nach oben fliegt
-                else {
-                    it.activate();
+                else if(it.type == Item.ROCKET){
+                    if(Item.isShoeActive(false))
+                        Item.shoeTimer = 0;
+                    it.activate(this);
                     items.removeElementAt(i);
+                }
+                else if(it.type == Item.SHIELD){
+                    it.activate(this);
+                    items.removeElementAt(i);
+                }
+                else if(it.type == Item.SPRINGSHOE){
+                    it.activate(this);
+                    items.removeElementAt(i);
+
                 }
                 return;
             }
