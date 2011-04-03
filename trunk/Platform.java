@@ -54,10 +54,7 @@ public class Platform extends GameObject{
         
         distToTarget = Math.sqrt(distX*distX + distY*distY);
         
-        //posX += 1;
         setRefPixelPosition((int) posX, (int) posY);
-        //if (item != null)
-            //item.updatePos();
     }
     
     private double distToNextCoord() {

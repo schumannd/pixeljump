@@ -11,8 +11,8 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
     private Command cmOk = new Command("OK", Command.OK, 0);
     
     
-    public TextField pixelName;
-    public Form highscores;
+    private TextField pixelName;
+    private Form highscores;
     private Display display;
     private GameMain canvas;
 
