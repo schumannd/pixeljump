@@ -103,6 +103,12 @@ public class Level {
         while(pixel < 1000) {
             //random abstand zur naechsten plat, jedes level um ø 2 pixel groesser
             int yVal = r.nextInt(diff*4+20)+1;
+            try{
+            Platform p = (Platform) visiblePlats.elementAt(0);
+            if(yVal < p.getHeight())
+                yVal = p.getHeight();
+            }
+            catch(Exception e) {}
             int type = r.nextInt(3);
             if(pixel + yVal <= 1000)
                 addInvisPlat(r.nextInt(width - 30), yVal, type);
