@@ -20,6 +20,7 @@ class GameMain extends GameCanvas {
     private final int GS_GAMEOVER = 3;
     private final int GS_GAME = 1;
     private final int GS_START = 0;
+    private final int XM_PIXEL = 13;
    
     
 
@@ -52,8 +53,16 @@ class GameMain extends GameCanvas {
             level.paintPlatAndItems(g);
             arena.paint(g);
             pixel.paint(g);
-            if(Item.isShieldActive())
-                g.drawImage(Tools.itemImages[5],(int) pixel.getPosX() - 25,(int) pixel.getPosY() - 60, 0);
+            if(Item.isShieldActive()){
+                //die Koordinaten der mitte des pixels
+                int xMPixel = (int) pixel.getPosX() + 13;
+                int yMPixel = (int) pixel.getPosY() - pixel.getHeight()/2;
+                //die koordinaten (x und y, weil quadratisch) des Mittelpunkts des Schilds
+                int mShield = (int) Tools.itemImages[5].getWidth()/2;
+                //den Schild mittig auf den Pixel zeichnen
+                g.drawImage(Tools.itemImages[5], xMPixel - mShield, yMPixel - mShield, 0);
+            }
+                
             
             g.drawString("Score: "+Integer.toString(score), getWidth()-65, 15, Graphics.TOP | Graphics.LEFT);
                 g.drawString("Lvl: "+Integer.toString(level.diff), 15, 15, Graphics.TOP | Graphics.LEFT);
@@ -80,6 +89,7 @@ class GameMain extends GameCanvas {
         if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
         pixel.accelerate(leftright, time);
+        pixel.resetImage();
         pixel.move(level.visiblePlats, level.items, time);
         level.move(time);
         arena.move(time);

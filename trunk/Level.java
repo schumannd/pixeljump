@@ -121,7 +121,7 @@ public class Level {
         visiblePlats.addElement(plat);
 //        GameMain.b3d.addPlatform(x, y);
 
-        if(r.nextDouble() < 0.2 && (type == Platform.NORMAL)){
+        if(r.nextDouble() < 1 && (type == Platform.NORMAL)){
 
             int itemType = Item.SPRING;
             int n = r.nextInt(100);

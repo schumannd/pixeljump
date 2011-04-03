@@ -3,7 +3,7 @@ import javax.microedition.lcdui.Image;
 
 public class Tools {
     
-    public static Image pixelImage;
+    public static Image[] pixelImages = new Image[6];
     public static Image projectileImage;
     public static Image backgroundImage;
     public static Image[] platImages = new Image[3];
@@ -13,17 +13,20 @@ public class Tools {
     private static String res;
     
     public static void init() {
-        if (pixelImage != null)
+        if (pixelImages[0] != null)
             return; //wurde bereits initialisiert
             
         //fix, damit sowohl bluej als auch eclipse die ressourcen finden
         try{
-            pixelImage = Image.createImage("/pixelman.png");
+            pixelImages[0] = Image.createImage("/pixelman0.png");
             res = "";
         }catch(Exception e){res = "/res";}
         
         try{
-            pixelImage = Image.createImage(res+"/pixelman.png");
+            for (int i = 0; i < pixelImages.length; i++) {
+                pixelImages[i] = Image.createImage(res+"/pixelman"+i+".png");
+                
+            }
             projectileImage = Image.createImage(res+"/projectile.png");
             backgroundImage = Image.createImage(res+"/background.png");
             for (int i = 0; i < platImages.length; i++) {
