@@ -101,8 +101,8 @@ public class Arena {
      * Fuegt das angegebene Monster zum Monster-Vector hinzu.
      * @param m Das hinzuzufuegende Monster.
      */
-    public void addVisibleM(Monster m) {
-        monsters.addElement(m);
+    public void addVisibleM(int x, int y, int type) {
+        monsters.addElement(new Monster(x, y, type));
     }
     
     /**
