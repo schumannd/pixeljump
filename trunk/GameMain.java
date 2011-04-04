@@ -77,16 +77,9 @@ class GameMain extends GameCanvas {
             g.drawString("Lvl: " + level.diff, 15, 15, Graphics.TOP | Graphics.LEFT);
             break;
         case GS_GAMEOVER:
-            g.drawString("GAME OVER", getWidth() / 2, getHeight() * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
-            g.drawString("Score: "+Integer.toString(score), getWidth() / 2, getHeight() / 2 +15,
-                    Graphics.BASELINE | Graphics.HCENTER);
-            highscore.paintHighscores(g);
-            if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("YOU"))
-                g.drawString("Press DOWN to enter your Name!", 10, getHeight() - 20 , 0);
-            if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("Develop"))
-                Item.DUR_SHIELD = 100000000;
-            else
-                Item.DUR_SHIELD = 5000;
+            
+            highscore.paintHighscores(g, score);
+            
             break;
         }
         Debug.print(g);

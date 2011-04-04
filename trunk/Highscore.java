@@ -112,17 +112,28 @@ public class Highscore{
      * gibt die highscores als tabelle aus
      * @param g die zeichenklasse
      */
-    public void paintHighscores(Graphics g) {
-        int heigth = g.getClipHeight();
+    public void paintHighscores(Graphics g, int currScore) {
+        int height = g.getClipHeight();
         int width = g.getClipWidth();
+        g.drawString("GAME OVER", width / 2, height * 3 / 5,Graphics.BASELINE | Graphics.HCENTER);
+            g.drawString("Score: "+Integer.toString(currScore), width / 2, height / 2 + 15,
+                    Graphics.BASELINE | Graphics.HCENTER);
+
         //alle Namen ausgeben
         for (int i = 0; i < data.size(); i+=2){
-            g.drawString((String) data.elementAt(i), width/3, i * 7 + heigth/5, 0);
+            g.drawString((String) data.elementAt(i), width/3, i * 7 + height / 5, 0);
         }
         //alle scores ausgeben
         for (int i = 1; i < data.size(); i+=2){
-            g.drawString((String) data.elementAt(i), width/3 + 50, (i-1) * 7 + heigth/5, 0);
+            g.drawString((String) data.elementAt(i), width/3 + 50, (i-1) * 7 + height/5, 0);
         }
+
+        if(((String) data.elementAt(nameIndex)).equals("YOU"))
+                g.drawString("Press DOWN to enter your Name!", 10, height - 20 , 0);
+        if(((String) data.elementAt(nameIndex)).equals("Develop"))
+            Item.DUR_SHIELD = 100000000;
+        else
+            Item.DUR_SHIELD = 5000;
     }
     
     /**
