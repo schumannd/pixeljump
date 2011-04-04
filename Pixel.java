@@ -87,22 +87,18 @@ public class Pixel extends GameObject {
      * @return true, wenn das der Fall ist, sonst false.
      */
     public boolean monsterCollision(Vector monsters) {
-        if(speedY < 0){
-            if(monsters.size() == 0 || Item.isRocketActive() || Item.isShieldActive())
-               return false;
-            for(int i = 0; i < monsters.size(); i++){
-                Monster m = (Monster) monsters.elementAt(i);
-                if (this.collidesWith(m, false))
+        //Keine Monster da oder Raketen aktiv, Kollision daher unmoeglich.
+        if(monsters.size() == 0 || Item.isRocketActive())
+            return false;
+        for(int i = 0; i < monsters.size(); i++){
+            Monster m = (Monster) monsters.elementAt(i);
+            if (this.collidesWith(m, false)) {
+                //Wenn pixel nach oben fliegt und das Schild nicht aktiv ist, game over.
+                if(speedY < 0 && !Item.isShieldActive())
                     return true;
-            }
-        }
-        else{
-            for(int i = 0; i < monsters.size(); i++){
-                Monster m = (Monster) monsters.elementAt(i);
-                if (this.collidesWith(m, false)){
+                else { //Pixel fiel nach unten und springt jetzt vom monster ab
                     speedY = JUMPSPEED;
                     monsters.removeElement(m);
-                    m.setVisible(false);
                     return false;
                 }
             }

@@ -98,16 +98,21 @@ public class Arena {
     }
     
     /**
-     * Erstellt ein neues Monster an den angegebenen Koordinaten und mit dem
-     * angegebenen Typ.
-     * @param x x-Koordinate des Monsters.
+     * Fuegt das angegebene Monster zum Monster-Vector hinzu.
+     * @param m Das hinzuzufuegende Monster.
+     */
+    public void addVisibleM(Monster m) {
+        monsters.addElement(m);
+    }
+    
+    /**
+     * Fuegt ein neues Monster mit den angegebenen Koordinaten und mit dem
+     * angegebenen Typ zum Vector der Monster oberhalb des Bildschirms hinzu.
+     * @param x x-Koordinate des Monsters (sollte negativ sein).
      * @param y y-Koordinate des Monsters.
      * @param type Typ des Monsters.
      */
-    public void newMonster(int x, int y, int type) {
-        monsters.addElement(new Monster(x, y, type));
-    }
-    public void newInvisibleM(int x, int y, int type) {
+    public void addInvisibleM(int x, int y, int type) {
         invisibleM.addElement(new Monster(x, y, type));
     }
 
