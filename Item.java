@@ -88,8 +88,8 @@ public class Item extends GameObject {
      */
     public static boolean isShoeActive(boolean jump) {
         if (jump)
-            shoeTimer--;
-        return shoeTimer >= 0;
+            return --shoeTimer >= 0;
+        return shoeTimer > 0;
     }
     
     /**
@@ -98,7 +98,7 @@ public class Item extends GameObject {
      * @return der multiplikator
      */
     public static double getJumheightMulti(int type) {
-        if (type == SPRING || (type == SPRINGSHOE && isShoeActive(false)))
+        if (type == SPRING || type == SPRINGSHOE)
             return 1.33;
         if (type == TRAMPOLINE)
             return 2.25;
