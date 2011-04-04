@@ -15,6 +15,8 @@ public class Level {
     private double lastMonster = 0;
     private double highest;
     private final Arena arena;
+    private int platWidth = Tools.platImages[0].getWidth();
+    private int platHeight = Tools.platImages[0].getHeight();
     
     /*
      * Klasse des Hauptlevels
@@ -71,7 +73,19 @@ public class Level {
         }
         //level solvable machen (jeden move)
         if(lastSolvable >= 75) {
-            addVisPlat(r.nextInt(width - 30), 0, 0);
+            int xVal = r.nextInt(width - platWidth);
+            int yVal = -platHeight;
+            for(int i = 0; i < visiblePlats.size(); i++) {
+               Platform p = getVisPlat(i);
+               //falls Platform im erscheinungsbereich von Platformen
+               if(p.getY() < 0)
+                  //falls Platform im bereich des X Wertes
+                  if(xVal > p.getX() - platWidth && xVal < p.getX()+platWidth) {
+                     visiblePlats.removeElementAt(i);
+                      i--;
+                  }
+            }
+            addVisPlat(xVal, yVal, 0);
             lastSolvable = 0;
 
         }
@@ -80,14 +94,14 @@ public class Level {
         while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
             lastPlat = 0;
             Platform p = getInvisPlat(0);
-            addVisPlat((int)p.getPosX(), -p.getHeight(), p.getType());
+            addVisPlat((int)p.getPosX(), -platHeight, p.getType());
             invisPlats.removeElementAt(0);
         }
         //Monster oben erscheinen lassen
         while(arena.invisibleM.size() > 0 && arena.getInvisibleM(0).getPosY() <= lastMonster) {
             lastMonster = 0;
             Monster m = arena.getInvisibleM(0);
-            arena.newMonster((int)m.getPosX(), -m.getHeight(), m.getType());
+            arena.newMonster((int)m.getPosX(), -platHeight, m.getType());
             arena.invisibleM.removeElementAt(0);
         }
 
@@ -111,7 +125,7 @@ public class Level {
             }
             //falls yVal < 1000 wird ein Monster erstellt
             if(pixel + yVal <= 1000)
-                arena.newInvisibleM(r.nextInt(width - 30), yVal, 0);
+                arena.newInvisibleM(r.nextInt(width - platWidth), yVal, 0);
             pixel += yVal;
         }
     }
@@ -126,19 +140,15 @@ public class Level {
             //random abstand zur naechsten Platform
             //Abstand jedes Level um ø 2 pixel groesser
             int yVal = r.nextInt(diff*8+40)+1;
-            try{
-            Platform p = (Platform) visiblePlats.elementAt(0);
-            if(yVal < p.getHeight())
-                yVal = p.getHeight();
+            if(yVal < platHeight)
+                yVal = platHeight;
 
-            }
-            catch(Exception e) {}
-            int type = r.nextInt(3);
+            int type = 1;
             if(pixel + yVal <= 1000)
-                addInvisPlat(r.nextInt(width - 30), yVal, type);
+                addInvisPlat(r.nextInt(width - platWidth), yVal, type);
             //falls Platform ueber 1000sten Pixel
             else {
-                addInvisPlat(r.nextInt(width - 30), 1000-pixel, type);
+                addInvisPlat(r.nextInt(width - platWidth), 1000-pixel, type);
             }
             pixel += yVal;
         }
