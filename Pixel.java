@@ -7,10 +7,13 @@ public class Pixel extends GameObject {
     private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
+    private final int PIC_NORMAL = 1;
+    private final int PIC_ROCKET = 3;
+    private final int PIC_SPRINGSHOE = 5;
     private final int GRAVITY = 2;
     private final int shotOriginX;
     private final int shotOriginY;
-    private int pictureActive = 1;
+    private int pictureActive = PIC_NORMAL;
 
     /**
      * Erstellt neuen Pixel an der Position (x/y).
@@ -32,7 +35,7 @@ public class Pixel extends GameObject {
     public void accelerate(int leftright, double time) {
         //bremsen wenn nichts gedrueckt wurde
         if (leftright == 0 && speedX != 0) {
-            if (Math.abs(speedX) < time * ACCELERATION*2)
+            if (Math.abs(speedX) < time * ACCELERATION * 2)
                 speedX = 0;
             else
                 speedX -= time * ACCELERATION * 2 * ((speedX < 0) ? -1 : 1);
@@ -58,15 +61,15 @@ public class Pixel extends GameObject {
     public void move(Vector platforms, Vector items, double time) {
         if(Item.isRocketActive()){
             //speedY auf raketenspeed
-            speedY = JUMPSPEED*3;
-            posY += speedY*time;
+            speedY = JUMPSPEED * 3;
+            posY += speedY * time;
         }
         else {
             itemCollDetec(items);
             //diese methode berechnet auch die neue posY
             platformCollDetec(platforms, time);
         }
-        posX += speedX*time;
+        posX += speedX * time;
         
         //linke wand
         if (posX+getWidth()/2 < 0)
@@ -77,7 +80,7 @@ public class Pixel extends GameObject {
         
         this.setRefPixelPosition((int) posX, (int) posY);
         //Gavitation.
-        speedY += GRAVITY*time;
+        speedY += GRAVITY * time;
     }
     
     /**
@@ -114,13 +117,13 @@ public class Pixel extends GameObject {
                 case Item.SPRINGSHOE:
                     if (speedY > 0) { //ignorieren, falls Pixel nach oben fliegt
                         it.activate();
-                        setImage(5);
+                        setImage(PIC_SPRINGSHOE);
                         items.removeElementAt(i);
                     }
                     break;
                 case Item.ROCKET:
                     it.activate();
-                    setImage(3);
+                    setImage(PIC_ROCKET);
                     items.removeElementAt(i);
                     break;
                 case Item.SHIELD:
@@ -200,7 +203,7 @@ public class Pixel extends GameObject {
      * Springschuhe abgelaufen sind.
      */
     public void resetImage(){
-        if(pictureActive != 1 && !Item.isRocketActive() && !Item.isShoeActive(false)){
+        if(pictureActive != PIC_NORMAL && !Item.isRocketActive() && !Item.isShoeActive(false)){
             setImage(1);
         }
     }
@@ -211,6 +214,6 @@ public class Pixel extends GameObject {
     public void setImage(int img) {
         setImage(Tools.pixelImages[img], Tools.pixelImages[img].getWidth(), Tools.pixelImages[img].getHeight());
         defineReferencePixel(0, getHeight()-1);
-        pictureActive = 5;
+        pictureActive = img;
     }
 }

@@ -11,19 +11,26 @@ public class Highscore{
     public Vector data = new Vector();
 
 
-    
+    /** Konstruktor der Klasse Highscoere
+    *   
+    */
     public Highscore(){
         // We open the recordstore
         try{
             highscore = RecordStore.openRecordStore("High Score", true);
+            //wenn noch keine einträge vorliegen werden standardwerte eingetragen
             if (highscore.getNumRecords() == 0)
                 init();
             else
                 loadHighscores();
+            //ansonsten wird der vector aus dem rms befüllt
         }
         catch(Exception e){}
     }
     
+    /** Methode saveScore 
+     * überschreibt den lokalen vector ins rms
+     */
     public void saveScore(){
         try {
             for(int j = nameIndex; j < data.size(); j++){
@@ -32,7 +39,12 @@ public class Highscore{
             }
         } catch (Exception e) {}
     }
-
+    
+    /**
+     * fügt einen highscore an der richtigen stelle in den lokalen vector ein
+     * @param s Der Score
+     * @param name Der einzutragende Name
+     */
     public void addScore(int s, String name){
         String score = Integer.toString(s);
 
@@ -47,12 +59,21 @@ public class Highscore{
             }
         }
     }
-    
+    /**
+     * Methode init
+     * initialisiert die bildschirmwerte, die für die highscoreausgabe benötigt werden
+     * @param height die höhe des bildschirms
+     * @param width die breite des bildschirms
+     */
     public void init(int heigth, int width){
         this.heigth = heigth;
         this.width = width;
     }
     
+    /**
+     * Methode init
+     * initialisiert den Vector
+     */
     private void init() {
         try {
             
@@ -66,6 +87,10 @@ public class Highscore{
         
     }
     
+    /**
+     * Methode loadHighscores
+     * lädt die werte aus dem rms in den vector
+     */
     private void loadHighscores(){
         try{
             // To read all hiscores saved on the RMS
@@ -86,19 +111,22 @@ public class Highscore{
         }
     }
     
+    /**
+     * Methode addElement
+     * fügt einen datensatz aus name und highscore in den vector ein
+     * @param name der name
+     * @param score der erreichte punktestand
+     */
     private void addElement(String name, int score){
         data.addElement(name);
-        data.addElement(Integer.toString(score));
-        byte [] nameb = name.getBytes();
-        byte [] scoreb = Integer.toString(score).getBytes();
-        
-        try {
-            RecordStore.openRecordStore("High Score", true);
-            highscore.addRecord(nameb, 0, nameb.length);
-            highscore.addRecord(scoreb, 0, scoreb.length);
-        } catch (Exception e) {}
+        data.addElement(Integer.toString(score)); 
     }
     
+    /**
+     * Methode paintHighscores
+     * gibt die highscores als tabelle aus
+     * @param g die zeichenklasse
+     */
     public void paintHighscores(Graphics g) {
         //alle Namen ausgeben
         for (int i = 0; i < data.size(); i+=2){
@@ -109,7 +137,13 @@ public class Highscore{
             g.drawString((String) data.elementAt(i), width/3 + 50, (i-1) * 7 + heigth/5, 0);
         }
     }
-
+    
+    /**
+     * Methode isNewHighscore
+     * überprüft, ob ein score besser als der schlechteste highscore ist
+     * @param score der zu überprüfende score
+     * @return true, wenn ein neuer highscoreeintrag erreicht wurde
+     */
     public boolean isNewHighscore(int score){
         return score > Integer.parseInt((String) data.elementAt(data.size()-1));
     }

@@ -17,7 +17,11 @@ public class Item extends GameObject {
     private static long rocketTimer = 0;
     private static int shoeTimer = 0;
 
-
+    /**
+     * Konstruktor der Klasse Item
+     * @param p die Plattform auf der das item liegt
+     * @param type die art des items (s. konstanten)
+     */
     public Item(Platform p, int type){
         super(Tools.itemImages[type], p.posX, p.posY);
         this.p = p;
@@ -29,7 +33,10 @@ public class Item extends GameObject {
         setRefPixelPosition((int) posX,(int) posY);
     }
     
-    
+    /**
+     * initialisiert die itemtimer und löscht die abhängigkeit zu der plattform
+     * wird nur beim kontakt mit einem item benötigt
+     */
     public void activate(){
         switch (type) {
         case SPRINGSHOE:
@@ -50,7 +57,10 @@ public class Item extends GameObject {
             return;
         }
     }
-    
+    /**
+     * überprüft, ob ein schild aktiv ist
+     * @return ist ein Schild aktiv? -> true
+     */
     public static boolean isShieldActive() {
         //if (shieldTimer == 0)
             //return false;
@@ -59,6 +69,10 @@ public class Item extends GameObject {
         return false;
     }
     
+    /**
+     * überprüft, ob eine rakete aktiv ist
+     * @return ist eine rakete aktiv? -> true
+     */
     public static boolean isRocketActive() {
 //        if (rocketTimer == 0)
 //            return false;
@@ -67,12 +81,22 @@ public class Item extends GameObject {
         return false;
     }
     
+    /**
+     * überprüft, ob ein jumpshoe aktiv ist
+     * @param jump fand eine kollision mit einer plattform statt?
+     * @return ist ein jumpshoe aktiv? -> true
+     */
     public static boolean isShoeActive(boolean jump) {
         if (jump)
             shoeTimer--;
         return shoeTimer >= 0;
     }
     
+    /**
+     * gibt den item-bedingten multiplikator abhängig vom itemtype aus
+     * @param type der itemtyp
+     * @return der multiplikator
+     */
     public static double getJumheightMulti(int type) {
         if (type == SPRING || (type == SPRINGSHOE && isShoeActive(false)))
             return 1.33;
@@ -82,6 +106,9 @@ public class Item extends GameObject {
         return -9001;
     }
     
+    /** 
+     * setzt die timer zurück
+     */
     public static void reset(){
         shoeTimer = 0;
         rocketTimer = 0;
