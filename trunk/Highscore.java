@@ -5,8 +5,6 @@ import javax.microedition.rms.*;
 public class Highscore{
     
     private RecordStore highscore;
-    private int heigth;
-    private int width;
     public int nameIndex = 0;
     public Vector data = new Vector();
 
@@ -59,32 +57,17 @@ public class Highscore{
             }
         }
     }
-    /**
-     * Methode init
-     * initialisiert die bildschirmwerte, die für die highscoreausgabe benötigt werden
-     * @param height die höhe des bildschirms
-     * @param width die breite des bildschirms
-     */
-    public void init(int heigth, int width){
-        this.heigth = heigth;
-        this.width = width;
-    }
     
     /**
      * Methode init
      * initialisiert den Vector
      */
     private void init() {
-        try {
-            
-            addElement("Malte", 10000);
-            addElement("Malte", 9001);
-            addElement("Malte", 8000);
-            addElement("Malte", 500);
-            addElement("Malte", 1);
-            
-        } catch (Exception e){}
-        
+        addElement("Malte", 10000);
+        addElement("Malte", 9001);
+        addElement("Malte", 8000);
+        addElement("Malte", 500);
+        addElement("Malte", 1);
     }
     
     /**
@@ -128,6 +111,8 @@ public class Highscore{
      * @param g die zeichenklasse
      */
     public void paintHighscores(Graphics g) {
+        int heigth = g.getClipHeight();
+        int width = g.getClipWidth();
         //alle Namen ausgeben
         for (int i = 0; i < data.size(); i+=2){
             g.drawString((String) data.elementAt(i), width/3, i * 7 + heigth/5, 0);

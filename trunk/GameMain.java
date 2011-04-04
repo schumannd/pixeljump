@@ -27,24 +27,20 @@ class GameMain extends GameCanvas {
 
     public GameMain() {
         super(false);
-        gameState = GS_START;
     }
 
     public void init(MainMIDlet m) {
         midlet = m;
-//        b3d = new Background3D(getWidth(), getHeight());
         b2d = new Background2D(getWidth(), getHeight());
         SoundManager.init();
-        initNewGame();
         highscore = new Highscore();
-        highscore.init(getHeight(), getWidth());
-        
         GameObject.init(getWidth(), getHeight());
+        
+        initNewGame();
     }
 
     public void paint(Graphics g) {
-         b2d.draw(g);
-         //        b3d.paint(g);
+         b2d.paint(g);
         switch (gameState) {
         case GS_START:
             g.drawString("press start!", getWidth() / 2, getHeight() / 2,
@@ -165,7 +161,6 @@ class GameMain extends GameCanvas {
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
-//        b3d.removeAll();
         level = new Level(0,getWidth(), getHeight(), arena);
         SoundManager.start();
         Item.reset();
