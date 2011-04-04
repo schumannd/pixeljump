@@ -45,6 +45,11 @@ public class Arena {
         projectiles.addElement(p);
     }
     
+    /**
+     * Ueberprueft, ob irgendwelche Kollisionen zwischen Monstern und 
+     * Projektilen stattfinden und entfernt ggf. das entsprechende Monster und
+     * das Projektil.
+     */
     public void monsterProjectileCollision() {
         for(int i = 0; i < monsters.size(); i++){
             Monster m = getMonster(i);
@@ -60,6 +65,11 @@ public class Arena {
         }
     }
     
+    /**
+     * Bewegt die Projektile um die gegebene Zeit und löscht sie, falls sie
+     * nicht mehr auf dem Bildschirm sind.
+     * @param time
+     */
     public void move(double time) {
         for (int i = 0; i < projectiles.size(); i++) {
             Projectile p = getProjectile(i);
@@ -69,6 +79,10 @@ public class Arena {
         }
     }
     
+    /**
+     * Bewegt alle Monster und Projektile um die gegebene Distanz nach unten.
+     * @param dist die Distanz.
+     */
     public void moveDown(double dist) {
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = getMonster(i);
@@ -82,7 +96,14 @@ public class Arena {
             getProjectile(i).moveDown(dist);
         }
     }
-
+    
+    /**
+     * Erstellt ein neues Monster an den angegebenen Koordinaten und mit dem
+     * angegebenen Typ.
+     * @param x x-Koordinate des Monsters.
+     * @param y y-Koordinate des Monsters.
+     * @param type Typ des Monsters.
+     */
     public void newMonster(int x, int y, int type) {
         monsters.addElement(new Monster(x, y, type));
     }
@@ -102,6 +123,10 @@ public class Arena {
         return (Projectile) projectiles.elementAt(i);
     }
     
+    /**
+     * Painted alle Monster und Projektile.
+     * @param g
+     */
     public void paint(Graphics g) {
         for (int i = 0; i < monsters.size(); i++) {
             getMonster(i).paint(g);
