@@ -204,6 +204,7 @@ public class Pixel extends GameObject {
     public void resetImage(){
         if(pictureActive != PIC_NORMAL && !Item.isRocketActive() && !Item.isShoeActive(false))
             this.setImage(PIC_NORMAL);
+
     }
     
     /**

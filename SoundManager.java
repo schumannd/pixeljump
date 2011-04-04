@@ -55,10 +55,8 @@ public class SoundManager {
 
     public static void playSound(int which) {
         try {
-            Debug.add(players[which].setMediaTime(0));
-            players[which].prefetch();
-            players[which].start();
-            //Debug.add(players[which].getMediaTime());
+            players[which].setMediaTime(0);
+            players[which].start(); 
         } catch (MediaException e) { 
         } catch (ArrayIndexOutOfBoundsException e) { 
         } catch (NullPointerException e) {  }
