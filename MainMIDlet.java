@@ -41,7 +41,6 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
 
     public void startApp() {
         display.setCurrent(canvas);
-        Tools.init();
         canvas.startTimer();
     }
 
