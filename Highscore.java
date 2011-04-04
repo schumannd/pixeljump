@@ -17,7 +17,7 @@ public class Highscore{
         try{
             highscore = RecordStore.openRecordStore("High Score", true);
             //wenn noch keine einträge vorliegen werden standardwerte eingetragen
-            if (highscore.getRecord(1) == null){
+            if (highscore.getNumRecords() == 0){
                 init();
                 saveScore();
             }

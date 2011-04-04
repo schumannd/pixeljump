@@ -7,7 +7,7 @@ public class Tools {
     public static Image backgroundImage;
     public static Image[] platImages = new Image[3];
     public static Image[] itemImages = new Image[6];
-    public static Image[] monsterImages = new Image[1];
+    public static Image[] monsterImages = new Image[2];
     
     /**
      * Laedt alle benoetigten Bilder.

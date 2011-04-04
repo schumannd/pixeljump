@@ -17,6 +17,9 @@ public class Item extends GameObject {
     private static long rocketTimer = 0;
     private static int shoeTimer = 0;
 
+    public static int DUR_SHIELD = 5000;
+    public static final int DUR_ROCKET = 1700;
+
     /**
      * Konstruktor der Klasse Item
      * @param p die Plattform auf der das item liegt
@@ -64,7 +67,7 @@ public class Item extends GameObject {
     public static boolean isShieldActive() {
         //if (shieldTimer == 0)
             //return false;
-        if ((System.currentTimeMillis() - shieldTimer) < 5000)
+        if ((System.currentTimeMillis() - shieldTimer) < DUR_SHIELD)
             return true;
         return false;
     }
@@ -76,7 +79,7 @@ public class Item extends GameObject {
     public static boolean isRocketActive() {
 //        if (rocketTimer == 0)
 //            return false;
-        if ((System.currentTimeMillis() - rocketTimer) < 2000)
+        if ((System.currentTimeMillis() - rocketTimer) < DUR_ROCKET)
             return true;
         return false;
     }
