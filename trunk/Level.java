@@ -82,8 +82,7 @@ public class Level {
         //Monster oben erscheinen lassen
         while(arena.invisibleM.size() > 0 && arena.getInvisibleM(0).getPosY() <= lastMonster) {
             lastMonster = 0;
-            Monster m = arena.getInvisibleM(0);
-            arena.newMonster((int)m.getPosX(), -platHeight, m.getType());
+            arena.addVisibleM(arena.getInvisibleM(0));
             arena.invisibleM.removeElementAt(0);
         }
 
@@ -107,7 +106,7 @@ public class Level {
             }
             //falls yVal < 1000 wird ein Monster erstellt
             if(pixel + yVal <= 1000)
-                arena.newInvisibleM(r.nextInt(width - platWidth), yVal, r.nextInt(2));
+                arena.addInvisibleM(r.nextInt(width - platWidth), yVal, r.nextInt(2));
             pixel += yVal;
         }
     }
