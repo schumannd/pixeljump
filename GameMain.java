@@ -11,7 +11,6 @@ class GameMain extends GameCanvas {
     private Timer mainTimer;
     private Pixel pixel;
     private Background2D b2d;
-//    public static Background3D b3d;
     private Level level;
     private Arena arena;
     private int score = 0;
@@ -39,7 +38,7 @@ class GameMain extends GameCanvas {
      */
     public void init(MainMIDlet m) {
         midlet = m;
-        b2d = new Background2D(getWidth(), getHeight());
+        b2d = new Background2D(getHeight());
         SoundManager.init();
         highscore = new Highscore();
         GameObject.init(getWidth(), getHeight());

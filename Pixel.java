@@ -198,6 +198,16 @@ public class Pixel extends GameObject {
     }
     
     /**
+     * Setzt das Frame dieses Sprites auf das angegebene. Wird benutzt, um z.B.
+     * das Bild des Pixels mit der Rakete oder den Springschuhen anzuzeigen.
+     */
+    public void setImage(int img) {
+        this.setFrame(img);
+        defineReferencePixel(getWidth() / 2, getHeight()-1);
+        pictureActive = img;
+    }
+    
+    /**
      * Setzt das Bild des Pixels auf das normale Bild, falls Raketen oder
      * Springschuhe abgelaufen sind.
      */
@@ -205,14 +215,5 @@ public class Pixel extends GameObject {
         if(pictureActive != PIC_NORMAL && !Item.isRocketActive() && !Item.isShoeActive(false))
             this.setImage(PIC_NORMAL);
 
-    }
-    
-    /**
-     * Setzt das Bild des Pixels auf das Bild Tools.pixelImages[img].
-     */
-    public void setImage(int img) {
-        this.setFrame(img);
-        defineReferencePixel(getWidth() / 2, getHeight()-1);
-        pictureActive = img;
     }
 }

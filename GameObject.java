@@ -3,12 +3,23 @@ import javax.microedition.lcdui.game.Sprite;
 
 
 public abstract class GameObject extends Sprite {
+    /** Die x-Koordinate dieses GameObjects. **/
     protected double posX;
+    /** Die y-Koordinate dieses GameObjects. **/
     protected double posY;
     
+    /** Breite der Canvas. **/
     protected static int width;
+    /** Hoehe der Canvas. **/
     protected static int height;
-
+    
+    /**
+     * Erstellt ein GameObject mit dem angegebenen Bild an den angegebenen
+     * Koordinaten.
+     * @param image Das Bild des GameObjects
+     * @param x x-Koordinate des GameObjects
+     * @param y y-Koordinate des GameObjects
+     */
     public GameObject(Image image, double x, double y) {
         super(image);
         posX = x;
@@ -18,24 +29,15 @@ public abstract class GameObject extends Sprite {
     }
 
     /**
-     * moves the GameObject down
+     * Bewegt dieses GameObject um die angegebene Distanz nach unten.
      */
     public void moveDown(double dist) {
         posY += dist;
         setRefPixelPosition((int) posX, (int) posY);
     }
     
-    public double getPosY(){
-        return posY;
-    }
-    public double getPosX(){
-        return posX;
-    }
-    public void setPosX(double x) {
-        posX = x;
-    }
     /**
-     * @return true, wenn sich das object auf dem bildschirm befindet
+     * @return true, wenn sich dieses GameObject auf dem Bildschirm befindet.
      */
     public boolean isOnScreen() {
         if (this.posX > width ||
@@ -47,12 +49,20 @@ public abstract class GameObject extends Sprite {
     }
     
     /**
-     * initialisiert die bildschirmgröße
+     * Initialisiert die Bildschirmgroesse
      * @param width die bildschirmbreite
-     * @param height die bildschirmhöhe
+     * @param height die bildschirmhoehe
      */
     public static void init(int width, int height) {
         GameObject.width = width;
         GameObject.height = height;
+    }
+    
+    public double getPosY(){
+        return posY;
+    }
+    
+    public double getPosX(){
+        return posX;
     }
 }
