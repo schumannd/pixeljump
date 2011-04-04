@@ -68,7 +68,7 @@ public class SoundManager {
      */
     public static void start(){
         stopSound(DIE);
-        //playSound(MUSIC);
+        playSound(MUSIC);
     }
     
     /**
