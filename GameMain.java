@@ -23,7 +23,7 @@ class GameMain extends GameCanvas {
     private final int GS_GAME = 1;
     private final int GS_START = 0;   
 
-    /*
+    /**
      * Konstrukter des Spiels
      * Extends GameCanvas
      */
@@ -31,7 +31,7 @@ class GameMain extends GameCanvas {
         super(false);
     }
 
-    /*
+    /**
      * Initialisierungsmethode des Programms
      *
      * param m = Hauptmidlet wird uebergeben
@@ -46,8 +46,8 @@ class GameMain extends GameCanvas {
         initNewGame();
     }
 
-    /*
-     * Methode zum zeichen des Spielgeschehens
+    /**
+     * Zeichnet den Startscreen, das Spielgeschehen oder die Highscores.
      *
      * @param g = Grafikobjekt wird uebergeben
      */
@@ -85,8 +85,8 @@ class GameMain extends GameCanvas {
         Debug.print(g);
     }
 
-    /*
-     * Hauptmethode fuer das Gameplay
+    /**
+     * Hauptmethode. Fragt Benutzereingaben ab, startet Kollisionsberechnungen etc.
      *
      * @param ms = Millisekunden die seit letztem Aufruf vergangen sind
      */
@@ -151,8 +151,8 @@ class GameMain extends GameCanvas {
         }
     }
 
-    /*
-     * Methode zum starten des Timer
+    /**
+     * Startet den Timer.
      */
     public void startTimer() {
         final int ms = 1000/FPS;
@@ -166,16 +166,18 @@ class GameMain extends GameCanvas {
         };
         mainTimer.schedule(pt, 0, ms);
     }
-    /*
-     * Methode zum stoppen des Timers
+    
+    /**
+     * Stoppt den Timer.
      */
     public void stopTimer() {
         if (mainTimer != null)
             mainTimer.cancel();
         mainTimer = null;
     }
-    /*
-     * Initialisierungsmethode fuer ein neues Spiel
+    
+    /**
+     * Initialisiert ein neues Spiel.
      */
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
@@ -213,8 +215,9 @@ class GameMain extends GameCanvas {
             midlet.startAllowed = true;
         }
     }
-    /*
-     * Methode fuers schiessen
+    
+    /**
+     * Veranlasst bei Druecken der UP-Taste einen Schuss
      */
     protected void keyPressed(int keyCode) {
         if (keyCode == getKeyCode(UP) && gameState == GS_GAME)

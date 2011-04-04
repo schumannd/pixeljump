@@ -51,6 +51,11 @@ public class Debug {
             strings.removeElementAt(0);
     }
     
+    /** Clears the output. **/
+    public static void clear() {
+        strings.removeAllElements();
+    }
+    
     /** Truncates the list and prints the elements one below the other,
      * beginning with the oldest element in the upper left corner of the screen. **/
     public static void print(Graphics g) {
