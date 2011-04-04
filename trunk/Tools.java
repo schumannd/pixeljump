@@ -23,7 +23,6 @@ public class Tools {
         
         try{
             pixelImage = Image.createImage(res+"/pixelman_sprite.png");
-            
             projectileImage = Image.createImage(res+"/projectile.png");
             backgroundImage = Image.createImage(res+"/background.png");
             for (int i = 0; i < platImages.length; i++) {
