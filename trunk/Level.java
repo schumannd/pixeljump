@@ -71,24 +71,6 @@ public class Level {
             diff++;
             highest = 0;
         }
-        //level solvable machen (jeden move)
-        if(lastSolvable >= 75) {
-            int xVal = r.nextInt(width - platWidth);
-            int yVal = -platHeight;
-            for(int i = 0; i < visiblePlats.size(); i++) {
-               Platform p = getVisPlat(i);
-               //falls Platform im erscheinungsbereich von Platformen
-               if(p.getY() < 0)
-                  //falls Platform im bereich des X Wertes
-                  if(xVal > p.getX() - platWidth && xVal < p.getX()+platWidth) {
-                     visiblePlats.removeElementAt(i);
-                      i--;
-                  }
-            }
-            addVisPlat(xVal, yVal, 0);
-            lastSolvable = 0;
-
-        }
 
         //platformen oben erscheinen lassen
         while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
@@ -135,22 +117,28 @@ public class Level {
      * (alle 1000 Pixel
      */
     private void createPlats() {
-        int pixel = 0;
-        while(pixel < 1000) {
-            //random abstand zur naechsten Platform
-            //Abstand jedes Level um ø 2 pixel groesser
-            int yVal = r.nextInt(diff*8+40)+1;
-            if(yVal < platHeight)
-                yVal = platHeight;
-
-            int type = 1;
-            if(pixel + yVal <= 1000)
-                addInvisPlat(r.nextInt(width - platWidth), yVal, type);
-            //falls Platform ueber 1000sten Pixel
-            else {
-                addInvisPlat(r.nextInt(width - platWidth), 1000-pixel, type);
+        //letzte Platform
+        int lPlat = 0;
+        //letzte notwendige Platform
+        int lSPlat = 0;
+        for(int i = 1; i <= 1000; i++) {
+            //Wahrscheinlickeit, dass an diesem Pixel eine Platform entsteht
+                //Letzte notwendige Platform zuweit weg?
+            if(i-lSPlat > 80) {
+                addInvisPlat(r.nextInt(width - platWidth), i-lPlat, 0);
+                lSPlat = i;
+                lPlat = i;
             }
-            pixel += yVal;
+            if(r.nextDouble() < 1.0/(10+diff)) {
+                //letzte Platform weit genug weg?
+                if(i-lPlat > platHeight) {
+                    int type = r.nextInt(3);
+                    addInvisPlat(r.nextInt(width - platWidth), i-lPlat, type);
+                    lPlat = i;
+                    if(type < 2)
+                        lSPlat = i;
+                }
+            }
         }
     }
 
