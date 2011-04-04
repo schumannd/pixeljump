@@ -157,17 +157,17 @@ public class Level {
         visiblePlats.addElement(plat);
 //        GameMain.b3d.addPlatform(x, y);
 
-        if(r.nextDouble() < 0.2 && (type == Platform.NORMAL)){
+        if(r.nextDouble() < 0.3 && (type == Platform.NORMAL)){
 
             int itemType = Item.SPRING;
             int n = r.nextInt(100);
-            if(n < 70)
-                itemType = Item.TRAMPOLINE;
             if(n < 50)
-                itemType = Item.SHIELD;
+                itemType = Item.TRAMPOLINE;
             if(n < 20)
-                itemType = Item.SPRINGSHOE;
+                itemType = Item.SHIELD;
             if(n < 10)
+                itemType = Item.SPRINGSHOE;
+            if(n < 5)
                 itemType = Item.ROCKET;
             
             Item item = new Item(plat, itemType);
