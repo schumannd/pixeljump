@@ -65,11 +65,11 @@ public class Highscore{
      * initialisiert den Vector mit standardwerten
      */
     private void init() {
-        addElement("Malte", 10000);
-        addElement("Malte", 9001);
-        addElement("Malte", 8000);
-        addElement("Malte", 500);
-        addElement("Malte", 1);
+        addElement("Malte", 20000);
+        addElement("David", 10000);
+        addElement("jaykay", 9001);
+        addElement("Jere", 5000);
+        addElement("Looser", 1200);
     }
     
     /**
