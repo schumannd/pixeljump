@@ -161,9 +161,9 @@ public class Level {
 
             int itemType = Item.SPRING;
             int n = r.nextInt(100);
-            if(80 < n )
+            if(n < 70)
                 itemType = Item.TRAMPOLINE;
-            if(n < 60)
+            if(n < 50)
                 itemType = Item.SHIELD;
             if(n < 20)
                 itemType = Item.SPRINGSHOE;
