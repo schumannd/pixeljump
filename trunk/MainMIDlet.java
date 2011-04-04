@@ -63,6 +63,7 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
         if (c == cmExit)
             exitMIDlet();
         else if (c == cmNewGame && startAllowed) {
+            Debug.clear();
             canvas.initNewGame();
             canvas.startTimer();
         }
@@ -77,7 +78,8 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
             canvas.addCommand(cmPause);
         }
         else if (c == cmHighscore) {
-            canvas.gameOver();
+            Debug.add("Wenn du Highscores sehen willst ");
+            Debug.add("musst du halt sterben wie ein Mann!");
         }
        
     }
