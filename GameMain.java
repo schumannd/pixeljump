@@ -65,7 +65,7 @@ class GameMain extends GameCanvas {
             pixel.paint(g);
             if(Item.isShieldActive()){
                 //die Koordinaten der mitte des pixels
-                int xMPixel = (int) pixel.getPosX() + 13;
+                int xMPixel = (int) pixel.getPosX();
                 int yMPixel = (int) pixel.getPosY() - pixel.getHeight()/2;
                 //die koordinaten (x und y, weil quadratisch) des Mittelpunkts des Schilds
                 int mShield = Tools.itemImages[5].getWidth()/2;
@@ -103,7 +103,7 @@ class GameMain extends GameCanvas {
             leftright = -1;
             pixel.setTransform(Sprite.TRANS_MIRROR); // bei Pfeil-Nach-Links-Taste wird der Pixel nach links gespiegelt
             if(leftright == -1 && statuslinks == 0) { // wenn links-gedrückt und nicht schon links
-             pixel.setPosX(pixel.getPosX() + pixel.getWidth()); //rechtsverschiebung, da sonst nicht korrekt
+             
             statuslinks = 1;
             statusrechts = 0;}
             }
@@ -114,7 +114,7 @@ class GameMain extends GameCanvas {
            
             pixel.setTransform(Sprite.TRANS_NONE);
             if(leftright == 1 && statusrechts == 0) {
-            pixel.setPosX(pixel.getPosX() - pixel.getWidth());
+            
             statusrechts = 1;
             statuslinks = 0;
             }

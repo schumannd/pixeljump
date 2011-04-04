@@ -50,16 +50,18 @@ public class SoundManager {
     }
     public static void start(){
         stopSound(DIE);
-        playSound(MUSIC);
+        //playSound(MUSIC);
     }
 
     public static void playSound(int which) {
         try {
-            players[which].setMediaTime(0);
+            Debug.add(players[which].setMediaTime(0));
+            players[which].prefetch();
             players[which].start();
-        } catch (MediaException e) {
-        } catch (ArrayIndexOutOfBoundsException e) {
-        } catch (NullPointerException e) {}
+            //Debug.add(players[which].getMediaTime());
+        } catch (MediaException e) { 
+        } catch (ArrayIndexOutOfBoundsException e) { 
+        } catch (NullPointerException e) {  }
     }
 
     public static void stopSound(int which) {

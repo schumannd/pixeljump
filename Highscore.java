@@ -9,16 +9,18 @@ public class Highscore{
     public Vector data = new Vector();
 
 
-    /** Konstruktor der Klasse Highscoere
+    /** Konstruktor der Klasse Highscore
     *   
     */
     public Highscore(){
-        // We open the recordstore
+        // öffnen des recordstores
         try{
             highscore = RecordStore.openRecordStore("High Score", true);
             //wenn noch keine einträge vorliegen werden standardwerte eingetragen
-            if (highscore.getNumRecords() == 0)
+            if (highscore.getNumRecords() == 0){
                 init();
+                saveScore();
+            }
             else
                 loadHighscores();
             //ansonsten wird der vector aus dem rms befüllt
@@ -26,7 +28,7 @@ public class Highscore{
         catch(Exception e){}
     }
     
-    /** Methode saveScore 
+    /**  
      * überschreibt den lokalen vector ins rms
      */
     public void saveScore(){
@@ -59,8 +61,8 @@ public class Highscore{
     }
     
     /**
-     * Methode init
-     * initialisiert den Vector
+     * 
+     * initialisiert den Vector mit standardwerten
      */
     private void init() {
         addElement("Malte", 10000);
@@ -71,7 +73,7 @@ public class Highscore{
     }
     
     /**
-     * Methode loadHighscores
+     * 
      * lädt die werte aus dem rms in den vector
      */
     private void loadHighscores(){
@@ -95,7 +97,7 @@ public class Highscore{
     }
     
     /**
-     * Methode addElement
+     * 
      * fügt einen datensatz aus name und highscore in den vector ein
      * @param name der name
      * @param score der erreichte punktestand
@@ -106,7 +108,7 @@ public class Highscore{
     }
     
     /**
-     * Methode paintHighscores
+     * 
      * gibt die highscores als tabelle aus
      * @param g die zeichenklasse
      */
@@ -124,7 +126,7 @@ public class Highscore{
     }
     
     /**
-     * Methode isNewHighscore
+     * 
      * überprüft, ob ein score besser als der schlechteste highscore ist
      * @param score der zu überprüfende score
      * @return true, wenn ein neuer highscoreeintrag erreicht wurde

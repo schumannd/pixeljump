@@ -5,9 +5,9 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
 
     private Command cmExit = new Command("Exit", Command.EXIT, 1);;
     private Command cmNewGame = new Command("New Game", Command.SCREEN, 1);
+    private Command cmHighscore = new Command("Highscore", Command.SCREEN, 2);
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
-    private Command cmHighscore = new Command("Highscore", Command.SCREEN, 2);
     private Command cmOk = new Command("OK", Command.OK, 0);
     
     
