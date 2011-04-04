@@ -9,7 +9,8 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
     private Command cmPause = new Command("Pause", Command.SCREEN, 2);
     private Command cmResume = new Command("Resume", Command.SCREEN, 2);
     private Command cmOk = new Command("OK", Command.OK, 0);
-    
+
+    public boolean startAllowed = true;
     
     private TextField pixelName;
     private Form highscores;
@@ -61,7 +62,7 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
 
         if (c == cmExit)
             exitMIDlet();
-        else if (c == cmNewGame) {
+        else if (c == cmNewGame && startAllowed) {
             canvas.initNewGame();
             canvas.startTimer();
         }
@@ -93,7 +94,7 @@ public class MainMIDlet extends MIDlet implements CommandListener, ItemCommandLi
         display.setCurrent(highscores);
     }
 
-    public void showHighscore() {
+    public void showHighscore() {   
         display.setCurrent(canvas);
     }
 }
