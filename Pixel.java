@@ -7,9 +7,9 @@ public class Pixel extends GameObject {
     private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
-    private final int PIC_NORMAL = 1;
-    private final int PIC_ROCKET = 3;
-    private final int PIC_SPRINGSHOE = 5;
+    private final int PIC_NORMAL = 0;
+    private final int PIC_ROCKET = 1;
+    private final int PIC_SPRINGSHOE = 2;
     private final int GRAVITY = 2;
     private final int shotOriginX = 0;
     private final int shotOriginY = 0;
@@ -19,8 +19,9 @@ public class Pixel extends GameObject {
      * Erstellt neuen Pixel an der Position (x/y).
      */
     public Pixel(double x, double y) {
-        super(Tools.pixelImages[1], x, y);
-        defineReferencePixel(Tools.pixelImages[1].getWidth() / 2, Tools.pixelImages[1].getHeight() - 1);
+        super(Tools.pixelImage, x, y);
+        this.setImage(Tools.pixelImage, 48, 50);
+        defineReferencePixel(Tools.pixelImage.getWidth() / 6, Tools.pixelImage.getHeight() - 1);
         speedY = JUMPSPEED*2;
     }
     
@@ -201,16 +202,15 @@ public class Pixel extends GameObject {
      * Springschuhe abgelaufen sind.
      */
     public void resetImage(){
-        if(pictureActive != PIC_NORMAL && !Item.isRocketActive() && !Item.isShoeActive(false)){
-            setImage(1);
-        }
+        if(pictureActive != PIC_NORMAL && !Item.isRocketActive() && !Item.isShoeActive(false))
+            this.setImage(PIC_NORMAL);
     }
     
     /**
      * Setzt das Bild des Pixels auf das Bild Tools.pixelImages[img].
      */
     public void setImage(int img) {
-        setImage(Tools.pixelImages[img], Tools.pixelImages[img].getWidth(), Tools.pixelImages[img].getHeight());
+        this.setFrame(img);
         defineReferencePixel(getWidth() / 2, getHeight()-1);
         pictureActive = img;
     }
