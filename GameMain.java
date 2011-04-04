@@ -1,13 +1,10 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.GameCanvas;
 
 class GameMain extends GameCanvas {
 
     private int gameState;
-    private int statuslinks = 0;
-    private int statusrechts = 0;
     private Timer mainTimer;
     private Pixel pixel;
     private Background2D b2d;
@@ -16,7 +13,6 @@ class GameMain extends GameCanvas {
     private int score = 0;
     public Highscore highscore;
     private MainMIDlet midlet;
-
     
     private final int FPS = 40;
     private final int GS_GAMEOVER = 3;
@@ -95,26 +91,10 @@ class GameMain extends GameCanvas {
         //Handling von rechts/links-Tasten
         int keycode = getKeyStates();
         int leftright = 0;
-        if ((keycode & LEFT_PRESSED) != 0) {
+        if ((keycode & LEFT_PRESSED) != 0)
             leftright = -1;
-            pixel.setTransform(Sprite.TRANS_MIRROR); // bei Pfeil-Nach-Links-Taste wird der Pixel nach links gespiegelt
-            if(leftright == -1 && statuslinks == 0) { // wenn links-gedrückt und nicht schon links
-             
-            statuslinks = 1;
-            statusrechts = 0;}
-            }
-
-            
-        if ((keycode & RIGHT_PRESSED) != 0){
+        if ((keycode & RIGHT_PRESSED) != 0)
             leftright = 1;
-           
-            pixel.setTransform(Sprite.TRANS_NONE);
-            if(leftright == 1 && statusrechts == 0) {
-            
-            statusrechts = 1;
-            statuslinks = 0;
-            }
-        }
 
         pixel.accelerate(leftright, time);
         

@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+import javax.microedition.lcdui.game.Sprite;
+
 public class Pixel extends GameObject {
     
     private double speedX = 0;
@@ -7,13 +9,16 @@ public class Pixel extends GameObject {
     private final int JUMPSPEED = -20;
     private final int SPEEDLIMIT = 10;
     private final int ACCELERATION = 2;
-    private final int PIC_NORMAL = 0;
-    private final int PIC_ROCKET = 1;
-    private final int PIC_SPRINGSHOE = 2;
     private final int GRAVITY = 2;
     private final int shotOriginX = 0;
     private final int shotOriginY = 0;
+    
+    private final int PIC_NORMAL = 0;
+    private final int PIC_ROCKET = 1;
+    private final int PIC_SPRINGSHOE = 2;
     private int pictureActive = PIC_NORMAL;
+
+    private boolean looksRight = true;
 
     /**
      * Erstellt neuen Pixel an der Position (x/y).
@@ -32,6 +37,16 @@ public class Pixel extends GameObject {
      * @param leftright -1, 1 oder 0 wenn links, rechts oder nichts gedrueckt wurde
      */
     public void accelerate(int leftright, double time) {
+        //Wenn pixel sich nach links bewegt, aber noch nach rechts guckt
+        if(speedX < 0 && looksRight) {
+            setTransform(Sprite.TRANS_MIRROR);
+            looksRight = false;
+        }
+      //Wenn pixel sich nach rechts bewegt, aber noch nach links guckt
+        else if(speedX > 0  && !looksRight) {
+            setTransform(Sprite.TRANS_NONE);
+            looksRight = true;
+        }
         //bremsen wenn nichts gedrueckt wurde
         if (leftright == 0 && speedX != 0) {
             if (Math.abs(speedX) < time * ACCELERATION * 2)
@@ -56,6 +71,9 @@ public class Pixel extends GameObject {
     /**
      * Bewegt den Pixel um die angegebene Zeit. Ueberprueft Kollisionen mit 
      * Plattformen und Items und sorgt fuer die Gravitation.
+     * @param platforms Vektor aller Plattformen.
+     * @param items Vektor aller Items.
+     * @param time Die Dauer dieses Frames
      */
     public void move(Vector platforms, Vector items, double time) {
         if(Item.isRocketActive()){
@@ -84,6 +102,7 @@ public class Pixel extends GameObject {
     
     /**
      * Ueberprueft, ob Pixel mit einem der angegebenen Monster kollidiert.
+     * @param monsters Vektor aller Monster.
      * @return true, wenn das der Fall ist, sonst false.
      */
     public boolean monsterCollision(Vector monsters) {
@@ -109,6 +128,7 @@ public class Pixel extends GameObject {
     /**
      * Ueberprueft, ob Pixel mit einem der angegebenen Items kollidiert, und
      * aktiviert ggf. das Item.
+     * @param items Vektor aller Items.
      */
     private void itemCollDetec(Vector items){
         for(int i = 0; i < items.size(); i++){
@@ -147,6 +167,8 @@ public class Pixel extends GameObject {
     /**
      * Ueberprueft, ob Pixel mit den angegebenen Plattformen kollidiert, und
      * berechnet entsprechend die neue y-Position des Pixels.
+     * @param platforms Vektor aller Plattformen.
+     * @param time Die Dauer dieses Frames, benoetigt zu korrekten collision-response
      */
     private void platformCollDetec(Vector platforms, double time){
         double moveY = GRAVITY*time*time/2 + speedY*time;
@@ -200,6 +222,7 @@ public class Pixel extends GameObject {
     
     /**
      * Gibts einen Schuss ab und spielt den Sound ab.
+     * @param arena Die Arena, die den Schuss "weiterverwaltet"
      */
     public void shoot(Arena arena) {
         SoundManager.playSound(SoundManager.SHOOT);
@@ -209,6 +232,7 @@ public class Pixel extends GameObject {
     /**
      * Setzt das Frame dieses Sprites auf das angegebene. Wird benutzt, um z.B.
      * das Bild des Pixels mit der Rakete oder den Springschuhen anzuzeigen.
+     * @param img Index des neuen Bildes des Pixels.
      */
     public void setImage(int img) {
         this.setFrame(img);
