@@ -100,12 +100,12 @@ public class Level {
         int pixel = 0;
         int yVal;
         while(pixel < 1000) {
-            //In Level 1-90
-            if(diff <=90)
+            //In Level 1-40
+            if(diff <= 40)
                 //zufaelliger abstand zum naechsten Monster, je
                 //hoeher das level, desto oefter kommen Monster
-                yVal = r.nextInt(5000-diff*50)+1;
-            //falls lvl ueber 90, kein negativer Parameter fuer nextInt()
+                yVal = r.nextInt(4500-diff*100)+1;
+            //falls lvl ueber 40, kein negativer Parameter fuer nextInt()
             else {
                 yVal = r.nextInt(500)+1;
             }
@@ -125,7 +125,7 @@ public class Level {
         while(pixel < 1000) {
             //random abstand zur naechsten Platform
             //Abstand jedes Level um ø 2 pixel groesser
-            int yVal = r.nextInt(diff*4+20)+1;
+            int yVal = r.nextInt(diff*8+40)+1;
             try{
             Platform p = (Platform) visiblePlats.elementAt(0);
             if(yVal < p.getHeight())
