@@ -215,8 +215,10 @@ class GameMain extends GameCanvas {
             midlet.setSpielerName();
             midlet.startAllowed = true;
         }
-        else
+        else{
             midlet.showHighscore();
+            midlet.startAllowed = true;
+        }
     }
     /*
      * Methode fuers schiessen
