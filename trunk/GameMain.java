@@ -204,6 +204,7 @@ class GameMain extends GameCanvas {
      */
     public void gameOver(){
         stopTimer();
+        midlet.startAllowed = false;
         gameState = GS_GAMEOVER;
         if(highscore.isNewHighscore(score)){
             highscore.addScore(score, "YOU");
@@ -212,6 +213,7 @@ class GameMain extends GameCanvas {
                 repaint();
             }
             midlet.setSpielerName();
+            midlet.startAllowed = true;
         }
         else
             midlet.showHighscore();
