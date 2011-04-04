@@ -87,12 +87,25 @@ public class Pixel extends GameObject {
      * @return true, wenn das der Fall ist, sonst false.
      */
     public boolean monsterCollision(Vector monsters) {
-        if(monsters.size() == 0 || Item.isRocketActive() || Item.isShieldActive())
-            return false;
-        for(int i = 0; i < monsters.size(); i++){
-            Monster m = (Monster) monsters.elementAt(i);
-            if (this.collidesWith(m, false))
-                return true;
+        if(speedY < 0){
+            if(monsters.size() == 0 || Item.isRocketActive() || Item.isShieldActive())
+               return false;
+            for(int i = 0; i < monsters.size(); i++){
+                Monster m = (Monster) monsters.elementAt(i);
+                if (this.collidesWith(m, false))
+                    return true;
+            }
+        }
+        else{
+            for(int i = 0; i < monsters.size(); i++){
+                Monster m = (Monster) monsters.elementAt(i);
+                if (this.collidesWith(m, false)){
+                    speedY = JUMPSPEED;
+                    monsters.removeElement(m);
+                    m.setVisible(false);
+                    return false;
+                }
+            }
         }
         return false;
     }
