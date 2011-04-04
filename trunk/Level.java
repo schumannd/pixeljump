@@ -152,7 +152,7 @@ public class Level {
      */
 
     private void addVisPlat(int x, int y, int type){
-        Platform plat = new Platform(type, new double[][]{{x, y}});
+        Platform plat = new Platform(type, x, y);
 
         visiblePlats.addElement(plat);
 //        GameMain.b3d.addPlatform(x, y);
@@ -184,7 +184,7 @@ public class Level {
      */
 
     private void addInvisPlat(int x, int y, int type){
-        Platform plat = new Platform(type, new double[][]{{x, y}});
+        Platform plat = new Platform(type, x, y);
 
         invisPlats.addElement(plat);
     }
@@ -216,16 +216,7 @@ public class Level {
     public Item getItem(int i){
         return (Item) items.elementAt(i);
     }
-    /*
-     * Methode bewegt bewegliche Platformen zur seite.
-     * @param time = Zeit, die sich dei Platform bewegen soll?
-     */
     
-    public void move(double time) {
-        for (int i = 0; i < visiblePlats.size(); i++) {
-            getVisPlat(i).moveSide(time);
-        }
-    }
     /*
      * Methode Zeichnet Platformen und Items
      * @param g = Grafikobjekt uebergeben

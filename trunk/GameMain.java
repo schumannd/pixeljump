@@ -125,7 +125,6 @@ class GameMain extends GameCanvas {
         pixel.resetImage();
 
         pixel.move(level.visiblePlats, level.items, time);
-        level.move(time);
         arena.move(time);
         arena.monsterProjectileCollision();
         //gameover weil mit monster kollidiert
