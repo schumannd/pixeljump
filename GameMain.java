@@ -23,12 +23,20 @@ class GameMain extends GameCanvas {
     private final int GS_GAMEOVER = 3;
     private final int GS_GAME = 1;
     private final int GS_START = 0;   
-    
 
+    /*
+     * Konstrukter des Spiels
+     * Extends GameCanvas
+     */
     public GameMain() {
         super(false);
     }
 
+    /*
+     * Initialisierungsmethode des Programms
+     *
+     * param m = Hauptmidlet wird uebergeben
+     */
     public void init(MainMIDlet m) {
         midlet = m;
         b2d = new Background2D(getWidth(), getHeight());
@@ -39,6 +47,11 @@ class GameMain extends GameCanvas {
         initNewGame();
     }
 
+    /*
+     * Methode zum zeichen des Spielgeschehens
+     *
+     * @param g = Grafikobjekt wird uebergeben
+     */
     public void paint(Graphics g) {
          b2d.paint(g);
         switch (gameState) {
@@ -76,7 +89,11 @@ class GameMain extends GameCanvas {
         Debug.print(g);
     }
 
-
+    /*
+     * Hauptmethode fuer das Gameplay
+     *
+     * @param ms = Millisekunden die seit letztem Aufruf vergangen sind
+     */
     private void doGamePlay(int ms) {
         double time  = 15*ms/1000.d;
         //Handling von rechts/links-Tasten
@@ -138,7 +155,10 @@ class GameMain extends GameCanvas {
             score += dist;
         }
     }
-    
+
+    /*
+     * Methode zum starten des Timer
+     */
     public void startTimer() {
         final int ms = 1000/FPS;
         stopTimer();
@@ -151,13 +171,17 @@ class GameMain extends GameCanvas {
         };
         mainTimer.schedule(pt, 0, ms);
     }
-    
+    /*
+     * Methode zum stoppen des Timers
+     */
     public void stopTimer() {
         if (mainTimer != null)
             mainTimer.cancel();
         mainTimer = null;
     }
-    
+    /*
+     * Initialisierungsmethode fuer ein neues Spiel
+     */
     public void initNewGame() {
         pixel = new Pixel(getWidth() / 2, getHeight()-1);
         arena = new Arena(getHeight());
@@ -190,7 +214,9 @@ class GameMain extends GameCanvas {
         else
             midlet.showHighscore();
     }
-    
+    /*
+     * Methode fuers schiessen
+     */
     protected void keyPressed(int keyCode) {
         if (keyCode == getKeyCode(UP) && gameState == GS_GAME)
             pixel.shoot(arena);

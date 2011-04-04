@@ -15,7 +15,12 @@ public class Platform extends GameObject{
     private final double SPEED = 10;
     private double distToTarget = 0;
     
-    
+    /*
+     * Konstrukter fuer Platformen aller Art
+     *
+     * @param type = Typ der Platform
+     * @param coordinates = koordinaten der Platform
+     */
     public Platform(int type, double [][] coordinates) {
         super(Tools.platImages[type], coordinates[0][0], coordinates[0][1]);
         this.coords = coordinates;
@@ -30,19 +35,30 @@ public class Platform extends GameObject{
             moves = false;
         this.type = type;
     }
+    /*
+     * Get-Methode fuer den typ
+     *
+     * @return = Typ der Platform
+     */
     
     public int getType() {
         return type;
     }
-    
+    /*
+     * Methode bewegt die Platform nach unten
+     * @param dist = zu bewegende Distanz in pixeln
+     */
     public void moveDown(double dist) {
         super.moveDown(dist);
         if (item != null) {
             item.moveDown(dist);
         }
     }
-    
-    
+
+    /*
+     * Methode bewegt bewegliche Platformen zur seite.
+     * @param time = Zeit, die sich dei Platform bewegen soll?
+     */
     public void moveSide(double time) {
         if (!moves)
             return;
@@ -56,7 +72,11 @@ public class Platform extends GameObject{
         
         setRefPixelPosition((int) posX, (int) posY);
     }
-    
+
+    /*
+     * Methode gibt den Abstand zum Zielpunkt der seitwärtsbewegung an
+     * @param time = ?
+     */
     private double distToNextCoord() {
         double distX = posX - coords[targetCoord][0];
         double distY = posY - coords[targetCoord][1];

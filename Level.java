@@ -16,6 +16,17 @@ public class Level {
     private double highest;
     private final Arena arena;
     
+    /*
+     * Klasse des Hauptlevels
+     * alle 1000 Pixel entsteht ein neues Level
+     * 
+     * @param d = Startlevel, also Schwierigkeitsstufe
+     * @param w = Bildschirmbreite
+     * @param h = Bildschirmhoehe
+     * @param arena = uebergabe der Arena
+     * 
+     * */
+
     public Level(int d, int w, int h, Arena arena) {
         diff = d;
         width = w;
@@ -24,7 +35,13 @@ public class Level {
         this.arena = arena;
     }
 
+    /*
+     * Methode zum bewegen des Levels
+     *
+     * @param dist = Anzahl der Pixel um die das Level bewegt wird
+     */
     public void moveDown(double dist) {
+        //fortschritt im Jetzigen Level
         highest += dist;
         //Abstand zur letzten essentiellen Platform
         lastSolvable += dist;
@@ -37,7 +54,7 @@ public class Level {
         for (int i = 0; i < visiblePlats.size(); i++) {
             Platform p = getVisPlat(i);
             p.moveDown(dist);
-
+            //Platformen löschen, die unten raus sind
             if (p.posY > height) {
                 items.removeElement(p.item);
                 visiblePlats.removeElementAt(i);
@@ -59,9 +76,6 @@ public class Level {
 
         }
 
-
-
-
         //platformen oben erscheinen lassen
         while(invisPlats.size() > 0 && getInvisPlat(0).getPosY() <= lastPlat) {
             lastPlat = 0;
@@ -78,35 +92,45 @@ public class Level {
         }
 
     }
-
+    /*
+     * Methode zum erstellen der Monster fuer ein Level
+     * (alle 1000 Pixel
+     */
     private void createMonsters() {
         int pixel = 0;
         int yVal;
         while(pixel < 1000) {
+            //In Level 1-90
             if(diff <=90)
-                //zufaelliger abstand zum naechsten monster, je
-                //hoeher das level, desto oefter kommen monster
+                //zufaelliger abstand zum naechsten Monster, je
+                //hoeher das level, desto oefter kommen Monster
                 yVal = r.nextInt(5000-diff*50)+1;
-            //falls lvl ueber 90, kein negativer wert in nextInt()
+            //falls lvl ueber 90, kein negativer Parameter fuer nextInt()
             else {
                 yVal = r.nextInt(500)+1;
             }
-            //was ist hier nicht logisch?
+            //falls yVal < 1000 wird ein Monster erstellt
             if(pixel + yVal <= 1000)
                 arena.newInvisibleM(r.nextInt(width - 30), yVal, 0);
             pixel += yVal;
         }
     }
-    
+
+    /*
+     * Methode zum erstellen der Platformen fuer ein Level
+     * (alle 1000 Pixel
+     */
     private void createPlats() {
         int pixel = 0;
         while(pixel < 1000) {
-            //random abstand zur naechsten plat, jedes level um ø 2 pixel groesser
+            //random abstand zur naechsten Platform
+            //Abstand jedes Level um ø 2 pixel groesser
             int yVal = r.nextInt(diff*4+20)+1;
             try{
             Platform p = (Platform) visiblePlats.elementAt(0);
             if(yVal < p.getHeight())
                 yVal = p.getHeight();
+
             }
             catch(Exception e) {}
             int type = r.nextInt(3);
@@ -119,7 +143,13 @@ public class Level {
             pixel += yVal;
         }
     }
-    
+
+    /*
+     * Methode zum Hinzufuegen von Platformen zum Vektor fuer sichtbare Platformen
+     * @param x = X-Koordinate auf dem Bildschirm
+     * @param y = Y-Koordinate auf dem Bildschirm
+     * @param type = Platformtyp (0=Normal, 1=Zerbrechlich,...)
+     */
 
     private void addVisPlat(int x, int y, int type){
         Platform plat = new Platform(type, new double[][]{{x, y}});
@@ -146,29 +176,60 @@ public class Level {
         }
     }
 
+    /*
+     * Methode zum Hinzufuegen von Platformen zum Vektor fuer unsichtbare Platformen
+     * @param x = X-Koordinate auf dem Bildschirm
+     * @param y = Abstand zur naechsten Platform
+     * @param type = Platformtyp (0=Normal, 1=Zerbrechlich,...)
+     */
+
     private void addInvisPlat(int x, int y, int type){
         Platform plat = new Platform(type, new double[][]{{x, y}});
 
         invisPlats.addElement(plat);
     }
+
+    /*
+     * Methode gibt Platformen, die sich auf dem Bildschirm befinden zurueck
+     * @param i = index
+     * @return = gesuchte Platform
+     */
         
     public Platform getVisPlat(int i){
         return (Platform) visiblePlats.elementAt(i);
     }
+    /*
+     * Methode gibt Platformen, die sich nicht auf dem Bildschirm befinden zurueck
+     * @param i = index
+     * @return = gesuchte Platform
+     */
     
     public Platform getInvisPlat(int i){
         return (Platform) invisPlats.elementAt(i);
     }
-    
+
+    /*
+     * Methode gibt Items aus dem Vektor zurueck
+     * @param i = index
+     * @return = gescuhtes Item
+     */
     public Item getItem(int i){
         return (Item) items.elementAt(i);
     }
+    /*
+     * Methode bewegt bewegliche Platformen zur seite.
+     * @param time = Zeit, die sich dei Platform bewegen soll?
+     */
     
     public void move(double time) {
         for (int i = 0; i < visiblePlats.size(); i++) {
             getVisPlat(i).moveSide(time);
         }
     }
+    /*
+     * Methode Zeichnet Platformen und Items
+     * @param g = Grafikobjekt uebergeben
+     */
     
     public void paintPlatAndItems(Graphics g) {
         for (int i = 0; i < visiblePlats.size(); i++) {
