@@ -125,7 +125,7 @@ public class Level {
             }
             //falls yVal < 1000 wird ein Monster erstellt
             if(pixel + yVal <= 1000)
-                arena.newInvisibleM(r.nextInt(width - platWidth), yVal, 0);
+                arena.newInvisibleM(r.nextInt(width - platWidth), yVal, r.nextInt(2));
             pixel += yVal;
         }
     }

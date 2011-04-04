@@ -84,6 +84,10 @@ class GameMain extends GameCanvas {
             highscore.paintHighscores(g);
             if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("YOU"))
                 g.drawString("Press DOWN to enter your Name!", 10, getHeight() - 20 , 0);
+            if(((String) highscore.data.elementAt(highscore.nameIndex)).equals("Develop"))
+                Item.DUR_SHIELD = 100000000;
+            else
+                Item.DUR_SHIELD = 5000;
             break;
         }
         Debug.print(g);
