@@ -11,8 +11,8 @@ public class Pixel extends GameObject {
     private final int PIC_ROCKET = 3;
     private final int PIC_SPRINGSHOE = 5;
     private final int GRAVITY = 2;
-    private final int shotOriginX;
-    private final int shotOriginY;
+    private final int shotOriginX = 0;
+    private final int shotOriginY = 0;
     private int pictureActive = PIC_NORMAL;
 
     /**
@@ -20,9 +20,7 @@ public class Pixel extends GameObject {
      */
     public Pixel(double x, double y) {
         super(Tools.pixelImages[1], x, y);
-        shotOriginX = getWidth()/2;
-        shotOriginY = 0;
-        defineReferencePixel(0, Tools.pixelImages[1].getHeight()-1);
+        defineReferencePixel(Tools.pixelImages[1].getWidth() / 2, Tools.pixelImages[1].getHeight() - 1);
         speedY = JUMPSPEED*2;
     }
     
@@ -157,7 +155,7 @@ public class Pixel extends GameObject {
                 //die position des pixels, wenn er auf der hoehe der plattform ankommt
                 double newPosX = posX + speedX * time2;
                 // +13 und +3 fuer die positionen der beine
-                if (newPosX+28  <= p.posX || newPosX +3 >= (p.posX + p.getWidth()))
+                if (newPosX + 12  <= p.posX || newPosX - 13 >= (p.posX + p.getWidth()))
                     //die position ist nicht auf der plattform, also keine kollision, abbruch
                     continue;
                 if(p.getType() == Platform.FAKE) {
@@ -213,7 +211,7 @@ public class Pixel extends GameObject {
      */
     public void setImage(int img) {
         setImage(Tools.pixelImages[img], Tools.pixelImages[img].getWidth(), Tools.pixelImages[img].getHeight());
-        defineReferencePixel(0, getHeight()-1);
+        defineReferencePixel(getWidth() / 2, getHeight()-1);
         pictureActive = img;
     }
 }

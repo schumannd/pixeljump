@@ -16,7 +16,10 @@ public abstract class GameObject extends Sprite {
        
         setRefPixelPosition((int) posX, (int) posY);
     }
-    
+
+    /**
+     * moves the GameObject down
+     */
     public void moveDown(double dist) {
         posY += dist;
         setRefPixelPosition((int) posX, (int) posY);
@@ -31,7 +34,9 @@ public abstract class GameObject extends Sprite {
     public void setPosX(double x) {
         posX = x;
     }
-    
+    /**
+     * @return true, wenn sich das object auf dem bildschirm befindet
+     */
     public boolean isOnScreen() {
         if (this.posX > width ||
             this.posY > height ||
@@ -41,7 +46,11 @@ public abstract class GameObject extends Sprite {
         return true;
     }
     
-    
+    /**
+     * initialisiert die bildschirmgröße
+     * @param width die bildschirmbreite
+     * @param height die bildschirmhöhe
+     */
     public static void init(int width, int height) {
         GameObject.width = width;
         GameObject.height = height;
