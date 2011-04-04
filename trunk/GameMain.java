@@ -1,5 +1,6 @@
 import java.util.*;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.GameCanvas;
 
 class GameMain extends GameCanvas {
@@ -43,7 +44,7 @@ class GameMain extends GameCanvas {
 
     public void paint(Graphics g) {
          b2d.draw(g);
-//        b3d.paint(g);
+         //        b3d.paint(g);
         switch (gameState) {
         case GS_START:
             g.drawString("press start!", getWidth() / 2, getHeight() / 2,
@@ -87,7 +88,7 @@ class GameMain extends GameCanvas {
         int leftright = 0;
         if ((keycode & LEFT_PRESSED) != 0) {
             leftright = -1;
-            pixel.setTransform(2); // bei Pfeil-Nach-Links-Taste wird der Pixel nach links gespiegelt
+            pixel.setTransform(Sprite.TRANS_MIRROR); // bei Pfeil-Nach-Links-Taste wird der Pixel nach links gespiegelt
             if(leftright == -1 && statuslinks == 0) { // wenn links-gedrückt und nicht schon links
              pixel.setPosX(pixel.getPosX() + pixel.getWidth()); //rechtsverschiebung, da sonst nicht korrekt
             statuslinks = 1;
@@ -98,7 +99,7 @@ class GameMain extends GameCanvas {
         if ((keycode & RIGHT_PRESSED) != 0){
             leftright = 1;
            
-            pixel.setTransform(0);
+            pixel.setTransform(Sprite.TRANS_NONE);
             if(leftright == 1 && statusrechts == 0) {
             pixel.setPosX(pixel.getPosX() - pixel.getWidth());
             statusrechts = 1;
