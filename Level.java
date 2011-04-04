@@ -82,7 +82,8 @@ public class Level {
         //Monster oben erscheinen lassen
         while(arena.invisibleM.size() > 0 && arena.getInvisibleM(0).getPosY() <= lastMonster) {
             lastMonster = 0;
-            arena.addVisibleM(arena.getInvisibleM(0));
+            Monster m = arena.getInvisibleM(0);
+            arena.addVisibleM((int)m.getPosX(), -platHeight, m.getType());
             arena.invisibleM.removeElementAt(0);
         }
 
