@@ -71,10 +71,10 @@ public class Pixel extends GameObject {
         posX += speedX * time;
         
         //linke wand
-        if (posX+getWidth()/2 < 0)
-            posX = width-getWidth()/2;
+        if (posX < 0)
+            posX = width;
         //rechte wand
-        else if (posX+getWidth()/2 > width)
+        else if (posX > width)
             posX = 0;
         
         this.setRefPixelPosition((int) posX, (int) posY);
