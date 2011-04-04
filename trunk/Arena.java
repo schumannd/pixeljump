@@ -66,7 +66,7 @@ public class Arena {
     }
     
     /**
-     * Bewegt die Projektile um die gegebene Zeit und löscht sie, falls sie
+     * Bewegt die Projektile um die gegebene Zeit und loescht sie, falls sie
      * nicht mehr auf dem Bildschirm sind.
      * @param time
      */

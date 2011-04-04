@@ -96,12 +96,12 @@ public class Level {
         int pixel = 0;
         int yVal;
         while(pixel < 1000) {
-            //In Level 1-40
-            if(diff <= 40)
+            //In Level 1-35
+            if(diff <= 35)
                 //zufaelliger abstand zum naechsten Monster, je
                 //hoeher das level, desto oefter kommen Monster
-                yVal = r.nextInt(4500-diff*100)+1;
-            //falls lvl ueber 40, kein negativer Parameter fuer nextInt()
+                yVal = r.nextInt(4000-diff*100)+1;
+            //falls lvl ueber 35, kein negativer Parameter fuer nextInt()
             else {
                 yVal = r.nextInt(500)+1;
             }
@@ -122,13 +122,13 @@ public class Level {
         //letzte notwendige Platform
         int lSPlat = 0;
         for(int i = 1; i <= 1000; i++) {
-            //Wahrscheinlickeit, dass an diesem Pixel eine Platform entsteht
-                //Letzte notwendige Platform zuweit weg?
-            if(i-lSPlat > 80) {
+            //Letzte notwendige Platform zuweit weg?
+            if(i-lSPlat > 75) {
                 addInvisPlat(r.nextInt(width - platWidth), i-lPlat, 0);
                 lSPlat = i;
                 lPlat = i;
             }
+            //Wahrscheinlickeit, dass an diesem Pixel eine Platform entsteht
             if(r.nextDouble() < 1.0/(10+diff)) {
                 //letzte Platform weit genug weg?
                 if(i-lPlat > platHeight) {
